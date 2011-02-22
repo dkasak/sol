@@ -22,3 +22,4 @@ struct Point {
 } // namespace Sol
 
 #endif // SOL_POINT_H
+

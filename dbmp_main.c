@@ -3,9 +3,9 @@
 int main(void) {
 
     srand(time(NULL));
-    
+
     char *img = new_image_buffer(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    
+
     char colour;
     int index;
     for (int j = 0; j < DEFAULT_HEIGHT; ++j) {
@@ -18,12 +18,10 @@ int main(void) {
             img[index + 2] = colour;
         }
     }
-    
+
     write_bmp(img, DEFAULT_WIDTH, DEFAULT_HEIGHT, "test.bmp");
     destroy_image_buffer(img);
 
-	return 0;
+    return 0;
 }
-			
-	
-	
+

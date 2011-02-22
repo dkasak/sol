@@ -1,7 +1,7 @@
 #include <cmath>
 #include <ostream>
 
-#include "vector.h"
+#include "Vector.h"
 
 namespace Sol {
 
@@ -159,3 +159,4 @@ std::ostream& operator<<(std::ostream& o, const Sol::Vector &v) {
 
     return o;
 }
+

@@ -3,13 +3,14 @@
 
 namespace Sol {
 
-    class Shape {
+class Shape {
 
-        public:
-            virtual bool intersects(const Shape &s) const = 0;
-            virtual bool intersects(const Vector &v) const = 0;
-    };
+public:
+    virtual bool intersects(const Shape &s) const = 0;
+    virtual bool intersects(const Vector &v) const = 0;
+};
 
 } // namespace Sol
 
 #endif // SOL_SHAPE_H
+

@@ -28,3 +28,4 @@ virtual bool Ball::intersects(const Vector &v) const {
 }
 
 } // namespace Sol
+

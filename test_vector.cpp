@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "vector.h"
+#include "Vector.h"
 
 int main() {
     Sol::Vector v1(1, 0, 0), v2(0, 1, 0), v3(0, 0, 1);
@@ -45,3 +45,4 @@ int main() {
 
     return 0;
 }
+

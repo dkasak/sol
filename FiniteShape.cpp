@@ -13,3 +13,4 @@ FiniteShape::move(double x, double y, double z) {
 }
 
 } // namespace Sol
+
