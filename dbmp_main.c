@@ -1,3 +1,5 @@
+#include <time.h>
+#include <math.h>
 #include "dbmp.h"
 
 int main(void) {
