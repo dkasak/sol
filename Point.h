@@ -17,6 +17,12 @@ struct Point {
         this->y = y;
         this->z = z;
     }
+
+    double distance(const Point& other) {
+        return sqrt(sqr(other.x - this->x) +
+                    sqr(other.y - this->y) +
+                    sqr(other.z - this->z))
+    }
 };
 
 } // namespace Sol
