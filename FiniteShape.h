@@ -14,7 +14,6 @@ public:
     move(double x, double y, double z);
 
     virtual bool intersects(const Shape &s) const = 0;
-    virtual bool intersects(const Vector &v) const = 0;
 };
 
 } // namespace Sol
