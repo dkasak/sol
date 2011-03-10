@@ -1,17 +1,17 @@
-#ifndef SOL_BALL_H
-#define SOL_BALL_H
+#ifndef SOL_SPHERE_H
+#define SOL_SPHERE_H
 
 namespace Sol {
 
-class Ball : public FiniteShape {
+class Sphere : public FiniteShape {
 
 private:
     double radius;
 
 public:
-    Ball();
-    Ball(double r);
-    Ball(Point p, double r);
+    Sphere();
+    Sphere(double r);
+    Sphere(Point p, double r);
     void setRadius(double r);
     double getRadius() const;
 
@@ -21,5 +21,5 @@ public:
 
 } // namespace Sol
 
-#endif // SOL_BALL_H
+#endif // SOL_SPHERE_H
 
