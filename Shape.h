@@ -24,9 +24,15 @@ namespace Sol {
 
 class Shape {
 
+private:
+    Point origin;
+
 public:
-    virtual bool intersects(const Shape &s) const = 0;
-    virtual bool intersects(const Vector &v) const = 0;
+    Shape();
+    Shape(double x, double y, double z);
+    move(double x, double y, double z);
+
+    virtual bool intersects(const Ray &r) const = 0;
 };
 
 } // namespace Sol

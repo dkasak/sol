@@ -42,7 +42,7 @@ double Sphere::getRadius() const {
     return this->radius;
 }
 
-virtual bool Sphere::intersects(const Vector &v) const {
+virtual bool Sphere::intersects(const Ray &r) const {
 
 }
 

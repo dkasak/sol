@@ -22,7 +22,7 @@
 
 namespace Sol {
 
-class Sphere : public FiniteShape {
+class Sphere : public Shape {
 
 private:
     double radius;
@@ -34,8 +34,7 @@ public:
     void setRadius(double r);
     double getRadius() const;
 
-    virtual bool intersects(const Shape &s) const;
-    virtual bool intersects(const Vector &v) const;
+    virtual bool intersects(const Ray &r) const;
 };
 
 } // namespace Sol

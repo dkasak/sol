@@ -17,25 +17,19 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SOL_FINITESHAPE_H
-#define SOL_FINITESHAPE_H
+#include "Shape.h"
 
 namespace Sol {
 
-class FiniteShape : public Shape {
+Shape::Shape() {}
 
-private:
-    Point origin;
+Shape::Shape(double x, double y, double z) : origin(x, y, z) {}
 
-public:
-    FiniteShape();
-    FiniteShape(double x, double y, double z);
-    move(double x, double y, double z);
-
-    virtual bool intersects(const Shape &s) const = 0;
-};
+Shape::move(double x, double y, double z) {
+    this->origin.x = x;
+    this->origin.y = y;
+    this->origin.z = z;
+}
 
 } // namespace Sol
-
-#endif // SOL_FINITESHAPE_H
 
