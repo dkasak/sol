@@ -28,7 +28,7 @@
 #define DEFAULT_WIDTH      640
 #define DEFAULT_HEIGHT     480
 #define BPP                24
-#define BYPP               BPP / sizeof (char)
+#define BYPP               BPP / CHAR_BIT 
 
 #define BMP_HEADER_SIZE    sizeof (bmp_magic_t) + sizeof (bmp_header_t)
 #define DIB_HEADER_SIZE    sizeof (dib_header_t)
