@@ -20,4 +20,19 @@
 #ifndef SOL_SCREEN_H
 #define SOL_SCREEN_H
 
+#include "Point.h"
+
+namespace Sol {
+
+class Screen {
+
+public:
+    unsigned int sizeX, sizeY;
+
+    Screen(int sizeX, int sizeY);
+
+};
+
+} // namespace Sol
+
 #endif // SOL_SCREEN_H

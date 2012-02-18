@@ -17,3 +17,10 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Screen.h"
+
+namespace Sol {
+
+Screen::Screen(int x, int y) : sizeX(x), sizeY(y) {}
+
+} // namespace Sol
