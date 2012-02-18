@@ -13,8 +13,8 @@ dbmp : $(dbmp_objects)
 test_dbmp : $(dbmp_objects)
 
 clean: 
-	-rm *.o test_dbmp sol
+	-rm --force *.o test_dbmp sol
 
 distclean:
-	-rm *.o *.bmp test_dbmp sol
+	-rm --force *.o *.bmp test_dbmp sol
 
