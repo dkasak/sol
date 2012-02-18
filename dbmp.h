@@ -17,14 +17,14 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef DBMP_H
+#define DBMP_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <limits.h>
-
-#ifndef DBMP_H
-#define DBMP_H
 
 #define DEFAULT_WIDTH      640
 #define DEFAULT_HEIGHT     480

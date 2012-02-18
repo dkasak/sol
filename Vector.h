@@ -17,10 +17,10 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-
 #ifndef SOL_VECTOR_H
 #define SOL_VECTOR_H
+
+#include <iostream>
 
 namespace Sol {
 

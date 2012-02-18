@@ -17,3 +17,7 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef SOL_LIGHT_H
+#define SOL_LIGHT_H
+
+#endif // SOL_LIGHT_H

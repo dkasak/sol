@@ -17,3 +17,7 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef SOL_SCREEN_H
+#define SOL_SCREEN_H
+
+#endif // SOL_SCREEN_H
