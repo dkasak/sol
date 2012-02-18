@@ -29,7 +29,6 @@ class Scene {
 
 private:
     Point  origin;
-    Point  eye;
     Screen screen;
     vector<const Shape&> objects;
     vector<const Light&> lights;
@@ -39,7 +38,6 @@ public:
     Scene();
     void setOrigin(const Point &p);
     void setScreen(const Screen &s);
-    void setEye(const Point &e);
     void addShape(const Shape &s);
     void addLight(const Light &l);
     void setAmbient(double ambient);
