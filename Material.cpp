@@ -18,12 +18,23 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SOL_MATERIAL_H
-#define SOL_MATERIAL_H
+#include "Material.h"
 
 namespace Sol {
 
-} // namespace Sol
+Material::Material()
+    : colour(ColourRGB(1.0, 1.0, 1.0))
+    {}
+    
+ColourRGB
+Material::getColour() const {
+    return this->colour;
+}
 
-#endif // SOL_MATERIAL_H
+void
+Material::setColour(const ColourRGB& c) {
+    this->colour = c;
+}
+
+} // namespace Sol
 

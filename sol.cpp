@@ -17,6 +17,57 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Scene.h"
+#include "Shape.h"
+#include "Screen.h"
+#include "Light.h"
+#include "Ray.h"
+#include "Sphere.h"
+#include "Material.h"
+#include "ColourRGB.h"
+
+extern "C" {
+#include "dbmp.h"
+}
+
+#define SIZE_X 640
+#define SIZE_Y 480
+
+using namespace Sol;
+
 int main() {
+    Scene scene;
+
+    scene.setOrigin(Point(0, 0, -100));
+
+    Screen screen(SIZE_X, SIZE_Y);
+    scene.setScreen(screen);
+
+    Material m;
+    m.setColour(ColourRGB(1.0, 0, 0));
+
+    Sphere s1(Point(0, 0, 100), 20);
+    s1.setMaterial(m);
+    scene.addShape(s1);
+
+    /* Light l1; */
+    /* l1.setBrightness(); */
+    /* l1.setColour(); */
+    /* l1.setPosition(); */
+    /* scene.addLight(l1); */
+
+    scene.render();
+
+    char *image = new_image_buffer(scene.screen.sizeX, scene.screen.sizeY);
+                        
+    for (int i = 0; i < scene.image.size(); ++i) {
+        image[3*i] = scene.image[i].red * 255;
+        image[3*i + 1] = scene.image[i].green * 255;
+        image[3*i + 2] = scene.image[i].blue * 255;
+    }
+
+    write_bmp(image, scene.screen.sizeX, scene.screen.sizeY, "output.bmp");
+    destroy_image_buffer(image);
+
     return 0;
 }

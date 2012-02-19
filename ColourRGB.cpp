@@ -18,12 +18,56 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SOL_COLOURRGB_H
-#define SOL_COLOURRGB_H
+#include "ColourRGB.h"
+
+#include <math.h>    
 
 namespace Sol {
 
-} // namespace Sol
+ColourRGB::ColourRGB() 
+    : red(0.0),
+      green(0.0),
+      blue(0.0) 
+    {}
 
-#endif // SOL_COLOURRGB_H
+ColourRGB::ColourRGB(double c) 
+    : red(c),
+      green(c),
+      blue(c)
+    {}
+
+ColourRGB::ColourRGB(double r, double g, double b) 
+    : red(r),
+      green(g),
+      blue(b)
+    {}
+
+ColourRGB::ColourRGB(const ColourRGB& c)
+    : red(c.red),
+      green(c.green),
+      blue(c.blue) 
+    {} 				 
+
+ColourRGB& 											
+ColourRGB::operator=(const ColourRGB& other) {
+    if (this == &other)
+        return *this;
+
+    this->red = other.red;
+    this->green = other.green;
+    this->blue = other.blue;
+
+    return *this;
+}
+
+ColourRGB
+ColourRGB::pow(double e) const {
+    const double pr = ::pow(this->red, e);
+    const double pb = ::pow(this->blue, e);
+    const double pg = ::pow(this->green, e);
+
+    return ColourRGB(pr, pb, pg);
+}
+
+} // namespace Sol
 

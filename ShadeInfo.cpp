@@ -1,3 +1,4 @@
+
 /**
  * Copyright 2011, 2012 Denis Kasak <denis.kasak@gmail.com>
  * 
@@ -17,31 +18,19 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SOL_SPHERE_H
-#define SOL_SPHERE_H
-
-#include "Shape.h"
 #include "ShadeInfo.h"
-#include "Ray.h"
 
 namespace Sol {
 
-class Sphere : public Shape {
+ShadeInfo::ShadeInfo()
+    : normal(0, 0, 0),
+      hitpoint(0, 0, 0)
+    {}
 
-private:
-    double radius;
-
-public:
-    Sphere();
-    Sphere(double r);
-    Sphere(Point p, double r);
-    void setRadius(double r);
-    double getRadius() const;
-
-    virtual bool intersects(const Ray &r, double *tmin, ShadeInfo *si) const;
-};
+ShadeInfo::ShadeInfo(const Vector& normal, const Point& hitpoint)
+    : normal(normal),
+      hitpoint(hitpoint)
+    {}
 
 } // namespace Sol
-
-#endif // SOL_SPHERE_H
 

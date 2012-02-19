@@ -80,6 +80,16 @@ Vector Vector::operator*(const double r) const {
     return Vector(i, j, k);
 }
 
+Vector operator*(const double r, const Vector &v) {
+    double i, j, k;
+
+    i = v.x * r;
+    j = v.y * r;
+    k = v.z * r;
+
+    return Vector(i, j, k);
+}
+
 Vector Vector::operator/(const double r) const {
     double i, j, k;
 

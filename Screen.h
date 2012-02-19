@@ -28,9 +28,9 @@ class Screen {
 
 public:
     unsigned int sizeX, sizeY;
+    double pixelSize;
 
     Screen(int sizeX, int sizeY);
-
 };
 
 } // namespace Sol

@@ -21,10 +21,18 @@
 #ifndef SOL_MATERIAL_H
 #define SOL_MATERIAL_H
 
+#include "ColourRGB.h"
+
 namespace Sol {
 
 class Material {
+private:
+    ColourRGB colour;
 
+public:
+    Material();
+    ColourRGB getColour() const;
+    void setColour(const ColourRGB& c);
 };
 
 } // namespace Sol

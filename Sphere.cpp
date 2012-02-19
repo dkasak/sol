@@ -21,6 +21,8 @@
 
 namespace Sol {
 
+const double kEpsilon = 0.001;
+
 Sphere::Sphere() {
     this->radius = 0.0;
 }
@@ -42,8 +44,31 @@ double Sphere::getRadius() const {
     return this->radius;
 }
 
-virtual bool Sphere::intersects(const Ray &r) const {
+bool Sphere::intersects(const Ray &r, double *tmin, ShadeInfo *si) const {
+    Vector o = r.origin - this->origin;
+    double a = r.direction.dot(r.direction);
+    double b = o.dot(r.direction) * 2.0;
+    double c = o.dot(o) - this->radius * this-> radius;
+    double d = b * b - 4.0 * a * c;
 
+    double t = 0.0;
+
+    if (d < 0.0) {
+        return false;
+    } else {
+        double sd = sqrt(d);
+        double den = 2.0 * a;
+
+        if (((t = (-b + sd) / den) > kEpsilon) ||
+            ((t = (-b - sd) / den) > kEpsilon)) {
+            si->normal = (o + t * r.direction).normalised();
+            si->hitpoint = r.origin + t * r.direction;
+            *tmin = t;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 } // namespace Sol

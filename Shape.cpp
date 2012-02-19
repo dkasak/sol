@@ -25,10 +25,18 @@ Shape::Shape() {}
 
 Shape::Shape(double x, double y, double z) : origin(x, y, z) {}
 
-Shape::move(double x, double y, double z) {
+void Shape::move(double x, double y, double z) {
     this->origin.x = x;
     this->origin.y = y;
     this->origin.z = z;
+}
+
+void Shape::setMaterial(const Material &m) {
+    this->material = m;
+}
+
+Material Shape::getMaterial() const {
+    return this->material;
 }
 
 } // namespace Sol

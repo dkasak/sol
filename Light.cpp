@@ -17,3 +17,9 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace Sol {
+
+class Light {};
+
+} // namespace Sol
+

@@ -20,6 +20,9 @@
 #ifndef SOL_POINT_H
 #define SOL_POINT_H
 
+#include <cmath>
+#include "Vector.h"
+
 namespace Sol {
 
 struct Point {
@@ -37,10 +40,18 @@ struct Point {
         this->z = z;
     }
 
-    double distance(const Point& other) {
-        return sqrt(sqr(other.x - this->x) +
-                    sqr(other.y - this->y) +
-                    sqr(other.z - this->z))
+    double distance(const Point& other) const {
+        return sqrt(pow(other.x - this->x, 2.0) +
+                    pow(other.y - this->y, 2.0) +
+                    pow(other.z - this->z, 2.0));
+    }
+
+    Vector operator-(const Point& p) const {
+        return Vector(this->x - p.x, this->y - p.y, this->z - p.z);
+    }
+
+    Point operator+(const Vector& v) const {
+        return Point(this->x + v.getX(), this->y + v.getY(), this->z + v.getZ());
     }
 };
 

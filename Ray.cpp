@@ -17,33 +17,31 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SOL_RAY_H
-#define SOL_RAY_H
+#include "Ray.h"
 
 namespace Sol {
 
 // Default constructor
 // Creates a ray from mathematical origin along the x axis
 Ray::Ray() {
-    this->point = Point();
+    this->origin = Point();
     this->direction = Vector(1, 0, 0);
 }
 
-Ray(const Point &p, const Vector &d) {
-    this->point = p;
+Ray::Ray(const Point& p, const Vector& d) {
+    this->origin = p;
     this->direction = d;
 }
 
-Ray(const Ray &r) {
-    this->point = r->point;
-    this->direction = r->direction;
+Ray::Ray(const Ray& r) {
+    this->origin = r.origin;
+    this->direction = r.direction;
 }
 
-virtual bool intersects(const Shape &s) const {
-    return s.intersects(this);
-};
+bool
+Ray::intersects(const Shape& s, double *tmin, ShadeInfo *si) const {
+    return s.intersects(*this, tmin, si);
+}
 
 } // namespace Sol
-
-#endif // SOL_RAY_H
 

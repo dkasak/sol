@@ -20,20 +20,22 @@
 #ifndef SOL_RAY_H
 #define SOL_RAY_H
 
+#include "Shape.h"
+#include "Vector.h"
+
 namespace Sol {
 
 class Ray {
 
-private:
-    Point  point;
+public:
+    Point  origin;
     Vector direction;
 
-public:
     Ray();
-    Ray(const Point &p, const Vector &d);
-    Ray(const Ray &r);
+    Ray(const Point& p, const Vector& d);
+    Ray(const Ray& r);
 
-    virtual bool intersects(const Shape &s) const;
+    virtual bool intersects(const Shape& s, double *tmin, ShadeInfo *si) const;
 };
 
 } // namespace Sol

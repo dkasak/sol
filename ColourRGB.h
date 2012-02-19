@@ -23,6 +23,126 @@
 
 namespace Sol {
 
+class ColourRGB {
+
+public:
+    double red, green, blue;									
+
+    ColourRGB(void);										
+    ColourRGB(double c);									
+    ColourRGB(double r, double g, double b);				
+    ColourRGB(const ColourRGB& c); 						
+
+    ColourRGB 											
+    operator+(const ColourRGB& c) const;	
+
+    ColourRGB 											
+    operator*(const double r) const;
+
+    ColourRGB 											
+    operator*(const ColourRGB& c) const;
+
+    ColourRGB 											
+    operator/(const double r) const;
+
+    ColourRGB& 											
+    operator=(const ColourRGB& rhs); 
+
+    ColourRGB&
+    operator+=(const ColourRGB& c);
+
+    ColourRGB& 											
+    operator*=(const double r);					
+
+    ColourRGB& 											
+    operator/=(const double r); 
+
+    bool												
+    operator==(const ColourRGB& c) const;				
+
+    ColourRGB											
+    pow(double p) const;
+
+    double 												
+    average(void) const;
+};
+
+inline ColourRGB 
+ColourRGB::operator+(const ColourRGB& c) const {
+    return ColourRGB(this->red + c.red,
+                     this->green + c.green,
+                     this->blue + c.blue);
+}
+
+inline ColourRGB 
+ColourRGB::operator*(const double r) const {
+    return ColourRGB(this->red * r,
+                     this->blue * r,
+                     this->green * r);
+}
+
+inline ColourRGB 
+ColourRGB::operator*(const ColourRGB& c) const {
+    return ColourRGB(this->red * c.red,
+                     this->blue * c.blue,
+                     this->green * c.green);
+} 
+
+inline ColourRGB 
+ColourRGB::operator/(const double r) const {
+    return ColourRGB(this->red / r,
+                     this->blue / r,
+                     this->green / r);
+}
+
+inline ColourRGB& 
+ColourRGB::operator+=(const ColourRGB& c) {
+    this->red   += c.red;
+    this->green += c.green;
+    this->blue  += c.blue;
+
+    return *this;
+}
+
+inline ColourRGB& 
+ColourRGB::operator*=(const double r) {
+    this->red   *= r;
+    this->green *= r;
+    this->blue  *= r;
+
+    return *this;
+}
+
+inline ColourRGB& 
+ColourRGB::operator/=(const double r) {	
+    this->red   /= r;
+    this->green /= r;
+    this->blue  /= r;
+
+    return *this;
+}
+
+inline bool
+ColourRGB::operator==(const ColourRGB& c) const {
+    return this->red == c.red       && 
+           this->green == c.green   && 
+           this->blue == c.blue;
+}
+
+inline double											
+ColourRGB::average(void) const {
+    return (this->red   + 
+            this->green + 
+            this->blue) / 3.0;
+}
+
+inline ColourRGB 
+operator*(const double r, const ColourRGB& c) {
+    return ColourRGB(c.red * r,
+                     c.blue * r,
+                     c.green * r);
+}
+
 } // namespace Sol
 
 #endif // SOL_COLOURRGB_H

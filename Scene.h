@@ -21,6 +21,18 @@
 #define SOL_SCENE_H
 
 #include <vector>
+
+#include "Material.h"
+#include "Screen.h"
+#include "ShadeInfo.h"
+#include "Shape.h"
+#include "Sphere.h"
+#include "Ray.h"
+#include "Point.h"
+#include "ColourRGB.h"
+#include "Light.h"
+#include "Vector.h"
+
 using namespace std;
 
 namespace Sol {
@@ -29,17 +41,20 @@ class Scene {
 
 private:
     Point  origin;
-    Screen screen;
-    vector<const Shape&> objects;
-    vector<const Light&> lights;
+    vector<const Shape *> objects;
+    /* vector<const Light&> lights; */
     double ambientLight;
 
 public:
+    // TODO: handle properly with getters
+    Screen screen;
+    vector<ColourRGB> image;
+
     Scene();
     void setOrigin(const Point &p);
     void setScreen(const Screen &s);
     void addShape(const Shape &s);
-    void addLight(const Light &l);
+    /* void addLight(const Light &l); */
     void setAmbient(double ambient);
     void render();
 };

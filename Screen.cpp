@@ -21,6 +21,10 @@
 
 namespace Sol {
 
-Screen::Screen(int x, int y) : sizeX(x), sizeY(y) {}
+Screen::Screen(int x, int y) 
+    : sizeX(x),
+      sizeY(y),
+      pixelSize(1.0)
+    {}
 
 } // namespace Sol

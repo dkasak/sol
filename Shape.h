@@ -20,19 +20,27 @@
 #ifndef SOL_SHAPE_H
 #define SOL_SHAPE_H
 
+#include "Material.h"
+#include "Point.h"
+#include "ShadeInfo.h"
+
 namespace Sol {
+
+class Ray;
 
 class Shape {
 
-private:
-    Point origin;
-
 public:
+    Point origin;
+    Material material;
+
     Shape();
     Shape(double x, double y, double z);
-    move(double x, double y, double z);
+    void move(double x, double y, double z);
+    void setMaterial(const Material &m);
+    Material getMaterial() const;
 
-    virtual bool intersects(const Ray &r) const = 0;
+    virtual bool intersects(const Ray &r, double *tmin, ShadeInfo *si) const = 0;
 };
 
 } // namespace Sol

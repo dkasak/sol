@@ -20,4 +20,10 @@
 #ifndef SOL_LIGHT_H
 #define SOL_LIGHT_H
 
+namespace Sol {
+
+class Light {};
+
+} // namespace Sol
+
 #endif // SOL_LIGHT_H
