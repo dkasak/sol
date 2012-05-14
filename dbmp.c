@@ -44,7 +44,7 @@ bool write_bmp(const char *data, unsigned int width, unsigned int height, const 
     magic.magic[0] = 'B';
     magic.magic[1] = 'M';
 
-    h1.file_size = BMP_HEADER_SIZE + DIB_HEADER_SIZE + (width * height) * BPP;
+    h1.file_size = BMP_HEADER_SIZE + DIB_HEADER_SIZE + (width * height) * BYPP;
     h1.reserved1 = 'D';
     h1.reserved2 = 'K';
     h1.bmp_offset = BMP_HEADER_SIZE + DIB_HEADER_SIZE;
