@@ -25,6 +25,7 @@
 #include "Sphere.h"
 #include "Material.h"
 #include "ColourRGB.h"
+#include <assert.h>
 
 extern "C" {
 #include "dbmp.h"
@@ -43,12 +44,17 @@ int main() {
     Screen screen(SIZE_X, SIZE_Y);
     scene.setScreen(screen);
 
-    Material m;
-    m.setColour(ColourRGB(1.0, 0, 0));
+    Material m1;
+    m1.setColour(ColourRGB(1.0, 0.9, 0));
+    Material m2;
+    m2.setColour(ColourRGB(0.0, 0.9, 0));
 
-    Sphere s1(Point(0, 0, 100), 20);
-    s1.setMaterial(m);
+    Sphere s1(Point(0, 0, 100), 150);
+    s1.setMaterial(m1);
+    Sphere s2(Point(0, -100, -30), 120);
+    s2.setMaterial(m2);
     scene.addShape(s1);
+    scene.addShape(s2);
 
     /* Light l1; */
     /* l1.setBrightness(); */
@@ -60,6 +66,7 @@ int main() {
 
     char *image = new_image_buffer(scene.screen.sizeX, scene.screen.sizeY);
                         
+    assert(scene.image.size() == scene.screen.sizeX * scene.screen.sizeY);
     for (int i = 0; i < scene.image.size(); ++i) {
         image[3*i] = scene.image[i].red * 255;
         image[3*i + 1] = scene.image[i].green * 255;

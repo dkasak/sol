@@ -44,7 +44,7 @@ double Sphere::getRadius() const {
     return this->radius;
 }
 
-bool Sphere::intersects(const Ray &r, double *tmin, ShadeInfo *si) const {
+bool Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
     Vector o = r.origin - this->origin;
     double a = r.direction.dot(r.direction);
     double b = o.dot(r.direction) * 2.0;
@@ -63,7 +63,7 @@ bool Sphere::intersects(const Ray &r, double *tmin, ShadeInfo *si) const {
             ((t = (-b - sd) / den) > kEpsilon)) {
             si->normal = (o + t * r.direction).normalised();
             si->hitpoint = r.origin + t * r.direction;
-            *tmin = t;
+            *distance = t;
             return true;
         } else {
             return false;

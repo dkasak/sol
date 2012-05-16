@@ -18,6 +18,8 @@
  */
 
 #include "Scene.h"
+#include <cstdio>
+#include <limits>
 
 namespace Sol {
 
@@ -60,24 +62,39 @@ Scene::render() {
     // screen normal
     Vector n(0, 0, 1);
 
-    double tmin;
-    ShadeInfo si;
-
-    for (int i = 0; i < sizeX; ++i) {
-        for (int j = 0; j < sizeY; ++j) {
+    for (int j = sizeY-1; j >= 0; --j) {
+        for (int i = 0; i < sizeX; ++i) {
             Point p;
             p.x = ((i - (sizeX / 2.0)) + 0.5) * pxSize;
             p.y = ((j - (sizeY / 2.0)) + 0.5) * pxSize;
             p.z = 0;
+
             Ray r(p, n);
+            ColourRGB c;
+            Material m;
+            double distance;
+            double min = numeric_limits<double>::max();
+            ShadeInfo si;
+            bool hit = false;
+
             for (int k = 0; k < this->objects.size(); ++k) {
                 const Shape *s = this->objects[k];
-                if (s->intersects(r, &tmin, &si)) {
-                    Material m = s->getMaterial();
-                    ColourRGB c = m.getColour();
-                    this->image.push_back(c);
+                if (s->intersects(r, &distance, &si) &&
+                    distance < min) {
+                    min = distance;
+                    m = s->getMaterial();
+                    c = m.getColour();
+                    hit = true;
                 }
             }
+
+            if (hit) {
+                this->image.push_back(c);
+            } else {
+                c = ColourRGB(0, 0, 0);
+                this->image.push_back(c);
+            }
+
         }
     }
 }  

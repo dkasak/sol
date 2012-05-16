@@ -38,7 +38,7 @@ public:
     void setRadius(double r);
     double getRadius() const;
 
-    virtual bool intersects(const Ray &r, double *tmin, ShadeInfo *si) const;
+    virtual bool intersects(const Ray &r, double *distance, ShadeInfo *si) const;
 };
 
 } // namespace Sol
