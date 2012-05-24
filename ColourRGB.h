@@ -77,22 +77,22 @@ ColourRGB::operator+(const ColourRGB& c) const {
 inline ColourRGB 
 ColourRGB::operator*(const double r) const {
     return ColourRGB(this->red * r,
-                     this->blue * r,
-                     this->green * r);
+                     this->green * r,
+                     this->blue * r);
 }
 
 inline ColourRGB 
 ColourRGB::operator*(const ColourRGB& c) const {
     return ColourRGB(this->red * c.red,
-                     this->blue * c.blue,
-                     this->green * c.green);
+                     this->green * c.green,
+                     this->blue * c.blue);
 } 
 
 inline ColourRGB 
 ColourRGB::operator/(const double r) const {
     return ColourRGB(this->red / r,
-                     this->blue / r,
-                     this->green / r);
+                     this->green / r,
+                     this->blue / r);
 }
 
 inline ColourRGB& 
@@ -139,8 +139,8 @@ ColourRGB::average(void) const {
 inline ColourRGB 
 operator*(const double r, const ColourRGB& c) {
     return ColourRGB(c.red * r,
-                     c.blue * r,
-                     c.green * r);
+                     c.green * r,
+                     c.blue * r);
 }
 
 } // namespace Sol

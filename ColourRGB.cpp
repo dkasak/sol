@@ -63,10 +63,10 @@ ColourRGB::operator=(const ColourRGB& other) {
 ColourRGB
 ColourRGB::pow(double e) const {
     const double pr = ::pow(this->red, e);
-    const double pb = ::pow(this->blue, e);
     const double pg = ::pow(this->green, e);
+    const double pb = ::pow(this->blue, e);
 
-    return ColourRGB(pr, pb, pg);
+    return ColourRGB(pr, pg, pb);
 }
 
 } // namespace Sol
