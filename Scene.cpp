@@ -19,6 +19,7 @@
 
 #include "Scene.h"
 #include <cstdio>
+#include <cmath>
 #include <limits>
 
 namespace Sol {
@@ -89,6 +90,9 @@ Scene::render() {
             }
 
             if (hit) {
+                double angle = n.angle(si.normal);
+                double factor = cos(abs(angle));
+                c *= factor;
                 this->image.push_back(c);
             } else {
                 c = ColourRGB(0, 0, 0);
