@@ -48,6 +48,7 @@ private:
 public:
     // TODO: handle properly with getters
     Screen screen;
+    ColourRGB background;
     vector<ColourRGB> image;
 
     Scene();

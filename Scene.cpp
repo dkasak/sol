@@ -26,7 +26,8 @@ namespace Sol {
 
 Scene::Scene()
     : origin(Point(0, 0, 0)),
-      screen(0, 0)
+      screen(0, 0),
+      background(0.0, 0.0, 0.0)
     {}
 
 void 
@@ -95,8 +96,7 @@ Scene::render() {
                 c *= factor;
                 this->image.push_back(c);
             } else {
-                c = ColourRGB(0, 0, 0);
-                this->image.push_back(c);
+                this->image.push_back(this->background);
             }
 
         }
