@@ -67,7 +67,7 @@ int main() {
     char *image = new_image_buffer(scene.screen.sizeX, scene.screen.sizeY);
                         
     assert(scene.image.size() == scene.screen.sizeX * scene.screen.sizeY);
-    for (int i = 0; i < scene.image.size(); ++i) {
+    for (size_t i = 0; i < scene.image.size(); ++i) {
         image[3*i] = scene.image[i].red * 255;
         image[3*i + 1] = scene.image[i].green * 255;
         image[3*i + 2] = scene.image[i].blue * 255;
