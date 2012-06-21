@@ -31,7 +31,7 @@ Scene::Scene()
     {}
 
 void 
-Scene::setOrigin(const Point &p) {
+Scene::setOrigin(const Point p) {
     this->origin = p;
 }
 
@@ -45,10 +45,10 @@ Scene::addShape(const Shape &s) {
     this->objects.push_back(&s);
 }
 
-/* void */
-/* Scene::addLight(const Light &l) { */
-/*     this->lights.push_back(l); */
-/* } */
+void
+Scene::addLight(const Light l) {
+    this->lights.push_back(l);
+}
 
 void
 Scene::setAmbient(double ambient) {

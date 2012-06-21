@@ -40,9 +40,9 @@ namespace Sol {
 class Scene {
 
 private:
-    Point  origin;
+    Point origin;
     vector<const Shape *> objects;
-    /* vector<const Light&> lights; */
+    vector<Light> lights;
     double ambientLight;
 
 public:
@@ -52,10 +52,10 @@ public:
     vector<ColourRGB> image;
 
     Scene();
-    void setOrigin(const Point &p);
+    void setOrigin(const Point p);
     void setScreen(const Screen &s);
     void addShape(const Shape &s);
-    /* void addLight(const Light &l); */
+    void addLight(const Light l);
     void setAmbient(double ambient);
     void render();
 };
