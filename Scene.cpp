@@ -77,13 +77,15 @@ Scene::render() {
             double distance;
             double min = numeric_limits<double>::max();
             ShadeInfo si;
+            ShadeInfo tmp;
             bool hit = false;
 
             for (int k = 0; k < this->objects.size(); ++k) {
                 const Shape *s = this->objects[k];
-                if (s->intersects(r, &distance, &si) &&
+                if (s->intersects(r, &distance, &tmp) &&
                     distance < min) {
                     min = distance;
+                    si = tmp;
                     m = s->getMaterial();
                     c = m.getColour();
                     hit = true;
