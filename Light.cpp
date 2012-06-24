@@ -17,9 +17,9 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Sol {
+#include "Light.h"
 
-class Light {};
+namespace Sol {
 
 } // namespace Sol
 
