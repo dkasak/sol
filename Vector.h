@@ -41,6 +41,7 @@ public:
     void setZ(double z);
 
     Vector operator+(const Vector &v) const;
+    Vector operator-(const Vector &v) const;
     Vector operator*(const double r) const;
     friend Vector operator*(const double r, const Vector &v);
     Vector operator/(const double r) const;

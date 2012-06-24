@@ -70,6 +70,16 @@ Vector Vector::operator+(const Vector &v) const {
     return Vector(i, j, k);
 }
 
+Vector Vector::operator-(const Vector &v) const {
+    double i, j, k;
+
+    i = this->x - v.x;
+    j = this->y - v.y;
+    k = this->z - v.z;
+
+    return Vector(i, j, k);
+}
+
 Vector Vector::operator*(const double r) const {
     double i, j, k;
 
