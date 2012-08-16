@@ -69,5 +69,12 @@ ColourRGB::pow(double e) const {
     return ColourRGB(pr, pg, pb);
 }
 
+void
+ColourRGB::clamp() {
+    if (this->red > 1.0) this->red = 1.0;
+    if (this->green > 1.0) this->green = 1.0;
+    if (this->blue > 1.0) this->blue = 1.0;
+}
+
 } // namespace Sol
 

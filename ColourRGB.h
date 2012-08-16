@@ -64,7 +64,10 @@ public:
     pow(double p) const;
 
     double 												
-    average(void) const;
+    average() const;
+
+    void
+    clamp();
 };
 
 inline ColourRGB 
