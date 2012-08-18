@@ -73,6 +73,11 @@ int main() {
         image[3*i + 2] = scene.image[i].blue * 255;
     }
 
+    // Red pixel in top-left corner for testing, to be removed eventually
+    image[0] = 255;
+    image[1] = 0;
+    image[2] = 0;
+
     write_bmp(image, scene.screen.sizeX, scene.screen.sizeY, "output.bmp");
     destroy_image_buffer(image);
 
