@@ -28,11 +28,15 @@ namespace Sol {
 class Material {
 private:
     ColourRGB colour;
+    double diffuse;
 
 public:
     Material();
     ColourRGB getColour() const;
     void setColour(const ColourRGB& c);
+
+    double getDiffuse() const;
+    void setDiffuse(const double diffuse);
 };
 
 } // namespace Sol

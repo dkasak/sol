@@ -23,7 +23,8 @@
 namespace Sol {
 
 Material::Material()
-    : colour(ColourRGB(1.0, 1.0, 1.0))
+    : colour(ColourRGB(1.0, 1.0, 1.0)),
+      diffuse(0.0)
     {}
     
 ColourRGB
@@ -34,6 +35,16 @@ Material::getColour() const {
 void
 Material::setColour(const ColourRGB& c) {
     this->colour = c;
+}
+
+double
+Material::getDiffuse() const {
+    return this->diffuse;
+}
+
+void
+Material::setDiffuse(const double diffuse) {
+    this->diffuse = diffuse;
 }
 
 } // namespace Sol
