@@ -53,7 +53,10 @@ struct Point {
     Point operator+(const Vector& v) const {
         return Point(this->x + v.getX(), this->y + v.getY(), this->z + v.getZ());
     }
+
 };
+
+std::ostream& operator<<(std::ostream& o, const Sol::Point &p);
 
 } // namespace Sol
 

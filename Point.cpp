@@ -21,5 +21,16 @@
 
 namespace Sol {
 
+std::ostream& operator<<(std::ostream& o, const Sol::Point &p) {
+    o << p.x;
+    o << "x + ";
+    o << p.y;
+    o << "y + ";
+    o << p.z;
+    o << "z";
+
+    return o;
+}
+
 } // namespace Sol
 
