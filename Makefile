@@ -18,3 +18,6 @@ clean:
 distclean:
 	-rm --force *.o *.bmp test_dbmp sol
 
+run:	all
+	./sol
+	feh output.bmp
