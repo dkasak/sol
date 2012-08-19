@@ -39,34 +39,42 @@ using namespace Sol;
 int main() {
     Scene scene;
 
-    scene.setOrigin(Point(0, 0, -100));
+    scene.setOrigin(Point(0, 0, 0));
 
     Screen screen(SIZE_X, SIZE_Y);
     scene.setScreen(screen);
 
     Material m1;
-    m1.setColour(ColourRGB(1.0, 0.9, 0));
-    Material m2;
-    m2.setColour(ColourRGB(0.0, 0.9, 0));
+    m1.setDiffuse(1.0);
+    m1.setColour(ColourRGB(1.0, 1.0, 1.0));
 
-    Sphere s1(Point(0, 0, 100), 150);
+    Material m2;
+    m2.setDiffuse(1.0);
+    m2.setColour(ColourRGB(0.0, 0.9, 0.1));
+
+    Sphere s1(Point(0, 0, 300), 150.0);
+    Sphere s2(Point(300, 200, 400), 150.0);
     s1.setMaterial(m1);
-    Sphere s2(Point(0, -100, -30), 120);
     s2.setMaterial(m2);
     scene.addShape(s1);
     scene.addShape(s2);
 
-    /* Light l1; */
+    Light l1(Point(160, 160, -100), ColourRGB(1.0, 0.2, 0.6));
+    Light l2(Point(0, 0, 0));
     /* l1.setBrightness(); */
     /* l1.setColour(); */
     /* l1.setPosition(); */
-    /* scene.addLight(l1); */
+    scene.addLight(l1);
+    scene.addLight(l2);
 
     scene.render();
 
     char *image = new_image_buffer(scene.screen.sizeX, scene.screen.sizeY);
-                        
     assert(scene.image.size() == scene.screen.sizeX * scene.screen.sizeY);
+
+    // Cyan pixel as the first pixel of the rendered image, for orientation
+    scene.image[0] = ColourRGB(0.0, 1.0, 1.0);
+
     for (size_t i = 0; i < scene.image.size(); ++i) {
         image[3*i] = scene.image[i].red * 255;
         image[3*i + 1] = scene.image[i].green * 255;
