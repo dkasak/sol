@@ -18,6 +18,7 @@
  */
 
 #include "Scene.h"
+#include "Debug.h"
 #include <cstdio>
 #include <cmath>
 #include <limits>
@@ -63,16 +64,18 @@ Scene::render() {
     const double pxSize = this->screen.pixelSize;
 
     // screen normal
-    Vector n(0, 0, 1);
+    /* const Vector n(0, 0, 1); */
 
     for (int j = sizeY-1; j >= 0; --j) {
         for (int i = 0; i < sizeX; ++i) {
+            const double dts = 900; // distance to screen
             Point p;
-            p.x = ((i - (sizeX / 2.0)) + 0.5) * pxSize;
-            p.y = ((j - (sizeY / 2.0)) + 0.5) * pxSize;
-            p.z = 0;
+            p.x = origin.x + (((i - (sizeX / 2.0)) + 0.5) * pxSize);
+            p.y = origin.y + (((j - (sizeY / 2.0)) + 0.5) * pxSize);
+            p.z = origin.z;
 
-            Ray r(p, n);
+            Ray r(Point(origin.x, origin.y, origin.z - dts), Vector(p.x - origin.x, p.y - origin.y, p.z + dts));
+            /* Ray r(p, n); */
             ColourRGB c;
             Material m;
             double distance;
