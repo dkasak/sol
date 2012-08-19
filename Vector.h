@@ -61,9 +61,9 @@ public:
     double length() const;
 };
 
-} // namespace Sol
+std::ostream& operator<<(std::ostream& o, const Sol::Vector& v);
 
-std::ostream& operator<<(std::ostream& o, const Sol::Vector &v);
+} // namespace Sol
 
 #endif // SOL_VECTOR_H
 

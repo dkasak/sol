@@ -186,9 +186,7 @@ void Vector::normalise() {
     (*this) /= this->length();
 }
 
-} // namespace Sol
-
-std::ostream& operator<<(std::ostream& o, const Sol::Vector &v) {
+std::ostream& operator<<(std::ostream& o, const Sol::Vector& v) {
     o << v.getX();
     o << "i + ";
     o << v.getY();
@@ -198,4 +196,6 @@ std::ostream& operator<<(std::ostream& o, const Sol::Vector &v) {
 
     return o;
 }
+
+} // namespace Sol
 
