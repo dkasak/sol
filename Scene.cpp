@@ -27,7 +27,8 @@ namespace Sol {
 Scene::Scene()
     : origin(Point(0, 0, 0)),
       screen(0, 0),
-      background(0.0, 0.0, 0.0)
+      background(0.0, 0.0, 0.0),
+      ambientLight(0.0)
     {}
 
 void 
