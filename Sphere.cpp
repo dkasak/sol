@@ -56,24 +56,20 @@ bool Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
     double c = (ro - o).dot(ro - o) - pow(this->radius, 2.0);
     double d = b * b - 4 * c;
 
-    double t = 0.0;
-
-    DEBUG(4, "ro:", ro);
-    DEBUG(4, "o:", o);
-    DEBUG(4, "b:", b);
-    DEBUG(4, "d:", d);
-    DEBUG(4, "c:", c);
-    DEBUG(4, "dir:", dir);
+    DEBUG(2, "[sphere]");
+    DEBUG(4, "  ray origin:", ro);
+    DEBUG(4, "  origin:", o);
+    DEBUG(4, "  b:", b);
+    DEBUG(4, "  d:", d);
+    DEBUG(4, "  c:", c);
+    DEBUG(4, "  ray direction:", dir);
     if (d < 0.0) {
         return false;
     } else {
         double sd = sqrt(d);
         double den = 2;
-        double t1, t2;
+        double t, t1, t2;
 
-        DEBUG(4, "t:", t);
-        DEBUG(4, si->hitpoint);
-        /* if (((t = (-b + sd)) > kEpsilon) || */
         t1 = (-b + sd) / den;
         t2 = (-b - sd) / den;
         if (t1 < 0 && t2 < 0) {
@@ -83,11 +79,14 @@ bool Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
         } else {
             t = t2;
         }
-        
-        /* if (((t = ((-b + sd) / den)) )) { */
 
         si->hitpoint = r.origin + t * dir;
         si->normal = (si->hitpoint - this->origin).normalised();
+
+        DEBUG(2, "  -> hit");
+        DEBUG(4, "    distance:", t);
+        DEBUG(4, "    hitpoint:", si->hitpoint);
+        DEBUG(4, "    normal:", si->normal);
         *distance = t;
         return true;
     }

@@ -68,6 +68,7 @@ Scene::render() {
 
     for (int j = sizeY-1; j >= 0; --j) {
         for (int i = 0; i < sizeX; ++i) {
+            DEBUG(2, "Pixel ->", i, j);
             const double dts = 900; // distance to screen
             Point p;
             p.x = origin.x + (((i - (sizeX / 2.0)) + 0.5) * pxSize);
@@ -96,7 +97,6 @@ Scene::render() {
                 }
             }
             if (hit) {
-                DEBUG(3, si.hitpoint);
                 ColourRGB colour;
                 for (int k = 0; k < this->lights.size(); ++k) {
                     const Light &l = this->lights[k];
@@ -106,17 +106,11 @@ Scene::render() {
                     double dot = normal.dot(path);
                     if (dot > 0) {
                         double diffuse = m.getDiffuse() * dot;
-                        DEBUG(4, diffuse);
-                        DEBUG(4, l.colour.red);
-                        DEBUG(4, l.colour.blue);
-                        DEBUG(4, l.colour.green);
-                        DEBUG(4, c.red);
-                        DEBUG(4, c.blue);
-                        DEBUG(4, c.green);
-                        DEBUG(4, colour.red);
-                        DEBUG(4, colour.green);
-                        DEBUG(4, colour.blue);
                         colour += diffuse * c * l.colour;
+                        DEBUG(4, "Diffuse factor:", diffuse);
+                        DEBUG(4, "Light colour:", l.colour);
+                        DEBUG(4, "Object colour:", c);
+                        DEBUG(3, "Final colour:", colour);
                     }
                 } 
 

@@ -31,10 +31,17 @@ void DEBUG(int n, T out) {
     }
 }
 
-template <typename T, typename Q>
-void DEBUG(int n, T out1, Q out2) {
+template <typename T, typename U>
+void DEBUG(int n, T out1, U out2) {
     if (DEBUG_LEVEL >= n) {
         cout << out1 << " " << out2 << endl;
+    }
+}
+
+template <typename T, typename U, typename V>
+void DEBUG(int n, T out1, U out2, V out3) {
+    if (DEBUG_LEVEL >= n) {
+        cout << out1 << " " << out2 << " " << out3 << endl;
     }
 }
 

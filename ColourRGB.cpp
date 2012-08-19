@@ -20,7 +20,8 @@
 
 #include "ColourRGB.h"
 
-#include <math.h>    
+#include <cmath>    
+#include <iostream>
 
 namespace Sol {
 
@@ -74,6 +75,11 @@ ColourRGB::clamp() {
     if (this->red > 1.0) this->red = 1.0;
     if (this->green > 1.0) this->green = 1.0;
     if (this->blue > 1.0) this->blue = 1.0;
+}
+
+std::ostream& operator<<(std::ostream& o, ColourRGB c) {
+    std::cout << "Colour(" << c.red << ", " << c.green << ", " << c.blue << ")";
+    return o;
 }
 
 } // namespace Sol

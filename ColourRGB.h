@@ -21,6 +21,8 @@
 #ifndef SOL_COLOURRGB_H
 #define SOL_COLOURRGB_H
 
+#include <iostream>
+
 namespace Sol {
 
 class ColourRGB {
@@ -69,6 +71,8 @@ public:
     void
     clamp();
 };
+
+std::ostream& operator<<(std::ostream& o, ColourRGB c);
 
 inline ColourRGB 
 ColourRGB::operator+(const ColourRGB& c) const {
