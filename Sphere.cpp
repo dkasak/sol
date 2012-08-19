@@ -17,11 +17,14 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
+#include <cmath>
 #include "Sphere.h"
-
+#include "Debug.h"
+using namespace std;
 namespace Sol {
 
-const double kEpsilon = 0.001;
+const double kEpsilon = 0.01;
 
 Sphere::Sphere() {
     this->radius = 0.0;
@@ -45,29 +48,48 @@ double Sphere::getRadius() const {
 }
 
 bool Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
-    Vector o = r.origin - this->origin;
-    double a = r.direction.dot(r.direction);
-    double b = o.dot(r.direction) * 2.0;
-    double c = o.dot(o) - this->radius * this-> radius;
-    double d = b * b - 4.0 * a * c;
+    Vector o(this->origin.x, this->origin.y, this->origin.z);
+    Vector ro(r.origin.x, r.origin.y, r.origin.z);
+    Vector dir = r.direction.normalised();
+    double a = 1;
+    double b = 2 * (ro - o).dot(dir);
+    double c = (ro - o).dot(ro - o) - pow(this->radius, 2.0);
+    double d = b * b - 4 * c;
 
     double t = 0.0;
 
+    DEBUG(4, "ro:", ro);
+    DEBUG(4, "o:", o);
+    DEBUG(4, "b:", b);
+    DEBUG(4, "d:", d);
+    DEBUG(4, "c:", c);
+    DEBUG(4, "dir:", dir);
     if (d < 0.0) {
         return false;
     } else {
         double sd = sqrt(d);
-        double den = 2.0 * a;
+        double den = 2;
+        double t1, t2;
 
-        if (((t = (-b + sd) / den) > kEpsilon) ||
-            ((t = (-b - sd) / den) > kEpsilon)) {
-            si->normal = (o + t * r.direction).normalised();
-            si->hitpoint = r.origin + t * r.direction;
-            *distance = t;
-            return true;
-        } else {
+        DEBUG(4, "t:", t);
+        DEBUG(4, si->hitpoint);
+        /* if (((t = (-b + sd)) > kEpsilon) || */
+        t1 = (-b + sd) / den;
+        t2 = (-b - sd) / den;
+        if (t1 < 0 && t2 < 0) {
             return false;
+        } else if (t1 < t2 && t1 > 0) {
+            t = t1;
+        } else {
+            t = t2;
         }
+        
+        /* if (((t = ((-b + sd) / den)) )) { */
+
+        si->hitpoint = r.origin + t * dir;
+        si->normal = (si->hitpoint - this->origin).normalised();
+        *distance = t;
+        return true;
     }
 }
 
