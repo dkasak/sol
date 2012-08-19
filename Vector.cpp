@@ -56,7 +56,7 @@ void Vector::setY(double y) {
     this->y = y;
 }
 
-void Vector::setZ(double Z) {
+void Vector::setZ(double z) {
     this->z = z;
 }
 
