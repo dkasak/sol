@@ -95,12 +95,34 @@ Scene::render() {
                     hit = true;
                 }
             }
-
             if (hit) {
-                double angle = n.angle(si.normal);
-                double factor = cos(abs(angle));
-                c *= factor;
-                this->image.push_back(c);
+                DEBUG(3, si.hitpoint);
+                ColourRGB colour;
+                for (int k = 0; k < this->lights.size(); ++k) {
+                    const Light &l = this->lights[k];
+                    Vector path = l.position - si.hitpoint;
+                    Vector normal = si.normal;
+                    path.normalise();
+                    double dot = normal.dot(path);
+                    if (dot > 0) {
+                        double diffuse = m.getDiffuse() * dot;
+                        DEBUG(4, diffuse);
+                        DEBUG(4, l.colour.red);
+                        DEBUG(4, l.colour.blue);
+                        DEBUG(4, l.colour.green);
+                        DEBUG(4, c.red);
+                        DEBUG(4, c.blue);
+                        DEBUG(4, c.green);
+                        DEBUG(4, colour.red);
+                        DEBUG(4, colour.green);
+                        DEBUG(4, colour.blue);
+                        colour += diffuse * c * l.colour;
+                    }
+                } 
+
+                colour += 0.1 * c;
+                colour.clamp();
+                this->image.push_back(colour);
             } else {
                 this->image.push_back(this->background);
             }
