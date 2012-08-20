@@ -23,8 +23,10 @@
 #include "Light.h"
 #include "Ray.h"
 #include "Sphere.h"
+#include "Plane.h"
 #include "Material.h"
 #include "ColourRGB.h"
+#include "Debug.h"
 #include <assert.h>
 
 extern "C" {
@@ -52,14 +54,22 @@ int main() {
     m2.setDiffuse(1.0);
     m2.setColour(ColourRGB(0.0, 0.9, 0.1));
 
-    Sphere s1(Point(0, 0, 300), 150.0);
+    Material m3;
+    m3.setDiffuse(1.0);
+    m3.setColour(ColourRGB(1.0, 0.1, 0.1));
+
+    Sphere s1(Point(0, 60, 300), 150.0);
     Sphere s2(Point(300, 200, 400), 150.0);
     s1.setMaterial(m1);
     s2.setMaterial(m2);
     scene.addShape(s1);
     scene.addShape(s2);
 
-    Light l1(Point(160, 160, -100), ColourRGB(1.0, 0.2, 0.6));
+    Plane p(Point(0, -100, 0), Vector(0.0, 1.0, 0.0)); 
+    p.setMaterial(m3);
+    scene.addShape(p);
+
+    Light l1(Point(160, 160, 0), ColourRGB(1.0, 0.2, 0.6));
     Light l2(Point(0, 0, 0));
     /* l1.setBrightness(); */
     /* l1.setColour(); */
@@ -67,7 +77,9 @@ int main() {
     scene.addLight(l1);
     scene.addLight(l2);
 
+    DEBUG(1, "Began rendering");
     scene.render();
+    DEBUG(1, "Finished rendering");
 
     char *image = new_image_buffer(scene.screen.sizeX, scene.screen.sizeY);
     assert(scene.image.size() == scene.screen.sizeX * scene.screen.sizeY);
@@ -86,6 +98,7 @@ int main() {
     image[1] = 0;
     image[2] = 0;
 
+    DEBUG(1, "Write BMP");
     write_bmp(image, scene.screen.sizeX, scene.screen.sizeY, "output.bmp");
     destroy_image_buffer(image);
 

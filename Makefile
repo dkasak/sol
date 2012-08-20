@@ -4,7 +4,7 @@ CXXFLAGS = -Wextra -Wall -pedantic -g -Wuninitialized
 LDFLAGS = -lm -lstdc++
 
 dbmp_objects = dbmp.o
-sol_objects = sol.o ColourRGB.o Light.o Material.o Point.o Ray.o Scene.o Screen.o ShadeInfo.o Shape.o Sphere.o Vector.o
+sol_objects = sol.o Plane.o ColourRGB.o Light.o Material.o Point.o Ray.o Scene.o Screen.o ShadeInfo.o Shape.o Sphere.o Vector.o
 
 all: sol dbmp
 
