@@ -69,11 +69,8 @@ int main() {
     p.setMaterial(m3);
     scene.addShape(p);
 
-    Light l1(Point(160, 160, 0), ColourRGB(1.0, 0.2, 0.6));
-    Light l2(Point(0, 0, 0));
-    /* l1.setBrightness(); */
-    /* l1.setColour(); */
-    /* l1.setPosition(); */
+    Light l1(Point(160, 160, 0), ColourRGB(0.5, 0.1, 0.3)*1.2);
+    Light l2(Point(0, 0, 0), ColourRGB(0.5, 0.5, 0.5)*1.2);
     scene.addLight(l1);
     scene.addLight(l2);
 
