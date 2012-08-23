@@ -24,7 +24,7 @@
 
 #include "dbmp.h"
 
-bool write_bmp(const char *data, unsigned int width, unsigned int height, const char *fname) {
+bool write_bmp(const char *data, size_t width, size_t height, const char *fname) {
     bmp_magic_t magic;
     bmp_header_t h1;
     dib_header_t h2;
@@ -67,9 +67,9 @@ bool write_bmp(const char *data, unsigned int width, unsigned int height, const 
     fwrite((void *) &h1, sizeof h1, 1, bmp);
     fwrite((void *) &h2, sizeof h2, 1, bmp);
 
-    int index;
-    for (int j = height - 1; j >= 0; --j) {
-        for (int i = 0; i < width; ++i) {
+    size_t index;
+    for (size_t j = height-1; j != (size_t) -1; --j) {
+        for (size_t i = 0; i < width; ++i) {
             index = j * width + i;
             index *= BYPP;
             fprintf(bmp, "%c", data[index + 2]);
@@ -83,7 +83,7 @@ bool write_bmp(const char *data, unsigned int width, unsigned int height, const 
     return true;
 }
 
-char *new_image_buffer(unsigned int width, unsigned int height) {
+char *new_image_buffer(size_t width, size_t height) {
     return malloc(height * width * BYPP);
 }
 
