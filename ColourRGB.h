@@ -69,6 +69,9 @@ public:
     average() const;
 
     void
+    maximize();
+
+    void
     clamp();
 };
 

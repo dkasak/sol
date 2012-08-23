@@ -76,6 +76,18 @@ ColourRGB::clamp() {
     if (this->blue > 1.0) this->blue = 1.0;
 }
 
+void
+ColourRGB::maximize() {
+    double max = this->red;
+    if (this->green > max) max = this->green;
+    if (this->blue > max) max = this->blue;
+
+    double ratio = 1.0 / max;
+    this->red *= ratio;
+    this->green *= ratio;
+    this->blue *= ratio;
+}
+
 std::ostream&
 operator<<(std::ostream& o, ColourRGB c) {
     std::cout << "Colour(" << c.red << ", " << c.green << ", " << c.blue << ")";
