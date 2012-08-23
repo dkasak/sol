@@ -114,7 +114,6 @@ Scene::render() {
                     }
                 } 
 
-                colour += 0.1 * c;
                 colour.clamp();
                 this->image.push_back(colour);
             } else {
