@@ -27,7 +27,11 @@
 #include "Material.h"
 #include "ColourRGB.h"
 #include "Debug.h"
-#include <assert.h>
+#include "Options.h"
+
+#include <cassert>
+#include <cstring>
+#include <cstdlib>
 
 extern "C" {
 #include "dbmp.h"
@@ -38,7 +42,21 @@ extern "C" {
 
 using namespace Sol;
 
-int main() {
+int main(int argc, char **argv) {
+    Options opt;
+    try {
+        opt = parse_options(argc, argv);
+    } catch (const InvalidOption &e) {
+        std::cout << "Invalid option: " << e.option_name << std::endl;
+        exit(EXIT_SUCCESS);
+    } catch (const InvalidOptionValue &e) {
+        std::cout << "Invalid option value \"" << e.option_value <<  
+            "\" for option" << e.option_name << std::endl;
+        exit(EXIT_SUCCESS);
+    }
+
+    debug_level = opt.debug_level;
+
     Scene scene;
 
     scene.setOrigin(Point(0, 0, 0));
