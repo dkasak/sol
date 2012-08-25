@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
 
     scene.setOrigin(Point(0, 0, 0));
 
-    Screen screen(SIZE_X, SIZE_Y);
+    Screen screen(opt.hres, opt.vres);
     scene.setScreen(screen);
 
     Material m1;

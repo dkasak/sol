@@ -7,10 +7,14 @@
 using namespace std;
 
 // option defaults
-#define DEFAULT_DEBUG_LEVEL 0
+#define DEFAULT_DEBUG_LEVEL         0
+#define DEFAULT_HORIZONTAL_RES      640
+#define DEFAULT_VERTICAL_RES        480
 
 struct Options {
     int debug_level;
+    unsigned int hres;
+    unsigned int vres;
 };
 
 class InvalidOptionValue : public exception {
