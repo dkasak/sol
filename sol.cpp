@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
     scene.render();
     DEBUG(1, "Finished rendering");
 
-    char *image = new_image_buffer(scene.screen.sizeX, scene.screen.sizeY);
+    unsigned char *image = new_image_buffer(scene.screen.sizeX, scene.screen.sizeY);
     assert(scene.image.size() == scene.screen.sizeX * scene.screen.sizeY);
 
     // Cyan pixel as the first pixel of the rendered image, for orientation
