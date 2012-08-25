@@ -58,7 +58,7 @@ int main() {
     m3.setDiffuse(1.0);
     m3.setColour(ColourRGB(1.0, 0.1, 0.1));
 
-    Sphere s1(Point(0, 60, 300), 150.0);
+    Sphere s1(Point(0, 60, 160), 150.0);
     Sphere s2(Point(300, 200, 400), 150.0);
     s1.setMaterial(m1);
     s2.setMaterial(m2);
@@ -69,8 +69,8 @@ int main() {
     p.setMaterial(m3);
     scene.addShape(p);
 
-    Light l1(Point(160, 160, 0), ColourRGB(0.5, 0.1, 0.3)*1.2);
-    Light l2(Point(0, 0, 0), ColourRGB(0.5, 0.5, 0.5)*1.2);
+    Light l1(Point(160, 160, 0), ColourRGB(0.5, 0.1, 0.3)*1.6);
+    Light l2(Point(100, 20, 20), ColourRGB(0.5, 0.5, 0.5)*1.6);
     scene.addLight(l1);
     scene.addLight(l2);
 
