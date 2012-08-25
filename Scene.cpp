@@ -27,7 +27,7 @@ namespace Sol {
 
 Scene::Scene()
     : origin(Point(0, 0, 0)),
-      screen(0, 0),
+      screen(new Screen()),
       background(0.0, 0.0, 0.0),
       ambientLight(0.0)
     {}
@@ -38,8 +38,13 @@ Scene::setOrigin(const Point p) {
 }
 
 void
-Scene::setScreen(const Screen &s) {
+Scene::setScreen(Screen* s) {
     this->screen = s;
+}
+
+Screen*
+Scene::getScreen() {
+    return this->screen;
 }
 
 void
@@ -59,9 +64,9 @@ Scene::setAmbient(double ambient) {
 
 void
 Scene::render() {
-    const unsigned int sizeX = this->screen.sizeX;
-    const unsigned int sizeY = this->screen.sizeY;
-    const double pxSize = this->screen.pixelSize;
+    const unsigned int sizeX = this->screen->sizeX;
+    const unsigned int sizeY = this->screen->sizeY;
+    const double pxSize = this->screen->pixelSize;
 
     // screen normal
     /* const Vector n(0, 0, 1); */

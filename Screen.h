@@ -30,6 +30,7 @@ public:
     unsigned int sizeX, sizeY;
     double pixelSize;
 
+    Screen();
     Screen(int sizeX, int sizeY);
 };
 

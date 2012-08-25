@@ -41,19 +41,20 @@ class Scene {
 
 private:
     Point origin;
+    Screen *screen;
     vector<const Shape *> objects;
     vector<Light> lights;
     double ambientLight;
 
 public:
     // TODO: handle properly with getters
-    Screen screen;
     ColourRGB background;
     vector<ColourRGB> image;
 
     Scene();
     void setOrigin(const Point p);
-    void setScreen(const Screen &s);
+    void setScreen(Screen *s);
+    Screen* getScreen();
     void addShape(const Shape &s);
     void addLight(const Light l);
     void setAmbient(double ambient);

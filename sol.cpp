@@ -55,9 +55,7 @@ int main(int argc, char **argv) {
     debug_level = opt.debug_level;
 
     Scene scene;
-
-    Screen screen(opt.hres, opt.vres);
-    scene.setScreen(screen);
+    scene.setScreen(new Screen(opt.hres, opt.vres));
 
     Material m1;
     m1.setDiffuse(1.0);
@@ -91,8 +89,8 @@ int main(int argc, char **argv) {
     scene.render();
     DEBUG(1, "Finished rendering");
 
-    unsigned char *image = new_image_buffer(scene.screen.sizeX, scene.screen.sizeY);
-    assert(scene.image.size() == scene.screen.sizeX * scene.screen.sizeY);
+    unsigned char *image = new_image_buffer(scene.getScreen()->sizeX, scene.getScreen()->sizeY);
+    assert(scene.image.size() == scene.getScreen()->sizeX * scene.getScreen()->sizeY);
 
     // Cyan pixel as the first pixel of the rendered image, for orientation
     scene.image[0] = ColourRGB(0.0, 1.0, 1.0);
@@ -109,7 +107,7 @@ int main(int argc, char **argv) {
     image[2] = 0;
 
     DEBUG(1, "Write BMP");
-    write_bmp(image, scene.screen.sizeX, scene.screen.sizeY, "output.bmp");
+    write_bmp(image, scene.getScreen()->sizeX, scene.getScreen()->sizeY, "output.bmp");
     destroy_image_buffer(image);
 
     return 0;
