@@ -66,8 +66,8 @@ Scene::render() {
     // screen normal
     /* const Vector n(0, 0, 1); */
 
-    for (int j = sizeY-1; j >= 0; --j) {
-        for (int i = 0; i < sizeX; ++i) {
+    for (unsigned int j = sizeY-1; j != (unsigned int) -1; --j) {
+        for (unsigned int i = 0; i < sizeX; ++i) {
             DEBUG(2, "Pixel ->", i, j);
             const double dts = 900; // distance to screen
             Point p;
@@ -85,7 +85,7 @@ Scene::render() {
             ShadeInfo tmp;
             bool hit = false;
 
-            for (int k = 0; k < this->objects.size(); ++k) {
+            for (unsigned int k = 0; k < this->objects.size(); ++k) {
                 const Shape *s = this->objects[k];
                 if (s->intersects(r, &distance, &tmp) &&
                     distance < min) {
@@ -98,7 +98,7 @@ Scene::render() {
             }
             if (hit) {
                 ColourRGB colour;
-                for (int k = 0; k < this->lights.size(); ++k) {
+                for (unsigned int k = 0; k < this->lights.size(); ++k) {
                     const Light &l = this->lights[k];
                     Vector path = l.position - si.hitpoint;
                     Vector normal = si.normal;
