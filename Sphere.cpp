@@ -72,12 +72,12 @@ bool Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
 
         t1 = (-b + sd) / den;
         t2 = (-b - sd) / den;
-        if (t1 < 0 && t2 < 0) {
-            return false;
-        } else if (t1 < t2 && t1 > 0) {
-            t = t1;
+
+        // If the camera is inside the sphere, the sphere is invisible for now
+        if (t1 > kEpsilon && t2 > kEpsilon) {
+            t = t1 > t2 ? t2 : t1;
         } else {
-            t = t2;
+            return false;
         }
 
         si->hitpoint = r.origin + t * dir;

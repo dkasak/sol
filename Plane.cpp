@@ -60,9 +60,9 @@ bool Plane::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
     den = dir.dot(n);
     double t = num / den;
 
-    if (den == 0.0 || t < 0.0) {
-        return false;
-    } else {
+    // If the denominator is zero, the ray is parallel with the plane
+    // (either lying on it or not touching it at all)
+    if (fabs(den) > kEpsilon && t > kEpsilon) {
         si->hitpoint = r.origin + t * dir;
         si->normal = n;
 
@@ -72,6 +72,8 @@ bool Plane::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
         DEBUG(4, "    normal:", si->normal);
         *distance = t;
         return true;
+    } else {
+        return false;
     }
 }
 
