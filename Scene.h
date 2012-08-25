@@ -45,10 +45,10 @@ private:
     vector<const Shape *> objects;
     vector<Light> lights;
     double ambientLight;
+    ColourRGB background;
 
 public:
     // TODO: handle properly with getters
-    ColourRGB background;
     vector<ColourRGB> image;
 
     Scene();
@@ -59,6 +59,8 @@ public:
     void addShape(const Shape &s);
     void addLight(const Light l);
     void setAmbient(double ambient);
+    void setBackground(ColourRGB background);
+    ColourRGB getBackground();
     void render();
 };
 

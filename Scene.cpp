@@ -67,6 +67,16 @@ Scene::setAmbient(double ambient) {
 }
 
 void
+Scene::setBackground(ColourRGB background) {
+    this->background = background;
+}
+
+ColourRGB
+Scene::getBackground() {
+    return this->background;
+}
+
+void
 Scene::render() {
     const unsigned int sizeX = this->screen->sizeX;
     const unsigned int sizeY = this->screen->sizeY;
