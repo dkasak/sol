@@ -32,21 +32,21 @@ Options parse_options(int argc, char **argv) {
 
     for (int i = 1; i < argc; ++i) {
         char *value;
-        if (value = get_option_value(argv[i], "-d", "--debug")) {
+        if ((value = get_option_value(argv[i], "-d", "--debug"))) {
             char *tmp;
             opt.debug_level = strtol(value, &tmp, 10);
             if (*tmp != '\0') {
                 *(value-1) = '\0';
                 throw InvalidOptionValue(argv[i], value);
             }
-        } else if (value = get_option_value(argv[i], "-h", "--hres")) {
+        } else if ((value = get_option_value(argv[i], "-h", "--hres"))) {
             char *tmp;
             opt.hres = strtol(value, &tmp, 10);
             if (*tmp != '\0') {
                 *(value-1) = '\0';
                 throw InvalidOptionValue(argv[i], value);
             }
-        } else if (value = get_option_value(argv[i], "-v", "--vres")) {
+        } else if ((value = get_option_value(argv[i], "-v", "--vres"))) {
             char *tmp;
             opt.vres = strtol(value, &tmp, 10);
             if (*tmp != '\0') {
