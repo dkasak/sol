@@ -52,6 +52,7 @@ public:
     vector<ColourRGB> image;
 
     Scene();
+    ~Scene();
     void setOrigin(const Point p);
     void setScreen(Screen *s);
     Screen* getScreen();

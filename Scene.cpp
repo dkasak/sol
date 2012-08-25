@@ -32,6 +32,10 @@ Scene::Scene()
       ambientLight(0.0)
     {}
 
+Scene::~Scene() {
+    delete this->screen;
+}
+
 void 
 Scene::setOrigin(const Point p) {
     this->origin = p;
