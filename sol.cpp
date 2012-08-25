@@ -56,8 +56,6 @@ int main(int argc, char **argv) {
 
     Scene scene;
 
-    scene.setOrigin(Point(0, 0, 0));
-
     Screen screen(opt.hres, opt.vres);
     scene.setScreen(screen);
 
