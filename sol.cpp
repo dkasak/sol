@@ -37,9 +37,6 @@ extern "C" {
 #include "dbmp.h"
 }
 
-#define SIZE_X 640
-#define SIZE_Y 480
-
 using namespace Sol;
 
 int main(int argc, char **argv) {
