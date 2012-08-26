@@ -22,11 +22,11 @@
 
 #include "Material.h"
 #include "Point.h"
-#include "ShadeInfo.h"
 
 namespace Sol {
 
 class Ray;
+class ShadeInfo;
 
 class Shape {
 protected:
