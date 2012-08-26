@@ -36,7 +36,9 @@ public:
 
     Shape();
     Shape(double x, double y, double z);
+    Shape(Point p);
     void move(double x, double y, double z);
+    void move(Point p);
     void setMaterial(const Material &m);
     Material getMaterial() const;
 

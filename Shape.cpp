@@ -25,10 +25,17 @@ Shape::Shape() {}
 
 Shape::Shape(double x, double y, double z) : origin(x, y, z) {}
 
+Shape::Shape(Point p) : origin(p.x, p.y, p.x) {}
+
 void Shape::move(double x, double y, double z) {
     this->origin.x = x;
     this->origin.y = y;
     this->origin.z = z;
+}
+void Shape::move(Point p) {
+    this->origin.x = p.x;
+    this->origin.y = p.y;
+    this->origin.z = p.z;
 }
 
 void Shape::setMaterial(const Material &m) {
