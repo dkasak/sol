@@ -39,7 +39,8 @@ extern "C" {
 
 using namespace Sol;
 
-int main(int argc, char **argv) {
+int
+main(int argc, char **argv) {
     Options opt;
     try {
         opt = parse_options(argc, argv);
@@ -58,17 +59,17 @@ int main(int argc, char **argv) {
     scene.setScreen(new Screen(opt.hres, opt.vres));
     scene.setBackground(ColourRGB(0.1, 0.2, 0.3));
 
-    Material m1;
-    m1.setDiffuse(1.0);
-    m1.setColour(ColourRGB(1.0, 1.0, 1.0));
+    Material *m1 = new Material();
+    m1->setDiffuse(1.0);
+    m1->setColour(ColourRGB(1.0, 1.0, 1.0));
 
-    Material m2;
-    m2.setDiffuse(1.0);
-    m2.setColour(ColourRGB(0.0, 0.9, 0.1));
+    Material *m2 = new Material();
+    m2->setDiffuse(1.0);
+    m2->setColour(ColourRGB(0.0, 0.9, 0.1));
 
-    Material m3;
-    m3.setDiffuse(1.0);
-    m3.setColour(ColourRGB(1.0, 0.1, 0.1));
+    Material *m3 = new Material();
+    m3->setDiffuse(1.0);
+    m3->setColour(ColourRGB(1.0, 0.1, 0.1));
 
     Sphere s1(Point(0, 60, 160), 150.0);
     Sphere s2(Point(300, 200, 400), 150.0);

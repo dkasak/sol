@@ -27,21 +27,24 @@ using std::endl;
 extern int debug_level;
 
 template <typename T>
-void DEBUG(int n, T out) {
+void
+DEBUG(int n, T out) {
     if (debug_level >= n) {
         cout << out << endl;
     }
 }
 
 template <typename T, typename U>
-void DEBUG(int n, T out1, U out2) {
+void
+DEBUG(int n, T out1, U out2) {
     if (debug_level >= n) {
         cout << out1 << " " << out2 << endl;
     }
 }
 
 template <typename T, typename U, typename V>
-void DEBUG(int n, T out1, U out2, V out3) {
+void
+DEBUG(int n, T out1, U out2, V out3) {
     if (debug_level >= n) {
         cout << out1 << " " << out2 << " " << out3 << endl;
     }

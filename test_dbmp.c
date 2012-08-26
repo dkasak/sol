@@ -21,7 +21,8 @@
 #include <math.h>
 #include "dbmp.h"
 
-int main(void) {
+int
+main(void) {
 
     srand(time(NULL));
 

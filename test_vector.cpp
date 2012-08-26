@@ -21,7 +21,8 @@
 
 #include "Vector.h"
 
-int main() {
+int
+main() {
     Sol::Vector v1(1, 0, 0), v2(0, 1, 0), v3(0, 0, 1);
 
     std::cout << "v1 = " << v1 << std::endl;

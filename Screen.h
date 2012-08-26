@@ -25,7 +25,6 @@
 namespace Sol {
 
 class Screen {
-
 public:
     unsigned int sizeX, sizeY;
     double pixelSize;

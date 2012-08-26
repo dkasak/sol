@@ -21,7 +21,9 @@
 #include <cmath>
 #include "Plane.h"
 #include "Debug.h"
+
 using namespace std;
+
 namespace Sol {
 
 const double kEpsilon = 0.01;
@@ -35,15 +37,18 @@ Plane::Plane(Point p, Vector n) {
     this->normal = n;
 }
 
-void Plane::setNormal(Vector n) {
+void
+Plane::setNormal(Vector n) {
     this->normal = n;
 }
 
-Vector Plane::getNormal() const {
+Vector
+Plane::getNormal() const {
     return this->normal;
 }
 
-bool Plane::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
+bool
+Plane::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
     Point p = this->origin;
     Vector n = this->normal.normalised();
     Point ro = r.origin;

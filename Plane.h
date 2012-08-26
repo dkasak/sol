@@ -35,10 +35,15 @@ public:
     Plane();
     Plane(Vector n);
     Plane(Point p, Vector n);
-    void setNormal(Vector n);
-    Vector getNormal() const;
 
-    virtual bool intersects(const Ray &r, double *distance, ShadeInfo *si) const;
+    void
+    setNormal(Vector n);
+
+    Vector
+    getNormal() const;
+
+    virtual bool
+    intersects(const Ray &r, double *distance, ShadeInfo *si) const;
 };
 
 } // namespace Sol

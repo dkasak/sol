@@ -27,30 +27,44 @@ Shape::Shape(double x, double y, double z) : origin(x, y, z) {}
 
 Shape::Shape(Point p) : origin(p.x, p.y, p.x) {}
 
-void Shape::move(double x, double y, double z) {
+Shape::~Shape() {
+    if (this->material) {
+        delete this->material;
+        this->material = NULL;
+    }
+}
+
+void
+Shape::move(double x, double y, double z) {
     this->origin.x = x;
     this->origin.y = y;
     this->origin.z = z;
 }
-void Shape::move(Point p) {
+
+void
+Shape::move(Point p) {
     this->origin.x = p.x;
     this->origin.y = p.y;
     this->origin.z = p.z;
 }
 
-void Shape::setMaterial(const Material &m) {
+void
+Shape::setMaterial(Material* m) {
     this->material = m;
 }
 
-Material Shape::getMaterial() const {
+Material*
+Shape::getMaterial() const {
     return this->material;
 }
 
-void Shape::setOrigin(const Point &m) {
+void
+Shape::setOrigin(const Point& m) {
     this->origin = m;
 }
 
-Point Shape::getOrigin() const {
+Point
+Shape::getOrigin() const {
     return this->origin;
 }
 

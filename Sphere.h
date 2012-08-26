@@ -27,7 +27,6 @@
 namespace Sol {
 
 class Sphere : public Shape {
-
 private:
     double radius;
 
@@ -35,10 +34,15 @@ public:
     Sphere();
     Sphere(double r);
     Sphere(Point p, double r);
-    void setRadius(double r);
-    double getRadius() const;
 
-    virtual bool intersects(const Ray &r, double *distance, ShadeInfo *si) const;
+    void
+    setRadius(double r);
+
+    double
+    getRadius() const;
+
+    virtual bool
+    intersects(const Ray &r, double *distance, ShadeInfo *si) const;
 };
 
 } // namespace Sol

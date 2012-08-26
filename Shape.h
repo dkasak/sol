@@ -31,20 +31,34 @@ class ShadeInfo;
 class Shape {
 protected:
     Point origin;
-    Material material;
+    Material *material;
 
 public:
     Shape();
     Shape(double x, double y, double z);
     Shape(Point p);
-    void move(double x, double y, double z);
-    void move(Point p);
-    void setMaterial(const Material &m);
-    Material getMaterial() const;
-    void setOrigin(const Point &m);
-    Point getOrigin() const;
+    virtual ~Shape();
 
-    virtual bool intersects(const Ray &r, double *tmin, ShadeInfo *si) const = 0;
+    void
+    move(double x, double y, double z);
+
+    void
+    move(Point p);
+
+    void
+    setMaterial(Material*);
+
+    Material*
+    getMaterial() const;
+
+    void
+    setOrigin(const Point &m);
+
+    Point
+    getOrigin() const;
+
+    virtual bool
+    intersects(const Ray &r, double *tmin, ShadeInfo *si) const = 0;
 };
 
 } // namespace Sol

@@ -32,11 +32,18 @@ private:
 
 public:
     Material();
-    ColourRGB getColour() const;
-    void setColour(const ColourRGB& c);
 
-    double getDiffuse() const;
-    void setDiffuse(const double diffuse);
+    ColourRGB
+    getColour() const;
+
+    void
+    setColour(const ColourRGB& c);
+
+    double
+    getDiffuse() const;
+
+    void
+    setDiffuse(const double diffuse);
 };
 
 } // namespace Sol

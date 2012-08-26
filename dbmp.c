@@ -24,7 +24,8 @@
 
 #include "dbmp.h"
 
-bool write_bmp(const unsigned char *data, size_t width, size_t height, const char *fname) {
+bool
+write_bmp(const unsigned char* data, size_t width, size_t height, const char* fname) {
     bmp_magic_t magic;
     bmp_header_t h1;
     dib_header_t h2;
@@ -83,11 +84,11 @@ bool write_bmp(const unsigned char *data, size_t width, size_t height, const cha
     return true;
 }
 
-unsigned char *new_image_buffer(size_t width, size_t height) {
+unsigned char* new_image_buffer(size_t width, size_t height) {
     return malloc(height * width * BYPP);
 }
 
-void destroy_image_buffer(unsigned char *image) {
+void destroy_image_buffer(unsigned char* image) {
     free(image);
 }
-
+ 

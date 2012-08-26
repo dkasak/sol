@@ -35,7 +35,8 @@ public:
     Ray(const Point& p, const Vector& d);
     Ray(const Ray& r);
 
-    virtual bool intersects(const Shape& s, double *tmin, ShadeInfo *si) const;
+    virtual bool
+    intersects(const Shape& s, double *tmin, ShadeInfo *si) const;
 };
 
 } // namespace Sol

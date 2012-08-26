@@ -40,23 +40,27 @@ struct Point {
         this->z = z;
     }
 
-    double distance(const Point& other) const {
+    double
+    distance(const Point& other) const {
         return sqrt(pow(other.x - this->x, 2.0) +
                     pow(other.y - this->y, 2.0) +
                     pow(other.z - this->z, 2.0));
     }
 
-    Vector operator-(const Point& p) const {
+    Vector
+    operator-(const Point& p) const {
         return Vector(this->x - p.x, this->y - p.y, this->z - p.z);
     }
 
-    Point operator+(const Vector& v) const {
+    Point
+    operator+(const Vector& v) const {
         return Point(this->x + v.getX(), this->y + v.getY(), this->z + v.getZ());
     }
 
 };
 
-std::ostream& operator<<(std::ostream& o, const Sol::Point &p);
+std::ostream&
+operator<<(std::ostream& o, const Sol::Point &p);
 
 } // namespace Sol
 

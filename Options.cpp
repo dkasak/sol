@@ -2,7 +2,8 @@
 #include <cstring>
 #include <cstdlib>
 
-char *get_option_value(char *option, const char *short_name, const char *long_name) {
+char*
+get_option_value(char* option, const char* short_name, const char* long_name) {
     // options are of the format -o=val or --opt=val so we need to skip
     // over the equal sign as well
     if (strncmp(option, long_name, strlen(long_name)) == 0) {
@@ -22,7 +23,8 @@ char *get_option_value(char *option, const char *short_name, const char *long_na
     }
 }
 
-Options parse_options(int argc, char **argv) {
+Options
+parse_options(int argc, char** argv) {
     Options opt;
 
     // initialize defaults

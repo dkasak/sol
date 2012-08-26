@@ -36,31 +36,38 @@ Vector::Vector(double x, double y, double z) {
     this->z = z;
 }
 
-double Vector::getX() const {
+double
+Vector::getX() const {
     return this->x;
 }
 
-double Vector::getY() const {
+double
+Vector::getY() const {
     return this->y;
 }
 
-double Vector::getZ() const {
+double
+Vector::getZ() const {
     return this->z;
 }
 
-void Vector::setX(double x) {
+void
+Vector::setX(double x) {
     this->x = x;
 }
 
-void Vector::setY(double y) {
+void
+Vector::setY(double y) {
     this->y = y;
 }
 
-void Vector::setZ(double z) {
+void
+Vector::setZ(double z) {
     this->z = z;
 }
 
-Vector Vector::operator+(const Vector &v) const {
+Vector
+Vector::operator+(const Vector &v) const {
     double i, j, k;
 
     i = this->x + v.x;
@@ -70,7 +77,8 @@ Vector Vector::operator+(const Vector &v) const {
     return Vector(i, j, k);
 }
 
-Vector Vector::operator-(const Vector &v) const {
+Vector
+Vector::operator-(const Vector &v) const {
     double i, j, k;
 
     i = this->x - v.x;
@@ -80,7 +88,8 @@ Vector Vector::operator-(const Vector &v) const {
     return Vector(i, j, k);
 }
 
-Vector Vector::operator*(const double r) const {
+Vector
+Vector::operator*(const double r) const {
     double i, j, k;
 
     i = this->x * r;
@@ -90,7 +99,8 @@ Vector Vector::operator*(const double r) const {
     return Vector(i, j, k);
 }
 
-Vector operator*(const double r, const Vector &v) {
+Vector
+operator*(const double r, const Vector &v) {
     double i, j, k;
 
     i = v.x * r;
@@ -100,7 +110,8 @@ Vector operator*(const double r, const Vector &v) {
     return Vector(i, j, k);
 }
 
-Vector Vector::operator/(const double r) const {
+Vector
+Vector::operator/(const double r) const {
     double i, j, k;
 
     i = this->x / r;
@@ -110,13 +121,15 @@ Vector Vector::operator/(const double r) const {
     return Vector(i, j, k);
 }
 
-double Vector::dot(const Vector &v) const {
+double
+Vector::dot(const Vector &v) const {
     return this->x * v.x +
            this->y * v.y +
            this->z * v.z;
 }
 
-Vector Vector::cross(const Vector &v) const {
+Vector
+Vector::cross(const Vector &v) const {
     double i, j, k;
 
     i = this->y * v.z - this->z * v.y;
@@ -126,7 +139,8 @@ Vector Vector::cross(const Vector &v) const {
     return Vector(i, j, k);
 }
 
-Vector& Vector::operator+=(const Vector &v) {
+Vector&
+Vector::operator+=(const Vector &v) {
     this->x += v.x;
     this->y += v.y;
     this->z += v.z;
@@ -134,7 +148,8 @@ Vector& Vector::operator+=(const Vector &v) {
     return *this;
 }
 
-Vector& Vector::operator*=(const double r) {
+Vector&
+Vector::operator*=(const double r) {
     this->x *= r;
     this->y *= r;
     this->z *= r;
@@ -142,7 +157,8 @@ Vector& Vector::operator*=(const double r) {
     return *this;
 }
 
-Vector& Vector::operator/=(const double r) {
+Vector&
+Vector::operator/=(const double r) {
     this->x /= r;
     this->y /= r;
     this->z /= r;
@@ -150,7 +166,8 @@ Vector& Vector::operator/=(const double r) {
     return *this;
 }
 
-Vector& Vector::operator=(const Vector &v) {
+Vector&
+Vector::operator=(const Vector &v) {
     this->x = v.x;
     this->y = v.y;
     this->z = v.z;
@@ -158,7 +175,8 @@ Vector& Vector::operator=(const Vector &v) {
     return *this;
 }
 
-double Vector::angle(const Vector &v) const {
+double
+Vector::angle(const Vector &v) const {
     double cosine = this->dot(v) / (this->length() * v.length());
 
     if (cosine > 1.0) {
@@ -170,11 +188,13 @@ double Vector::angle(const Vector &v) const {
     return acos(cosine);
 }
 
-double Vector::length() const {
+double
+Vector::length() const {
     return sqrt(pow(this->x, 2.0) + pow(this->y, 2.0) + pow(this->z, 2.0));
 }
 
-Vector Vector::normalised() const {
+Vector
+Vector::normalised() const {
     Vector tmp = (*this);
 
     tmp /= tmp.length();
@@ -182,11 +202,13 @@ Vector Vector::normalised() const {
     return tmp;
 }
 
-void Vector::normalise() {
+void
+Vector::normalise() {
     (*this) /= this->length();
 }
 
-std::ostream& operator<<(std::ostream& o, const Sol::Vector& v) {
+std::ostream&
+operator<<(std::ostream& o, const Sol::Vector& v) {
     o << v.getX();
     o << "i + ";
     o << v.getY();

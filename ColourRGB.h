@@ -72,7 +72,8 @@ public:
     clamp();
 };
 
-std::ostream& operator<<(std::ostream& o, ColourRGB c);
+std::ostream&
+operator<<(std::ostream& o, ColourRGB c);
 
 inline ColourRGB 
 ColourRGB::operator+(const ColourRGB& c) const {
@@ -104,41 +105,41 @@ ColourRGB::operator/(const double r) const {
 
 inline ColourRGB& 
 ColourRGB::operator+=(const ColourRGB& c) {
-    this->red   += c.red;
+    this->red += c.red;
     this->green += c.green;
-    this->blue  += c.blue;
+    this->blue += c.blue;
 
     return *this;
 }
 
 inline ColourRGB& 
 ColourRGB::operator*=(const double r) {
-    this->red   *= r;
+    this->red *= r;
     this->green *= r;
-    this->blue  *= r;
+    this->blue *= r;
 
     return *this;
 }
 
 inline ColourRGB& 
 ColourRGB::operator/=(const double r) {	
-    this->red   /= r;
+    this->red /= r;
     this->green /= r;
-    this->blue  /= r;
+    this->blue /= r;
 
     return *this;
 }
 
 inline bool
 ColourRGB::operator==(const ColourRGB& c) const {
-    return this->red == c.red       && 
-           this->green == c.green   && 
+    return this->red == c.red && 
+           this->green == c.green && 
            this->blue == c.blue;
 }
 
 inline double											
 ColourRGB::average(void) const {
-    return (this->red   + 
+    return (this->red + 
             this->green + 
             this->blue) / 3.0;
 }

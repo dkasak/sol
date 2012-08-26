@@ -76,7 +76,8 @@ ColourRGB::clamp() {
     if (this->blue > 1.0) this->blue = 1.0;
 }
 
-std::ostream& operator<<(std::ostream& o, ColourRGB c) {
+std::ostream&
+operator<<(std::ostream& o, ColourRGB c) {
     std::cout << "Colour(" << c.red << ", " << c.green << ", " << c.blue << ")";
     return o;
 }

@@ -21,7 +21,9 @@
 #include <cmath>
 #include "Sphere.h"
 #include "Debug.h"
+
 using namespace std;
+
 namespace Sol {
 
 const double kEpsilon = 0.01;
@@ -39,15 +41,18 @@ Sphere::Sphere(Point p, double r) {
     this->radius = r;
 }
 
-void Sphere::setRadius(double r) {
+void
+Sphere::setRadius(double r) {
     this->radius = r;
 }
 
-double Sphere::getRadius() const {
+double
+Sphere::getRadius() const {
     return this->radius;
 }
 
-bool Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
+bool
+Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
     Vector o(this->origin.x, this->origin.y, this->origin.z);
     Vector ro(r.origin.x, r.origin.y, r.origin.z);
     Vector dir = r.direction.normalised();

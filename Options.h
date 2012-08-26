@@ -45,7 +45,10 @@ public:
     {}
 };
 
-char *get_option_value(char *, const char *, const char *);
-Options parse_options(int, char **);
+char*
+get_option_value(char*, const char*, const char*);
+
+Options
+parse_options(int, char**);
 
 #endif // SOL_OPTIONS_H

@@ -38,7 +38,6 @@ using namespace std;
 namespace Sol {
 
 class Scene {
-
 private:
     Point origin;
     Screen *screen;
@@ -53,15 +52,33 @@ public:
 
     Scene();
     ~Scene();
-    void setOrigin(const Point p);
-    void setScreen(Screen *s);
-    Screen* getScreen();
-    void addShape(const Shape &s);
-    void addLight(const Light l);
-    void setAmbient(double ambient);
-    void setBackground(ColourRGB background);
-    ColourRGB getBackground();
-    void render();
+
+    void
+    setOrigin(const Point p);
+
+    void
+    setScreen(Screen* s);
+
+    Screen*
+    getScreen();
+
+    void
+    addShape(const Shape& s);
+
+    void
+    addLight(const Light l);
+
+    void
+    setAmbient(double ambient);
+
+    void
+    setBackground(ColourRGB background);
+
+    ColourRGB
+    getBackground();
+
+    void
+    render();
 };
 
 } // namespace Sol

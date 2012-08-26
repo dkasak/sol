@@ -59,9 +59,14 @@ typedef struct {
     uint32_t ncolours_important;
 } dib_header_t;
 
-bool write_bmp(unsigned const char *data, size_t width, size_t height, const char *fname);
-unsigned char *new_image_buffer(size_t width, size_t height);
-void destroy_image_buffer(unsigned char *image);
+bool
+write_bmp(unsigned const char* data, size_t width, size_t height, const char *fname);
+
+unsigned char*
+new_image_buffer(size_t width, size_t height);
+
+void
+destroy_image_buffer(unsigned char* image);
 
 #endif // DBMP_H
 

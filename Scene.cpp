@@ -52,7 +52,7 @@ Scene::getScreen() {
 }
 
 void
-Scene::addShape(const Shape &s) {
+Scene::addShape(const Shape& s) {
     this->objects.push_back(&s);
 }
 
@@ -97,7 +97,7 @@ Scene::render() {
             Ray r(Point(origin.x, origin.y, origin.z - dts), Vector(p.x - origin.x, p.y - origin.y, p.z + dts));
             /* Ray r(p, n); */
             ColourRGB c;
-            Material m;
+            Material *m;
             double distance;
             double min = numeric_limits<double>::max();
             ShadeInfo si;
@@ -111,7 +111,7 @@ Scene::render() {
                     min = distance;
                     si = tmp;
                     m = s->getMaterial();
-                    c = m.getColour();
+                    c = m->getColour();
                     hit = true;
                 }
             }
@@ -124,7 +124,7 @@ Scene::render() {
                     path.normalise();
                     double dot = normal.dot(path);
                     if (dot > 0) {
-                        double diffuse = m.getDiffuse() * dot;
+                        double diffuse = m->getDiffuse() * dot;
                         colour += diffuse * c * l.colour;
                         DEBUG(4, "Diffuse factor:", diffuse);
                         DEBUG(4, "Light colour:", l.colour);
