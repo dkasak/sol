@@ -56,6 +56,7 @@ int main(int argc, char **argv) {
 
     Scene scene;
     scene.setScreen(new Screen(opt.hres, opt.vres));
+    scene.setBackground(ColourRGB(0.1, 0.2, 0.3));
 
     Material m1;
     m1.setDiffuse(1.0);
@@ -107,7 +108,7 @@ int main(int argc, char **argv) {
     image[2] = 0;
 
     DEBUG(1, "Write BMP");
-    write_bmp(image, scene.getScreen()->sizeX, scene.getScreen()->sizeY, "output.bmp");
+    write_bmp(image, scene.getScreen()->sizeX, scene.getScreen()->sizeY, opt.output_filename.c_str());
     destroy_image_buffer(image);
 
     return 0;

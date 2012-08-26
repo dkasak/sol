@@ -29,6 +29,7 @@ Options parse_options(int argc, char **argv) {
     opt.debug_level = DEFAULT_DEBUG_LEVEL;
     opt.hres = DEFAULT_HORIZONTAL_RES;
     opt.vres = DEFAULT_VERTICAL_RES;
+    opt.output_filename = DEFAULT_OUTPUT_FILENAME;
 
     for (int i = 1; i < argc; ++i) {
         char *value;
@@ -53,6 +54,8 @@ Options parse_options(int argc, char **argv) {
                 *(value-1) = '\0';
                 throw InvalidOptionValue(argv[i], value);
             }
+        } else if ((value = get_option_value(argv[i], "-f", "--filename"))) {
+            opt.output_filename = value;
         } else {
             throw InvalidOption(argv[i]);
         }
