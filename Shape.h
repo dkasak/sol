@@ -29,11 +29,11 @@ namespace Sol {
 class Ray;
 
 class Shape {
-
-public:
+protected:
     Point origin;
     Material material;
 
+public:
     Shape();
     Shape(double x, double y, double z);
     Shape(Point p);
@@ -41,6 +41,8 @@ public:
     void move(Point p);
     void setMaterial(const Material &m);
     Material getMaterial() const;
+    void setOrigin(const Point &m);
+    Point getOrigin() const;
 
     virtual bool intersects(const Ray &r, double *tmin, ShadeInfo *si) const = 0;
 };

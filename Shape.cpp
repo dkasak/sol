@@ -46,5 +46,13 @@ Material Shape::getMaterial() const {
     return this->material;
 }
 
+void Shape::setOrigin(const Point &m) {
+    this->origin = m;
+}
+
+Point Shape::getOrigin() const {
+    return this->origin;
+}
+
 } // namespace Sol
 
