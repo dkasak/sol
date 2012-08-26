@@ -33,7 +33,10 @@ Scene::Scene()
     {}
 
 Scene::~Scene() {
-    delete this->screen;
+    if (this->screen) {
+        delete this->screen;
+        this->screen = NULL;
+    }
 }
 
 void 
