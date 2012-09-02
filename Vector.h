@@ -25,10 +25,9 @@
 namespace Sol {
 
 class Vector {
-private:
+public:
     double x, y, z;
 
-public:
     Vector();
     Vector(double x, double y, double z);
 
