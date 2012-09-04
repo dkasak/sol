@@ -36,36 +36,6 @@ Vector::Vector(double x, double y, double z) {
     this->z = z;
 }
 
-double
-Vector::getX() const {
-    return this->x;
-}
-
-double
-Vector::getY() const {
-    return this->y;
-}
-
-double
-Vector::getZ() const {
-    return this->z;
-}
-
-void
-Vector::setX(double x) {
-    this->x = x;
-}
-
-void
-Vector::setY(double y) {
-    this->y = y;
-}
-
-void
-Vector::setZ(double z) {
-    this->z = z;
-}
-
 Vector
 Vector::operator+(const Vector &v) const {
     double i, j, k;
@@ -209,11 +179,11 @@ Vector::normalise() {
 
 std::ostream&
 operator<<(std::ostream& o, const Sol::Vector& v) {
-    o << v.getX();
+    o << v.x;
     o << "i + ";
-    o << v.getY();
+    o << v.y;
     o << "j + ";
-    o << v.getZ();
+    o << v.z;
     o << "k";
 
     return o;
