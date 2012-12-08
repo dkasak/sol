@@ -20,4 +20,4 @@ distclean:
 
 run:	all
 	./sol
-	feh output.bmp
+	sxiv output.bmp
