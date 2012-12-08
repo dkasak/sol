@@ -124,8 +124,21 @@ Scene::render() {
                     const Light &l = this->lights[k];
                     Vector path = l.position - si.hitpoint;
                     Vector normal = si.normal;
-                    path.normalise();
-                    double dot = normal.dot(path);
+                    Vector normalised_path = path.normalised();
+                    hit = false;
+                    min = numeric_limits<double>::max();
+                    r.direction = normalised_path;
+                    r.origin = si.hitpoint;
+                    for (int o = 0; o < this->objects.size(); ++o) {
+                        const Shape *s = this->objects[o];
+                        if (s->intersects(r, &distance, &tmp) && (distance < path.length())) {
+                            hit = true;
+                            break;
+                        }
+                    }
+                    if (hit) continue;
+                    double dot = pow(normal.dot(normalised_path), 1.5);
+                    /* double dot = normal.dot(normalised_path); */
                     if (dot > 0) {
                         double diffuse = m->getDiffuse() * dot;
                         colour += diffuse * c * l.colour;
