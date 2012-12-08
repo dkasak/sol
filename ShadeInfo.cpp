@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2011, 2012 Denis Kasak <denis.kasak@gmail.com>
  * 
