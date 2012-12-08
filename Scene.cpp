@@ -137,8 +137,8 @@ Scene::render() {
                         }
                     }
                     if (hit) continue;
+
                     double dot = pow(normal.dot(normalised_path), 1.5);
-                    /* double dot = normal.dot(normalised_path); */
                     if (dot > 0) {
                         double diffuse = m->getDiffuse() * dot;
                         colour += diffuse * c * l.colour;
