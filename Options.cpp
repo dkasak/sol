@@ -1,6 +1,21 @@
 #include "Options.h"
 #include <cstring>
 #include <cstdlib>
+#include <iostream>
+#include <string>
+
+void
+print_help() {
+    std::string help_string =
+        "Usage: ./sol <OPTION> [<OPTION> ...]\n"                           \
+        "    -d, --debug     Display debug information\n"                  \
+        "    -H, --hres      Specify horizontal resolution of the image\n" \
+        "    -V, --vres      Specify vertical resolution of the image\n"   \
+        "    -f, --filename  Filename to output the resulting image\n"     \
+        "    -h, --help      Display this help information\n";
+
+    std::cout << help_string << std::endl;
+}
 
 char*
 get_option_value(char* option, const char* short_name, const char* long_name) {
@@ -8,11 +23,11 @@ get_option_value(char* option, const char* short_name, const char* long_name) {
      * string we're parsing shouldn't be shorter than (nor equal to) both names
      * of the option.
      */
-    if (strlen(option) <= strlen(short_name) && 
+    if (strlen(option) <= strlen(short_name) &&
         strlen(option) <= strlen(long_name)) {
         return NULL;
     }
-        
+
 
     /* Options are of the format -o=val or --opt=val so we need to skip over
      * the equal sign as well. Also, users can pass NULL as either the
@@ -21,7 +36,7 @@ get_option_value(char* option, const char* short_name, const char* long_name) {
      */
     if (long_name &&
         strncmp(option, long_name, strlen(long_name)) == 0) {
-       
+
         // If there is no equals sign, the option is badly formatted.
         if (*(option + strlen(long_name)) != '=') {
             return NULL;
@@ -29,11 +44,11 @@ get_option_value(char* option, const char* short_name, const char* long_name) {
 
         // Skip over the equal sign.
         return option + strlen(long_name) + 1;
-    } 
-    
+    }
+
     if (short_name &&
         strncmp(option, short_name, strlen(short_name)) == 0) {
-        
+
         // If there is no equals sign, the option is badly formatted.
         if (*(option + strlen(short_name)) != '=') {
             return NULL;
@@ -82,6 +97,9 @@ parse_options(int argc, char** argv) {
             }
         } else if ((value = get_option_value(argv[i], "-f", "--filename"))) {
             opt.output_filename = value;
+        } else if (argv[i] == std::string("-h") || 
+                   argv[i] == std::string("--help")) {
+            print_help();
         } else {
             throw InvalidOption(argv[i]);
         }
