@@ -4,9 +4,9 @@
 
 char*
 get_option_value(char* option, const char* short_name, const char* long_name) {
-    
     /* We should only get options with arguments in here, so the length of the
-     * string we're parsing shouldn't be shorter than both names of the option.
+     * string we're parsing shouldn't be shorter than (nor equal to) both names
+     * of the option.
      */
     if (strlen(option) <= strlen(short_name) && 
         strlen(option) <= strlen(long_name)) {
@@ -15,9 +15,12 @@ get_option_value(char* option, const char* short_name, const char* long_name) {
         
 
     /* Options are of the format -o=val or --opt=val so we need to skip over
-     * the equal sign as well.
+     * the equal sign as well. Also, users can pass NULL as either the
+     * short_name or the long_name to specify that a short or long version of
+     * the option is absent, so we need to check for that.
      */
-    if (strncmp(option, long_name, strlen(long_name)) == 0) {
+    if (long_name &&
+        strncmp(option, long_name, strlen(long_name)) == 0) {
        
         // If there is no equals sign, the option is badly formatted.
         if (*(option + strlen(long_name)) != '=') {
@@ -26,7 +29,10 @@ get_option_value(char* option, const char* short_name, const char* long_name) {
 
         // Skip over the equal sign.
         return option + strlen(long_name) + 1;
-    } else if (strncmp(option, short_name, strlen(short_name)) == 0) {
+    } 
+    
+    if (short_name &&
+        strncmp(option, short_name, strlen(short_name)) == 0) {
         
         // If there is no equals sign, the option is badly formatted.
         if (*(option + strlen(short_name)) != '=') {
@@ -35,9 +41,10 @@ get_option_value(char* option, const char* short_name, const char* long_name) {
 
         // Skip over the equal sign.
         return option + strlen(short_name) + 1;
-    } else {
-        return NULL;
     }
+
+    // No such option.
+    return NULL;
 }
 
 Options
