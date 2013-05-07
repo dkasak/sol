@@ -112,5 +112,9 @@ main(int argc, char **argv) {
     write_bmp(image, scene.getScreen()->sizeX, scene.getScreen()->sizeY, opt.output_filename.c_str());
     destroy_image_buffer(image);
 
+    delete m1;
+    delete m2;
+    delete m3;
+
     return 0;
 }

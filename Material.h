@@ -37,13 +37,16 @@ public:
     getColour() const;
 
     void
-    setColour(const ColourRGB& c);
+    setColour(ColourRGB c);
 
     double
     getDiffuse() const;
 
     void
     setDiffuse(const double diffuse);
+
+    void
+    operator=(const Material& m);
 };
 
 } // namespace Sol

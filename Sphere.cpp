@@ -86,6 +86,7 @@ Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
 
         si->hitpoint = r.origin + t * dir;
         si->normal = (si->hitpoint - this->origin).normalised();
+        si->material = this->material;
 
         DEBUG(2, "  -> hit");
         DEBUG(4, "    distance:", t);

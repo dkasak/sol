@@ -27,12 +27,7 @@ Shape::Shape(double x, double y, double z) : origin(x, y, z) {}
 
 Shape::Shape(Point p) : origin(p.x, p.y, p.x) {}
 
-Shape::~Shape() {
-    if (this->material) {
-        delete this->material;
-        this->material = NULL;
-    }
-}
+Shape::~Shape() {}
 
 void
 Shape::move(double x, double y, double z) {
@@ -49,11 +44,11 @@ Shape::move(Point p) {
 }
 
 void
-Shape::setMaterial(Material* m) {
+Shape::setMaterial(const Material* m) {
     this->material = m;
 }
 
-Material*
+const Material*
 Shape::getMaterial() const {
     return this->material;
 }

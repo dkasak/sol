@@ -33,7 +33,7 @@ Material::getColour() const {
 }
 
 void
-Material::setColour(const ColourRGB& c) {
+Material::setColour(ColourRGB c) {
     this->colour = c;
 }
 
@@ -45,6 +45,12 @@ Material::getDiffuse() const {
 void
 Material::setDiffuse(const double diffuse) {
     this->diffuse = diffuse;
+}
+
+void
+Material::operator=(const Material& m) {
+    this->colour = m.colour;
+    this->diffuse = m.diffuse;
 }
 
 } // namespace Sol

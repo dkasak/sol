@@ -100,10 +100,10 @@ Scene::render() {
             Ray r(Point(origin.x, origin.y, origin.z - dts), Vector(p.x - origin.x, p.y - origin.y, p.z + dts));
             /* Ray r(p, n); */
             ColourRGB c;
-            Material *m;
+            const Material *m;
             double distance;
             double min = numeric_limits<double>::max();
-            ShadeInfo si;
+            ShadeInfo shade;
             ShadeInfo tmp;
             bool hit = false;
 
@@ -112,23 +112,26 @@ Scene::render() {
                 if (s->intersects(r, &distance, &tmp) &&
                     distance < min) {
                     min = distance;
-                    si = tmp;
-                    m = s->getMaterial();
-                    c = m->getColour();
+                    shade = tmp;
                     hit = true;
                 }
             }
+            
             if (hit) {
                 ColourRGB colour;
+
+                m = shade.material;
+                c = m->getColour();
+
                 for (unsigned int k = 0; k < this->lights.size(); ++k) {
                     const Light &l = this->lights[k];
-                    Vector path = l.position - si.hitpoint;
-                    Vector normal = si.normal;
+                    Vector path = l.position - shade.hitpoint;
+                    Vector normal = shade.normal;
                     Vector normalised_path = path.normalised();
                     hit = false;
                     min = numeric_limits<double>::max();
                     r.direction = normalised_path;
-                    r.origin = si.hitpoint;
+                    r.origin = shade.hitpoint;
                     for (int o = 0; o < this->objects.size(); ++o) {
                         const Shape *s = this->objects[o];
                         if (s->intersects(r, &distance, &tmp) && (distance < path.length())) {

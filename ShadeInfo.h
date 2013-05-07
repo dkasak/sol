@@ -23,6 +23,7 @@
 
 #include "Vector.h"
 #include "Point.h"
+#include "Material.h"
 
 namespace Sol {
 
@@ -30,9 +31,11 @@ class ShadeInfo {
 public:
     Vector normal;
     Point hitpoint;
+    const Material *material;
 
     ShadeInfo();
-    ShadeInfo(const Vector& normal, const Point& hitpoint);
+    ShadeInfo(const Vector normal, const Point hitpoint, 
+              const Material *material);
 };
 
 } // namespace Sol
