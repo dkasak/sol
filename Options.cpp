@@ -4,20 +4,37 @@
 
 char*
 get_option_value(char* option, const char* short_name, const char* long_name) {
-    // options are of the format -o=val or --opt=val so we need to skip
-    // over the equal sign as well
+    
+    /* We should only get options with arguments in here, so the length of the
+     * string we're parsing shouldn't be shorter than both names of the option.
+     */
+    if (strlen(option) <= strlen(short_name) && 
+        strlen(option) <= strlen(long_name)) {
+        return NULL;
+    }
+        
+
+    /* Options are of the format -o=val or --opt=val so we need to skip over
+     * the equal sign as well.
+     */
     if (strncmp(option, long_name, strlen(long_name)) == 0) {
-        // if there is no equals sign, the option is badly formatted
-        if (!strchr(option, '=')) {
+       
+        // If there is no equals sign, the option is badly formatted.
+        if (*(option + strlen(long_name)) != '=') {
             return NULL;
         }
-        return option+strlen(long_name)+1;
+
+        // Skip over the equal sign.
+        return option + strlen(long_name) + 1;
     } else if (strncmp(option, short_name, strlen(short_name)) == 0) {
-        // if there is no equals sign, the option is badly formatted
-        if (!strchr(option, '=')) {
+        
+        // If there is no equals sign, the option is badly formatted.
+        if (*(option + strlen(short_name)) != '=') {
             return NULL;
         }
-        return option+strlen(short_name)+1;
+
+        // Skip over the equal sign.
+        return option + strlen(short_name) + 1;
     } else {
         return NULL;
     }
@@ -27,7 +44,7 @@ Options
 parse_options(int argc, char** argv) {
     Options opt;
 
-    // initialize defaults
+    // Initialize defaults.
     opt.debug_level = DEFAULT_DEBUG_LEVEL;
     opt.hres = DEFAULT_HORIZONTAL_RES;
     opt.vres = DEFAULT_VERTICAL_RES;
