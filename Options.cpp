@@ -59,14 +59,14 @@ parse_options(int argc, char** argv) {
                 *(value-1) = '\0';
                 throw InvalidOptionValue(argv[i], value);
             }
-        } else if ((value = get_option_value(argv[i], "-h", "--hres"))) {
+        } else if ((value = get_option_value(argv[i], "-H", "--hres"))) {
             char *tmp;
             opt.hres = strtol(value, &tmp, 10);
             if (*tmp != '\0') {
                 *(value-1) = '\0';
                 throw InvalidOptionValue(argv[i], value);
             }
-        } else if ((value = get_option_value(argv[i], "-v", "--vres"))) {
+        } else if ((value = get_option_value(argv[i], "-V", "--vres"))) {
             char *tmp;
             opt.vres = strtol(value, &tmp, 10);
             if (*tmp != '\0') {
