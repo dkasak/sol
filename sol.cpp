@@ -49,7 +49,7 @@ main(int argc, char **argv) {
         exit(EXIT_SUCCESS);
     } catch (const InvalidOptionValue &e) {
         std::cout << "Invalid option value \"" << e.option_value <<  
-            "\" for option" << e.option_name << std::endl;
+            "\" for option " << e.option_name << std::endl;
         exit(EXIT_SUCCESS);
     }
 
