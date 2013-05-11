@@ -18,41 +18,16 @@
  */
 
 #include "Scene.h"
-#include "Debug.h"
 #include <cstdio>
 #include <cmath>
 #include <limits>
 
 namespace Sol {
 
-Scene::Scene()
-    : origin(Point(0, 0, 0)),
-      screen(new Screen()),
-      background(0.0, 0.0, 0.0),
-      ambientLight(0.0)
-    {}
-
-Scene::~Scene() {
-    if (this->screen) {
-        delete this->screen;
-        this->screen = NULL;
-    }
-}
-
-void 
-Scene::setOrigin(const Point p) {
-    this->origin = p;
-}
-
-void
-Scene::setScreen(Screen* s) {
-    this->screen = s;
-}
-
-Screen*
-Scene::getScreen() {
-    return this->screen;
-}
+Scene::Scene() : 
+    background(0.0, 0.0, 0.0),
+    ambientLight(0.0)
+{}
 
 void
 Scene::addShape(const Shape& s) {
@@ -78,88 +53,5 @@ ColourRGB
 Scene::getBackground() {
     return this->background;
 }
-
-void
-Scene::render() {
-    const unsigned int sizeX = this->screen->sizeX;
-    const unsigned int sizeY = this->screen->sizeY;
-    const double pxSize = this->screen->pixelSize;
-
-    // screen normal
-    /* const Vector n(0, 0, 1); */
-
-    for (unsigned int j = sizeY-1; j != (unsigned int) -1; --j) {
-        for (unsigned int i = 0; i < sizeX; ++i) {
-            DEBUG(2, "Pixel ->", i, j);
-            const double dts = 900; // distance to screen
-            Point p;
-            p.x = origin.x + (((i - (sizeX / 2.0)) + 0.5) * pxSize);
-            p.y = origin.y + (((j - (sizeY / 2.0)) + 0.5) * pxSize);
-            p.z = origin.z;
-
-            Ray r(Point(origin.x, origin.y, origin.z - dts), Vector(p.x - origin.x, p.y - origin.y, p.z + dts));
-            /* Ray r(p, n); */
-            ColourRGB c;
-            const Material *m;
-            double distance;
-            double min = numeric_limits<double>::max();
-            ShadeInfo shade;
-            ShadeInfo tmp;
-            bool hit = false;
-
-            for (unsigned int k = 0; k < this->objects.size(); ++k) {
-                const Shape *s = this->objects[k];
-                if (s->intersects(r, &distance, &tmp) &&
-                    distance < min) {
-                    min = distance;
-                    shade = tmp;
-                    hit = true;
-                }
-            }
-            
-            if (hit) {
-                ColourRGB colour;
-
-                m = shade.material;
-                c = m->getColour();
-
-                for (unsigned int k = 0; k < this->lights.size(); ++k) {
-                    const Light &l = this->lights[k];
-                    Vector path = l.position - shade.hitpoint;
-                    Vector normal = shade.normal;
-                    Vector normalised_path = path.normalised();
-                    hit = false;
-                    min = numeric_limits<double>::max();
-                    r.direction = normalised_path;
-                    r.origin = shade.hitpoint;
-                    for (int o = 0; o < this->objects.size(); ++o) {
-                        const Shape *s = this->objects[o];
-                        if (s->intersects(r, &distance, &tmp) && (distance < path.length())) {
-                            hit = true;
-                            break;
-                        }
-                    }
-                    if (hit) continue;
-
-                    double dot = pow(normal.dot(normalised_path), 1.5);
-                    if (dot > 0) {
-                        double diffuse = m->getDiffuse() * dot;
-                        colour += diffuse * c * l.colour;
-                        DEBUG(4, "Diffuse factor:", diffuse);
-                        DEBUG(4, "Light colour:", l.colour);
-                        DEBUG(4, "Object colour:", c);
-                        DEBUG(3, "Final colour:", colour);
-                    }
-                } 
-
-                colour.clamp();
-                this->image.push_back(colour);
-            } else {
-                this->image.push_back(this->background);
-            }
-
-        }
-    }
-}  
 
 } // namespace Sol

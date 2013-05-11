@@ -39,28 +39,16 @@ namespace Sol {
 
 class Scene {
 private:
-    Point origin;
-    Screen *screen;
-    vector<const Shape *> objects;
-    vector<Light> lights;
     double ambientLight;
     ColourRGB background;
 
 public:
-    // TODO: handle properly with getters
-    vector<ColourRGB> image;
+    // FIXME: this is made public temporarily
+    // until I implement an iterator
+    vector<const Shape *> objects;
+    vector<Light> lights;
 
     Scene();
-    ~Scene();
-
-    void
-    setOrigin(const Point p);
-
-    void
-    setScreen(Screen* s);
-
-    Screen*
-    getScreen();
 
     void
     addShape(const Shape& s);
@@ -76,9 +64,6 @@ public:
 
     ColourRGB
     getBackground();
-
-    void
-    render();
 };
 
 } // namespace Sol

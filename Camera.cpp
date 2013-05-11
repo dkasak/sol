@@ -22,13 +22,11 @@
 namespace Sol {
 
 Camera::Camera(Point p) :
-    position(p),
-    screen()
+    position(p)
 {}
 
 Camera::Camera(double x, double y, double z) :
-    position(Point(x, y, z)),
-    screen()
+    position(Point(x, y, z))
 {}
 
 Point
@@ -48,12 +46,98 @@ Camera::set_position(double x, double y, double z) {
 
 void
 Camera::set_screen(Screen s) {
-    this->screen = screen;
+    this->screen = s;
 }
 
 Screen
 Camera::get_screen() {
     return this->screen;
+}
+
+void
+Camera::render(Scene scene) {
+    const unsigned int sizeX = this->screen.sizeX;
+    const unsigned int sizeY = this->screen.sizeY;
+    const double pxSize = this->screen.pixelSize;
+
+    // screen normal
+    /* const Vector n(0, 0, 1); */
+
+    for (unsigned int j = sizeY-1; j != (unsigned int) -1; --j) {
+        for (unsigned int i = 0; i < sizeX; ++i) {
+            DEBUG(2, "Pixel ->", i, j);
+            const double dts = 800; // distance to screen
+
+            Point p;
+            p.x = (((i - (sizeX / 2.0)) + 0.5) * pxSize);
+            p.y = (((j - (sizeY / 2.0)) + 0.5) * pxSize);
+            p.z = 0.0;
+
+            Ray r(this->position, Vector(p.x, p.y, p.z + dts));
+
+            /* Ray r(p, n); */
+            ColourRGB c;
+            const Material *m;
+            double distance;
+            double min = numeric_limits<double>::max();
+            ShadeInfo shade;
+            ShadeInfo tmp;
+            bool hit = false;
+
+            for (unsigned int k = 0; k < scene.objects.size(); ++k) {
+                const Shape *s = scene.objects[k];
+                if (s->intersects(r, &distance, &tmp) &&
+                    distance < min) {
+                    min = distance;
+                    shade = tmp;
+                    hit = true;
+                }
+            }
+            
+            if (hit) {
+                ColourRGB colour;
+
+                m = shade.material;
+                c = m->getColour();
+
+                for (unsigned int k = 0; k < scene.lights.size(); ++k) {
+                    const Light &l = scene.lights[k];
+                    Vector path = l.position - shade.hitpoint;
+                    Vector normal = shade.normal;
+                    Vector normalised_path = path.normalised();
+                    min = numeric_limits<double>::max();
+                    r.direction = normalised_path;
+                    r.origin = shade.hitpoint;
+
+                    hit = false;
+                    for (int o = 0; o < scene.objects.size(); ++o) {
+                        const Shape *s = scene.objects[o];
+                        if (s->intersects(r, &distance, &tmp) && (distance < path.length())) {
+                            hit = true;
+                            break;
+                        }
+                    }
+                    if (hit) continue;
+
+                    double dot = normal.dot(normalised_path);
+                    if (dot > 0) {
+                        double diffuse = m->getDiffuse() * dot;
+                        colour += diffuse * c * l.colour;
+                        DEBUG(4, "Diffuse factor:", diffuse);
+                        DEBUG(4, "Light colour:", l.colour);
+                        DEBUG(4, "Object colour:", c);
+                        DEBUG(3, "Final colour:", colour);
+                    }
+                } 
+
+                colour.clamp();
+                this->image.push_back(colour);
+            } else {
+                this->image.push_back(scene.getBackground());
+            }
+
+        }
+    }
 }
 
 

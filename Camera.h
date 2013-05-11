@@ -20,8 +20,13 @@
 #ifndef SOL_CAMERA_H
 #define SOL_CAMERA_H
 
+#include <limits>
+
+#include "ColourRGB.h"
+#include "Debug.h"
 #include "Point.h"
 #include "Ray.h"
+#include "Scene.h"
 #include "Screen.h"
 
 namespace Sol {
@@ -41,6 +46,10 @@ public:
 
     void set_screen(Screen s);
     Screen get_screen();
+
+    void render(Scene scene);
+
+    vector<ColourRGB> image;
 };
 
 class OrtographicCamera : public Camera {

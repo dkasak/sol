@@ -17,16 +17,17 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Scene.h"
-#include "Shape.h"
-#include "Screen.h"
-#include "Light.h"
-#include "Ray.h"
-#include "Sphere.h"
-#include "Plane.h"
-#include "Material.h"
+#include "Camera.h"
 #include "ColourRGB.h"
 #include "Debug.h"
+#include "Light.h"
+#include "Material.h"
+#include "Plane.h"
+#include "Ray.h"
+#include "Scene.h"
+#include "Screen.h"
+#include "Shape.h"
+#include "Sphere.h"
 #include "Options.h"
 
 #include <cassert>
@@ -55,8 +56,10 @@ main(int argc, char **argv) {
 
     debug_level = opt.debug_level;
 
+    PerspectiveCamera camera(Point(0.0, 0.0, -900.0));
+    camera.set_screen(Screen(opt.hres, opt.vres));
+
     Scene scene;
-    scene.setScreen(new Screen(opt.hres, opt.vres));
     scene.setBackground(ColourRGB(0.1, 0.2, 0.3));
 
     Material *m1 = new Material();
@@ -88,19 +91,19 @@ main(int argc, char **argv) {
     scene.addLight(l2);
 
     DEBUG(1, "Began rendering");
-    scene.render();
+    camera.render(scene);
     DEBUG(1, "Finished rendering");
 
-    unsigned char *image = new_image_buffer(scene.getScreen()->sizeX, scene.getScreen()->sizeY);
-    assert(scene.image.size() == scene.getScreen()->sizeX * scene.getScreen()->sizeY);
+    unsigned char *image = new_image_buffer(camera.get_screen().sizeX, camera.get_screen().sizeY);
+    assert(camera.image.size() == camera.get_screen().sizeX * camera.get_screen().sizeY);
 
     // Cyan pixel as the first pixel of the rendered image, for orientation
-    scene.image[0] = ColourRGB(0.0, 1.0, 1.0);
+    camera.image[0] = ColourRGB(0.0, 1.0, 1.0);
 
-    for (size_t i = 0; i < scene.image.size(); ++i) {
-        image[3*i] = scene.image[i].red * 255;
-        image[3*i + 1] = scene.image[i].green * 255;
-        image[3*i + 2] = scene.image[i].blue * 255;
+    for (size_t i = 0; i < camera.image.size(); ++i) {
+        image[3*i] = camera.image[i].red * 255;
+        image[3*i + 1] = camera.image[i].green * 255;
+        image[3*i + 2] = camera.image[i].blue * 255;
     }
 
     // Red pixel in top-left corner for testing, to be removed eventually
@@ -109,7 +112,7 @@ main(int argc, char **argv) {
     image[2] = 0;
 
     DEBUG(1, "Write BMP");
-    write_bmp(image, scene.getScreen()->sizeX, scene.getScreen()->sizeY, opt.output_filename.c_str());
+    write_bmp(image, camera.get_screen().sizeX, camera.get_screen().sizeY, opt.output_filename.c_str());
     destroy_image_buffer(image);
 
     delete m1;
