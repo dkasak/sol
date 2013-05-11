@@ -30,6 +30,7 @@ public:
 
     Vector();
     Vector(double x, double y, double z);
+    Vector(const Vector& v);
 
     Vector
     operator+(const Vector& v) const;

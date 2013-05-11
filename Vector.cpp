@@ -36,6 +36,12 @@ Vector::Vector(double x, double y, double z) {
     this->z = z;
 }
 
+Vector::Vector(const Vector& v) {
+    this->x = v.x;
+    this->y = v.y;
+    this->z = v.z;
+}
+
 Vector
 Vector::operator+(const Vector &v) const {
     double i, j, k;
