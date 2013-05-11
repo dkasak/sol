@@ -22,28 +22,56 @@
 namespace Sol {
 
 Camera::Camera(Point p) :
-    position(p)
-    {}
+    position(p),
+    screen()
+{}
 
 Camera::Camera(double x, double y, double z) :
-    position(Point(x, y, z))
-    {}
+    position(Point(x, y, z)),
+    screen()
+{}
+
+Point
+Camera::get_position() {
+    return this->position;
+}
+
+void
+Camera::set_position(Point p) {
+    this->position = p;
+}
+
+void
+Camera::set_position(double x, double y, double z) {
+    this->position = Point(x, y, z);
+}
+
+void
+Camera::set_screen(Screen s) {
+    this->screen = screen;
+}
+
+Screen
+Camera::get_screen() {
+    return this->screen;
+}
+
 
 OrtographicCamera::OrtographicCamera(Point p) :
     Camera(p)
-    {}
+{}
 
 OrtographicCamera::OrtographicCamera(double x, double y, double z) :
     Camera(Point(x, y, z))
-    {}
+{}
 
 PerspectiveCamera::PerspectiveCamera(Point p) :
     Camera(p)
-    {}
+{}
 
 PerspectiveCamera::PerspectiveCamera(double x, double y, double z) :
     Camera(Point(x, y, z))
-    {}
+{}
 
 } // namespace Sol
 

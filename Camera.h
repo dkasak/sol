@@ -27,11 +27,20 @@
 namespace Sol {
 
 class Camera {
+private:
+    Point position;
+    Screen screen; 
+
 public:
     Camera(Point p);
     Camera(double x, double y, double z);
 
-    Point position;
+    Point get_position();
+    void set_position(Point p);
+    void set_position(double x, double y, double z);
+
+    void set_screen(Screen s);
+    Screen get_screen();
 };
 
 class OrtographicCamera : public Camera {
