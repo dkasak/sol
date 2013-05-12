@@ -27,15 +27,15 @@ namespace Sol {
 
 class Light {
 public:
-    Point position;
+    Point3D position;
     ColourRGB colour;
 
-    Light(Point position)
+    Light(Point3D position)
         : position(position),
           colour(1.0, 1.0, 1.0) // white
     {}
 
-    Light(Point position, ColourRGB colour)
+    Light(Point3D position, ColourRGB colour)
         : position(position),
           colour(colour)
     {}

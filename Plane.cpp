@@ -32,7 +32,7 @@ Plane::Plane(Vector3D n) {
     this->normal = n;
 }
 
-Plane::Plane(Point p, Vector3D n) {
+Plane::Plane(Point3D p, Vector3D n) {
     this->origin = p;
     this->normal = n;
 }
@@ -49,9 +49,9 @@ Plane::getNormal() const {
 
 bool
 Plane::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
-    Point p = this->origin;
+    Point3D p = this->origin;
     Vector3D n = this->normal.normalised();
-    Point ro = r.origin;
+    Point3D ro = r.origin;
     Vector3D dir = r.direction.normalised();
 
     DEBUG(2, "[plane]");

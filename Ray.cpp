@@ -24,11 +24,11 @@ namespace Sol {
 // Default constructor
 // Creates a ray from mathematical origin along the x axis
 Ray::Ray() {
-    this->origin = Point();
+    this->origin = Point3D();
     this->direction = Vector3D(1, 0, 0);
 }
 
-Ray::Ray(const Point& p, const Vector3D& d) {
+Ray::Ray(const Point3D& p, const Vector3D& d) {
     this->origin = p;
     this->direction = d;
 }

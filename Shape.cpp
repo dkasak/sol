@@ -25,7 +25,7 @@ Shape::Shape() {}
 
 Shape::Shape(double x, double y, double z) : origin(x, y, z) {}
 
-Shape::Shape(Point p) : origin(p.x, p.y, p.x) {}
+Shape::Shape(Point3D p) : origin(p.x, p.y, p.x) {}
 
 Shape::~Shape() {}
 
@@ -37,7 +37,7 @@ Shape::move(double x, double y, double z) {
 }
 
 void
-Shape::move(Point p) {
+Shape::move(Point3D p) {
     this->origin.x = p.x;
     this->origin.y = p.y;
     this->origin.z = p.z;
@@ -54,11 +54,11 @@ Shape::getMaterial() const {
 }
 
 void
-Shape::setOrigin(const Point& m) {
+Shape::setOrigin(const Point3D& m) {
     this->origin = m;
 }
 
-Point
+Point3D
 Shape::getOrigin() const {
     return this->origin;
 }

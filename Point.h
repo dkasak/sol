@@ -25,7 +25,8 @@
 
 namespace Sol {
 
-typedef Vector3D Point;
+typedef Vector2D Point2D;
+typedef Vector3D Point3D;
 
 } // namespace Sol
 

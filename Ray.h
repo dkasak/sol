@@ -28,11 +28,11 @@ namespace Sol {
 class Ray {
 
 public:
-    Point  origin;
+    Point3D  origin;
     Vector3D direction;
 
     Ray();
-    Ray(const Point& p, const Vector3D& d);
+    Ray(const Point3D& p, const Vector3D& d);
     Ray(const Ray& r);
 
     virtual bool

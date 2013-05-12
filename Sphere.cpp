@@ -36,7 +36,7 @@ Sphere::Sphere(double r) {
     this->radius = r;
 }
 
-Sphere::Sphere(Point p, double r) {
+Sphere::Sphere(Point3D p, double r) {
     this->origin = p;
     this->radius = r;
 }

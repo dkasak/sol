@@ -33,18 +33,18 @@ namespace Sol {
 
 class Camera {
 private:
-    Point position;
+    Point3D position;
     Screen screen; 
 
 public:
-    Camera(Point p);
+    Camera(Point3D p);
     Camera(double x, double y, double z);
 
-    Point
+    Point3D
     get_position();
 
     void
-    set_position(Point p);
+    set_position(Point3D p);
 
     void
     set_position(double x, double y, double z);
@@ -56,7 +56,7 @@ public:
     get_screen();
 
     virtual Ray
-    shoot_ray(Point p) = 0;
+    shoot_ray(Point3D p) = 0;
 
     void
     render(World world);
@@ -66,20 +66,20 @@ public:
 
 class OrtographicCamera : public Camera {
 public:
-    OrtographicCamera(Point p);
+    OrtographicCamera(Point3D p);
     OrtographicCamera(double x, double y, double z);
 
     virtual Ray
-    shoot_ray(Point p);
+    shoot_ray(Point3D p);
 };
 
 class PerspectiveCamera : public Camera {
 public:
-    PerspectiveCamera(Point p);
+    PerspectiveCamera(Point3D p);
     PerspectiveCamera(double x, double y, double z);
 
     virtual Ray
-    shoot_ray(Point p);
+    shoot_ray(Point3D p);
 };
 
 } // namespace Sol

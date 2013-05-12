@@ -33,7 +33,7 @@ private:
 public:
     Sphere();
     Sphere(double r);
-    Sphere(Point p, double r);
+    Sphere(Point3D p, double r);
 
     void
     setRadius(double r);

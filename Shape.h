@@ -30,20 +30,20 @@ class ShadeInfo;
 
 class Shape {
 protected:
-    Point origin;
+    Point3D origin;
     const Material* material;
 
 public:
     Shape();
     Shape(double x, double y, double z);
-    Shape(Point p);
+    Shape(Point3D p);
     virtual ~Shape();
 
     void
     move(double x, double y, double z);
 
     void
-    move(Point p);
+    move(Point3D p);
 
     void
     setMaterial(const Material*);
@@ -52,9 +52,9 @@ public:
     getMaterial() const;
 
     void
-    setOrigin(const Point &m);
+    setOrigin(const Point3D &m);
 
-    Point
+    Point3D
     getOrigin() const;
 
     virtual bool

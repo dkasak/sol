@@ -34,7 +34,7 @@ private:
 public:
     Plane();
     Plane(Vector3D n);
-    Plane(Point p, Vector3D n);
+    Plane(Point3D p, Vector3D n);
 
     void
     setNormal(Vector3D n);

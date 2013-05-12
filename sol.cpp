@@ -56,7 +56,7 @@ main(int argc, char **argv) {
 
     debug_level = opt.debug_level;
 
-    PerspectiveCamera camera(Point(0.0, 0.0, -900.0));
+    PerspectiveCamera camera(Point3D(0.0, 0.0, -900.0));
     camera.set_screen(Screen(opt.hres, opt.vres));
 
     World world;
@@ -74,19 +74,19 @@ main(int argc, char **argv) {
     m3->setDiffuse(1.0);
     m3->setColour(ColourRGB(1.0, 0.1, 0.1));
 
-    Sphere s1(Point(0, 60, 160), 150.0);
-    Sphere s2(Point(300, 200, 400), 150.0);
+    Sphere s1(Point3D(0, 60, 160), 150.0);
+    Sphere s2(Point3D(300, 200, 400), 150.0);
     s1.setMaterial(m1);
     s2.setMaterial(m2);
     world.addShape(s1);
     world.addShape(s2);
 
-    Plane p(Point(0, -100, 0), Vector3D(0.0, 1.0, 0.0)); 
+    Plane p(Point3D(0, -100, 0), Vector3D(0.0, 1.0, 0.0)); 
     p.setMaterial(m3);
     world.addShape(p);
 
-    Light l1(Point(160, 160, 0), ColourRGB(0.5, 0.1, 0.3)*1.6);
-    Light l2(Point(100, 20, 20), ColourRGB(0.5, 0.5, 0.5)*1.6);
+    Light l1(Point3D(160, 160, 0), ColourRGB(0.5, 0.1, 0.3)*1.6);
+    Light l2(Point3D(100, 20, 20), ColourRGB(0.5, 0.5, 0.5)*1.6);
     world.addLight(l1);
     world.addLight(l2);
 

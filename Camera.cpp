@@ -21,27 +21,27 @@
 
 namespace Sol {
 
-Camera::Camera(Point p) :
+Camera::Camera(Point3D p) :
     position(p)
 {}
 
 Camera::Camera(double x, double y, double z) :
-    position(Point(x, y, z))
+    position(Point3D(x, y, z))
 {}
 
-Point
+Point3D
 Camera::get_position() {
     return this->position;
 }
 
 void
-Camera::set_position(Point p) {
+Camera::set_position(Point3D p) {
     this->position = p;
 }
 
 void
 Camera::set_position(double x, double y, double z) {
-    this->position = Point(x, y, z);
+    this->position = Point3D(x, y, z);
 }
 
 void
@@ -67,7 +67,7 @@ Camera::render(World world) {
         for (unsigned int i = 0; i < sizeX; ++i) {
             DEBUG(2, "Pixel ->", i, j);
 
-            Point p;
+            Point3D p;
             p.x = (((i - (sizeX / 2.0)) + 0.5) * pxSize);
             p.y = (((j - (sizeY / 2.0)) + 0.5) * pxSize);
             p.z = 0.0;
@@ -140,33 +140,33 @@ Camera::render(World world) {
 }
 
 
-OrtographicCamera::OrtographicCamera(Point p) :
+OrtographicCamera::OrtographicCamera(Point3D p) :
     Camera(p)
 {}
 
 OrtographicCamera::OrtographicCamera(double x, double y, double z) :
-    Camera(Point(x, y, z))
+    Camera(Point3D(x, y, z))
 {}
 
 Ray
-OrtographicCamera::shoot_ray(Point p) {
+OrtographicCamera::shoot_ray(Point3D p) {
     Vector3D normal(0, 0, 1);
     return Ray(p, normal);
 }
 
 Ray
-PerspectiveCamera::shoot_ray(Point p) {
+PerspectiveCamera::shoot_ray(Point3D p) {
     // FIXME: hardcoded, shouldn't be 
     int dts = 800; 
     return Ray(get_position(), Vector3D(p.x, p.y, p.z + dts));
 }
 
-PerspectiveCamera::PerspectiveCamera(Point p) :
+PerspectiveCamera::PerspectiveCamera(Point3D p) :
     Camera(p)
 {}
 
 PerspectiveCamera::PerspectiveCamera(double x, double y, double z) :
-    Camera(Point(x, y, z))
+    Camera(Point3D(x, y, z))
 {}
 
 } // namespace Sol
