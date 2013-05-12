@@ -28,21 +28,21 @@ namespace Sol {
 
 const double kEpsilon = 0.01;
 
-Plane::Plane(Vector n) {
+Plane::Plane(Vector3D n) {
     this->normal = n;
 }
 
-Plane::Plane(Point p, Vector n) {
+Plane::Plane(Point p, Vector3D n) {
     this->origin = p;
     this->normal = n;
 }
 
 void
-Plane::setNormal(Vector n) {
+Plane::setNormal(Vector3D n) {
     this->normal = n;
 }
 
-Vector
+Vector3D
 Plane::getNormal() const {
     return this->normal;
 }
@@ -50,9 +50,9 @@ Plane::getNormal() const {
 bool
 Plane::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
     Point p = this->origin;
-    Vector n = this->normal.normalised();
+    Vector3D n = this->normal.normalised();
     Point ro = r.origin;
-    Vector dir = r.direction.normalised();
+    Vector3D dir = r.direction.normalised();
 
     DEBUG(2, "[plane]");
     DEBUG(4, "  ray origin:", ro);

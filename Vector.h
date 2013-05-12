@@ -24,54 +24,54 @@
 
 namespace Sol {
 
-class Vector {
+class Vector3D {
 public:
     double x, y, z;
 
-    Vector();
-    Vector(double x, double y, double z);
-    Vector(const Vector& v);
+    Vector3D();
+    Vector3D(double x, double y, double z);
+    Vector3D(const Vector3D& v);
 
-    Vector
-    operator+(const Vector& v) const;
+    Vector3D
+    operator+(const Vector3D& v) const;
 
-    Vector
-    operator-(const Vector& v) const;
+    Vector3D
+    operator-(const Vector3D& v) const;
 
-    Vector
+    Vector3D
     operator*(const double r) const;
 
-    friend Vector
-    operator*(const double r, const Vector& v);
+    friend Vector3D
+    operator*(const double r, const Vector3D& v);
 
-    Vector
+    Vector3D
     operator/(const double r) const;
 
     double
-    dot(const Vector& v) const;
+    dot(const Vector3D& v) const;
 
-    Vector
-    cross(const Vector& v) const;
+    Vector3D
+    cross(const Vector3D& v) const;
 
     double
-    angle(const Vector& v) const;
+    angle(const Vector3D& v) const;
 
-    Vector&
-    operator+=(const Vector& v);
+    Vector3D&
+    operator+=(const Vector3D& v);
 
-    Vector&
+    Vector3D&
     operator*=(const double r);
 
-    Vector&
+    Vector3D&
     operator/=(const double r);
 
-    Vector&
-    operator=(const Vector &v);
+    Vector3D&
+    operator=(const Vector3D &v);
 
     void
     normalise();
 
-    Vector
+    Vector3D
     normalised() const;
 
     double
@@ -79,7 +79,7 @@ public:
 };
 
 std::ostream&
-operator<<(std::ostream& o, const Sol::Vector& v);
+operator<<(std::ostream& o, const Sol::Vector3D& v);
 
 } // namespace Sol
 

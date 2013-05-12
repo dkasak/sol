@@ -29,10 +29,10 @@ class Ray {
 
 public:
     Point  origin;
-    Vector direction;
+    Vector3D direction;
 
     Ray();
-    Ray(const Point& p, const Vector& d);
+    Ray(const Point& p, const Vector3D& d);
     Ray(const Ray& r);
 
     virtual bool

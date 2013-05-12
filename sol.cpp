@@ -81,7 +81,7 @@ main(int argc, char **argv) {
     world.addShape(s1);
     world.addShape(s2);
 
-    Plane p(Point(0, -100, 0), Vector(0.0, 1.0, 0.0)); 
+    Plane p(Point(0, -100, 0), Vector3D(0.0, 1.0, 0.0)); 
     p.setMaterial(m3);
     world.addShape(p);
 

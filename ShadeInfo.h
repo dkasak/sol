@@ -29,12 +29,12 @@ namespace Sol {
 
 class ShadeInfo {
 public:
-    Vector normal;
+    Vector3D normal;
     Point hitpoint;
     const Material *material;
 
     ShadeInfo();
-    ShadeInfo(const Vector normal, const Point hitpoint, 
+    ShadeInfo(const Vector3D normal, const Point hitpoint, 
               const Material *material);
 };
 

@@ -61,7 +61,7 @@ Camera::render(World world) {
     const double pxSize = this->screen.pixelSize;
 
     // screen normal
-    /* const Vector n(0, 0, 1); */
+    /* const Vector3D n(0, 0, 1); */
 
     for (unsigned int j = sizeY-1; j != (unsigned int) -1; --j) {
         for (unsigned int i = 0; i < sizeX; ++i) {
@@ -101,9 +101,9 @@ Camera::render(World world) {
 
                 for (unsigned int k = 0; k < world.lights.size(); ++k) {
                     const Light &l = world.lights[k];
-                    Vector path = l.position - shade.hitpoint;
-                    Vector normal = shade.normal;
-                    Vector normalised_path = path.normalised();
+                    Vector3D path = l.position - shade.hitpoint;
+                    Vector3D normal = shade.normal;
+                    Vector3D normalised_path = path.normalised();
                     min = numeric_limits<double>::max();
                     r.direction = normalised_path;
                     r.origin = shade.hitpoint;
@@ -150,7 +150,7 @@ OrtographicCamera::OrtographicCamera(double x, double y, double z) :
 
 Ray
 OrtographicCamera::shoot_ray(Point p) {
-    Vector normal(0, 0, 1);
+    Vector3D normal(0, 0, 1);
     return Ray(p, normal);
 }
 
@@ -158,7 +158,7 @@ Ray
 PerspectiveCamera::shoot_ray(Point p) {
     // FIXME: hardcoded, shouldn't be 
     int dts = 800; 
-    return Ray(get_position(), Vector(p.x, p.y, p.z + dts));
+    return Ray(get_position(), Vector3D(p.x, p.y, p.z + dts));
 }
 
 PerspectiveCamera::PerspectiveCamera(Point p) :

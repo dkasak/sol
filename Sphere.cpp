@@ -53,9 +53,9 @@ Sphere::getRadius() const {
 
 bool
 Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
-    Vector o(this->origin.x, this->origin.y, this->origin.z);
-    Vector ro(r.origin.x, r.origin.y, r.origin.z);
-    Vector dir = r.direction.normalised();
+    Vector3D o(this->origin.x, this->origin.y, this->origin.z);
+    Vector3D ro(r.origin.x, r.origin.y, r.origin.z);
+    Vector3D dir = r.direction.normalised();
     double b = 2 * (ro - o).dot(dir);
     double c = (ro - o).dot(ro - o) - pow(this->radius, 2.0);
     double d = b * b - 4 * c;

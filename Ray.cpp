@@ -25,10 +25,10 @@ namespace Sol {
 // Creates a ray from mathematical origin along the x axis
 Ray::Ray() {
     this->origin = Point();
-    this->direction = Vector(1, 0, 0);
+    this->direction = Vector3D(1, 0, 0);
 }
 
-Ray::Ray(const Point& p, const Vector& d) {
+Ray::Ray(const Point& p, const Vector3D& d) {
     this->origin = p;
     this->direction = d;
 }

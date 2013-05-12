@@ -29,17 +29,17 @@ namespace Sol {
 class Plane : public Shape {
 
 private:
-    Vector normal;
+    Vector3D normal;
 
 public:
     Plane();
-    Plane(Vector n);
-    Plane(Point p, Vector n);
+    Plane(Vector3D n);
+    Plane(Point p, Vector3D n);
 
     void
-    setNormal(Vector n);
+    setNormal(Vector3D n);
 
-    Vector
+    Vector3D
     getNormal() const;
 
     virtual bool
