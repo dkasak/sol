@@ -24,6 +24,141 @@
 
 namespace Sol {
 
+Vector2D::Vector2D() {
+    this->x = 0;
+    this->y = 0;
+}
+
+Vector2D::Vector2D(double x, double y) {
+    this->x = x;
+    this->y = y;
+}
+
+Vector2D::Vector2D(const Vector2D& v) {
+    this->x = v.x;
+    this->y = v.y;
+}
+
+Vector2D
+Vector2D::operator+(const Vector2D &v) const {
+    double i, j;
+
+    i = this->x + v.x;
+    j = this->y + v.y;
+
+    return Vector2D(i, j);
+}
+
+Vector2D
+Vector2D::operator-(const Vector2D &v) const {
+    double i, j;
+
+    i = this->x - v.x;
+    j = this->y - v.y;
+
+    return Vector2D(i, j);
+}
+
+Vector2D
+Vector2D::operator*(const double r) const {
+    double i, j;
+
+    i = this->x * r;
+    j = this->y * r;
+
+    return Vector2D(i, j);
+}
+
+Vector2D
+operator*(const double r, const Vector2D &v) {
+    double i, j;
+
+    i = v.x * r;
+    j = v.y * r;
+
+    return Vector2D(i, j);
+}
+
+Vector2D
+Vector2D::operator/(const double r) const {
+    double i, j;
+
+    i = this->x / r;
+    j = this->y / r;
+
+    return Vector2D(i, j);
+}
+
+double
+Vector2D::dot(const Vector2D &v) const {
+    return this->x * v.x +
+           this->y * v.y;
+}
+
+Vector2D&
+Vector2D::operator+=(const Vector2D &v) {
+    this->x += v.x;
+    this->y += v.y;
+
+    return *this;
+}
+
+Vector2D&
+Vector2D::operator*=(const double r) {
+    this->x *= r;
+    this->y *= r;
+
+    return *this;
+}
+
+Vector2D&
+Vector2D::operator/=(const double r) {
+    this->x /= r;
+    this->y /= r;
+
+    return *this;
+}
+
+Vector2D&
+Vector2D::operator=(const Vector2D &v) {
+    this->x = v.x;
+    this->y = v.y;
+
+    return *this;
+}
+
+double
+Vector2D::angle(const Vector2D &v) const {
+    double cosine = this->dot(v) / (this->length() * v.length());
+
+    if (cosine > 1.0) {
+        cosine = 1.0;
+    } else if (cosine < -1.0) {
+        cosine = -1.0;
+    }
+
+    return acos(cosine);
+}
+
+double
+Vector2D::length() const {
+    return sqrt(pow(this->x, 2.0) + pow(this->y, 2.0));
+}
+
+Vector2D
+Vector2D::normalised() const {
+    Vector2D tmp = (*this);
+
+    tmp /= tmp.length();
+
+    return tmp;
+}
+
+void
+Vector2D::normalise() {
+    (*this) /= this->length();
+}
+
 Vector3D::Vector3D() {
     this->x = 0;
     this->y = 0;
@@ -181,6 +316,16 @@ Vector3D::normalised() const {
 void
 Vector3D::normalise() {
     (*this) /= this->length();
+}
+
+std::ostream&
+operator<<(std::ostream& o, const Sol::Vector2D& v) {
+    o << v.x;
+    o << "i + ";
+    o << v.y;
+    o << "j";
+
+    return o;
 }
 
 std::ostream&

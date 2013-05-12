@@ -24,6 +24,57 @@
 
 namespace Sol {
 
+class Vector2D {
+public:
+    double x, y;
+
+    Vector2D();
+    Vector2D(double x, double y);
+    Vector2D(const Vector2D& v);
+
+    Vector2D
+    operator+(const Vector2D& v) const;
+
+    Vector2D
+    operator-(const Vector2D& v) const;
+
+    Vector2D
+    operator*(const double r) const;
+
+    friend Vector2D
+    operator*(const double r, const Vector2D& v);
+
+    Vector2D
+    operator/(const double r) const;
+
+    double
+    dot(const Vector2D& v) const;
+
+    double
+    angle(const Vector2D& v) const;
+
+    Vector2D&
+    operator+=(const Vector2D& v);
+
+    Vector2D&
+    operator*=(const double r);
+
+    Vector2D&
+    operator/=(const double r);
+
+    Vector2D&
+    operator=(const Vector2D &v);
+
+    void
+    normalise();
+
+    Vector2D
+    normalised() const;
+
+    double
+    length() const;
+};
+
 class Vector3D {
 public:
     double x, y, z;
@@ -77,6 +128,9 @@ public:
     double
     length() const;
 };
+
+std::ostream&
+operator<<(std::ostream& o, const Sol::Vector2D& v);
 
 std::ostream&
 operator<<(std::ostream& o, const Sol::Vector3D& v);
