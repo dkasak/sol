@@ -66,14 +66,13 @@ Camera::render(Scene scene) {
     for (unsigned int j = sizeY-1; j != (unsigned int) -1; --j) {
         for (unsigned int i = 0; i < sizeX; ++i) {
             DEBUG(2, "Pixel ->", i, j);
-            const double dts = 800; // distance to screen
 
             Point p;
             p.x = (((i - (sizeX / 2.0)) + 0.5) * pxSize);
             p.y = (((j - (sizeY / 2.0)) + 0.5) * pxSize);
             p.z = 0.0;
 
-            Ray r(this->position, Vector(p.x, p.y, p.z + dts));
+            Ray r = shoot_ray(p);
 
             /* Ray r(p, n); */
             ColourRGB c;
@@ -148,6 +147,19 @@ OrtographicCamera::OrtographicCamera(Point p) :
 OrtographicCamera::OrtographicCamera(double x, double y, double z) :
     Camera(Point(x, y, z))
 {}
+
+Ray
+OrtographicCamera::shoot_ray(Point p) {
+    Vector normal(0, 0, 1);
+    return Ray(p, normal);
+}
+
+Ray
+PerspectiveCamera::shoot_ray(Point p) {
+    // FIXME: hardcoded, shouldn't be 
+    int dts = 800; 
+    return Ray(get_position(), Vector(p.x, p.y, p.z + dts));
+}
 
 PerspectiveCamera::PerspectiveCamera(Point p) :
     Camera(p)

@@ -40,14 +40,26 @@ public:
     Camera(Point p);
     Camera(double x, double y, double z);
 
-    Point get_position();
-    void set_position(Point p);
-    void set_position(double x, double y, double z);
+    Point
+    get_position();
 
-    void set_screen(Screen s);
-    Screen get_screen();
+    void
+    set_position(Point p);
 
-    void render(Scene scene);
+    void
+    set_position(double x, double y, double z);
+
+    void
+    set_screen(Screen s);
+
+    Screen
+    get_screen();
+
+    virtual Ray
+    shoot_ray(Point p) = 0;
+
+    void
+    render(Scene scene);
 
     vector<ColourRGB> image;
 };
@@ -56,12 +68,18 @@ class OrtographicCamera : public Camera {
 public:
     OrtographicCamera(Point p);
     OrtographicCamera(double x, double y, double z);
+
+    virtual Ray
+    shoot_ray(Point p);
 };
 
 class PerspectiveCamera : public Camera {
 public:
     PerspectiveCamera(Point p);
     PerspectiveCamera(double x, double y, double z);
+
+    virtual Ray
+    shoot_ray(Point p);
 };
 
 } // namespace Sol
