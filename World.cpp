@@ -17,40 +17,40 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Scene.h"
+#include "World.h"
 #include <cstdio>
 #include <cmath>
 #include <limits>
 
 namespace Sol {
 
-Scene::Scene() : 
+World::World() : 
     background(0.0, 0.0, 0.0),
     ambientLight(0.0)
 {}
 
 void
-Scene::addShape(const Shape& s) {
+World::addShape(const Shape& s) {
     this->objects.push_back(&s);
 }
 
 void
-Scene::addLight(const Light l) {
+World::addLight(const Light l) {
     this->lights.push_back(l);
 }
 
 void
-Scene::setAmbient(double ambient) {
+World::setAmbient(double ambient) {
     this->ambientLight = ambient;
 }
 
 void
-Scene::setBackground(ColourRGB background) {
+World::setBackground(ColourRGB background) {
     this->background = background;
 }
 
 ColourRGB
-Scene::getBackground() {
+World::getBackground() {
     return this->background;
 }
 

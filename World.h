@@ -17,8 +17,8 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SOL_SCENE_H
-#define SOL_SCENE_H
+#ifndef SOL_WORLD_H
+#define SOL_WORLD_H
 
 #include <vector>
 
@@ -37,7 +37,7 @@ using namespace std;
 
 namespace Sol {
 
-class Scene {
+class World {
 private:
     double ambientLight;
     ColourRGB background;
@@ -48,7 +48,7 @@ public:
     vector<const Shape *> objects;
     vector<Light> lights;
 
-    Scene();
+    World();
 
     void
     addShape(const Shape& s);
@@ -68,5 +68,5 @@ public:
 
 } // namespace Sol
 
-#endif // SOL_SCENE_H
+#endif // SOL_WORLD_H
 

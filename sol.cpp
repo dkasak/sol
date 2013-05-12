@@ -24,7 +24,7 @@
 #include "Material.h"
 #include "Plane.h"
 #include "Ray.h"
-#include "Scene.h"
+#include "World.h"
 #include "Screen.h"
 #include "Shape.h"
 #include "Sphere.h"
@@ -59,8 +59,8 @@ main(int argc, char **argv) {
     PerspectiveCamera camera(Point(0.0, 0.0, -900.0));
     camera.set_screen(Screen(opt.hres, opt.vres));
 
-    Scene scene;
-    scene.setBackground(ColourRGB(0.1, 0.2, 0.3));
+    World world;
+    world.setBackground(ColourRGB(0.1, 0.2, 0.3));
 
     Material *m1 = new Material();
     m1->setDiffuse(1.0);
@@ -78,20 +78,20 @@ main(int argc, char **argv) {
     Sphere s2(Point(300, 200, 400), 150.0);
     s1.setMaterial(m1);
     s2.setMaterial(m2);
-    scene.addShape(s1);
-    scene.addShape(s2);
+    world.addShape(s1);
+    world.addShape(s2);
 
     Plane p(Point(0, -100, 0), Vector(0.0, 1.0, 0.0)); 
     p.setMaterial(m3);
-    scene.addShape(p);
+    world.addShape(p);
 
     Light l1(Point(160, 160, 0), ColourRGB(0.5, 0.1, 0.3)*1.6);
     Light l2(Point(100, 20, 20), ColourRGB(0.5, 0.5, 0.5)*1.6);
-    scene.addLight(l1);
-    scene.addLight(l2);
+    world.addLight(l1);
+    world.addLight(l2);
 
     DEBUG(1, "Began rendering");
-    camera.render(scene);
+    camera.render(world);
     DEBUG(1, "Finished rendering");
 
     unsigned char *image = new_image_buffer(camera.get_screen().sizeX, camera.get_screen().sizeY);

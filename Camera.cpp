@@ -55,7 +55,7 @@ Camera::get_screen() {
 }
 
 void
-Camera::render(Scene scene) {
+Camera::render(World world) {
     const unsigned int sizeX = this->screen.sizeX;
     const unsigned int sizeY = this->screen.sizeY;
     const double pxSize = this->screen.pixelSize;
@@ -83,8 +83,8 @@ Camera::render(Scene scene) {
             ShadeInfo tmp;
             bool hit = false;
 
-            for (unsigned int k = 0; k < scene.objects.size(); ++k) {
-                const Shape *s = scene.objects[k];
+            for (unsigned int k = 0; k < world.objects.size(); ++k) {
+                const Shape *s = world.objects[k];
                 if (s->intersects(r, &distance, &tmp) &&
                     distance < min) {
                     min = distance;
@@ -99,8 +99,8 @@ Camera::render(Scene scene) {
                 m = shade.material;
                 c = m->getColour();
 
-                for (unsigned int k = 0; k < scene.lights.size(); ++k) {
-                    const Light &l = scene.lights[k];
+                for (unsigned int k = 0; k < world.lights.size(); ++k) {
+                    const Light &l = world.lights[k];
                     Vector path = l.position - shade.hitpoint;
                     Vector normal = shade.normal;
                     Vector normalised_path = path.normalised();
@@ -109,8 +109,8 @@ Camera::render(Scene scene) {
                     r.origin = shade.hitpoint;
 
                     hit = false;
-                    for (int o = 0; o < scene.objects.size(); ++o) {
-                        const Shape *s = scene.objects[o];
+                    for (int o = 0; o < world.objects.size(); ++o) {
+                        const Shape *s = world.objects[o];
                         if (s->intersects(r, &distance, &tmp) && (distance < path.length())) {
                             hit = true;
                             break;
@@ -132,7 +132,7 @@ Camera::render(Scene scene) {
                 colour.clamp();
                 this->image.push_back(colour);
             } else {
-                this->image.push_back(scene.getBackground());
+                this->image.push_back(world.getBackground());
             }
 
         }
