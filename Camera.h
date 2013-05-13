@@ -27,6 +27,7 @@
 #include "Point.h"
 #include "Ray.h"
 #include "World.h"
+#include "Sampler.h"
 #include "Screen.h"
 
 namespace Sol {

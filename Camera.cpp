@@ -67,74 +67,89 @@ Camera::render(World world) {
         for (unsigned int i = 0; i < sizeX; ++i) {
             DEBUG(2, "Pixel ->", i, j);
 
+            // Calculate lower left corner of pixel
             Point3D p;
-            p.x = (((i - (sizeX / 2.0)) + 0.5) * pxSize);
-            p.y = (((j - (sizeY / 2.0)) + 0.5) * pxSize);
+            p.x = (i - (sizeX / 2.0)) * pxSize;
+            p.y = (j - (sizeY / 2.0)) * pxSize;
             p.z = 0.0;
 
-            Ray r = shoot_ray(p);
+            unsigned int supersamples = 2;
+            RegularSampler sampler(supersamples);
+            unsigned int num_samples = sampler.num_samples();
+            ColourRGB colour;
 
-            /* Ray r(p, n); */
-            ColourRGB c;
-            const Material *m;
-            double distance;
-            double min = numeric_limits<double>::max();
-            ShadeInfo shade;
-            ShadeInfo tmp;
-            bool hit = false;
+            for (auto sample : sampler) {
+                DEBUG(1, "SAMPLE", sample * pxSize);
+                p.x += sample.x * pxSize;
+                p.y += sample.y * pxSize;
 
-            for (unsigned int k = 0; k < world.objects.size(); ++k) {
-                const Shape *s = world.objects[k];
-                if (s->intersects(r, &distance, &tmp) &&
-                    distance < min) {
-                    min = distance;
-                    shade = tmp;
-                    hit = true;
+                Ray r = shoot_ray(p);
+            
+                /* Ray r(p, n); */
+                const Material *m;
+                double distance;
+                double min = numeric_limits<double>::max();
+                ShadeInfo shade;
+                ShadeInfo tmp;
+                bool hit = false;
+
+                for (unsigned int k = 0; k < world.objects.size(); ++k) {
+                    const Shape *s = world.objects[k];
+                    if (s->intersects(r, &distance, &tmp) &&
+                        distance < min) {
+                        min = distance;
+                        shade = tmp;
+                        hit = true;
+                    }
+                }
+                
+                if (hit) {
+                    m = shade.material;
+                    ColourRGB c = m->getColour();
+                    ColourRGB sample_colour;
+
+                    for (unsigned int k = 0; k < world.lights.size(); ++k) {
+                        const Light &l = world.lights[k];
+                        Vector3D path = l.position - shade.hitpoint;
+                        Vector3D normal = shade.normal;
+                        Vector3D normalised_path = path.normalised();
+                        min = numeric_limits<double>::max();
+                        r.direction = normalised_path;
+                        r.origin = shade.hitpoint;
+
+                        bool occluded = false;
+                        for (int o = 0; o < world.objects.size(); ++o) {
+                            const Shape *s = world.objects[o];
+                            if (s->intersects(r, &distance, &tmp) && (distance < path.length())) {
+                                occluded = true;
+                                break;
+                            }
+                        }
+
+                        // If this light source if occluded, skip it
+                        if (occluded)
+                            continue;
+
+                        double dot = normal.dot(normalised_path);
+                        if (dot > 0) {
+                            double diffuse = m->getDiffuse() * dot;
+                            sample_colour += diffuse * c * l.colour;
+                            DEBUG(4, "Diffuse factor:", diffuse);
+                            DEBUG(4, "Light colour:", l.colour);
+                            DEBUG(4, "Object colour:", c);
+                            DEBUG(3, "Sample colour:", sample_colour);
+                        }
+                    } 
+
+                    colour += sample_colour / num_samples;
+                } else {
+                    colour += world.getBackground() / num_samples;
                 }
             }
-            
-            if (hit) {
-                ColourRGB colour;
 
-                m = shade.material;
-                c = m->getColour();
-
-                for (unsigned int k = 0; k < world.lights.size(); ++k) {
-                    const Light &l = world.lights[k];
-                    Vector3D path = l.position - shade.hitpoint;
-                    Vector3D normal = shade.normal;
-                    Vector3D normalised_path = path.normalised();
-                    min = numeric_limits<double>::max();
-                    r.direction = normalised_path;
-                    r.origin = shade.hitpoint;
-
-                    hit = false;
-                    for (int o = 0; o < world.objects.size(); ++o) {
-                        const Shape *s = world.objects[o];
-                        if (s->intersects(r, &distance, &tmp) && (distance < path.length())) {
-                            hit = true;
-                            break;
-                        }
-                    }
-                    if (hit) continue;
-
-                    double dot = normal.dot(normalised_path);
-                    if (dot > 0) {
-                        double diffuse = m->getDiffuse() * dot;
-                        colour += diffuse * c * l.colour;
-                        DEBUG(4, "Diffuse factor:", diffuse);
-                        DEBUG(4, "Light colour:", l.colour);
-                        DEBUG(4, "Object colour:", c);
-                        DEBUG(3, "Final colour:", colour);
-                    }
-                } 
-
-                colour.clamp();
-                this->image.push_back(colour);
-            } else {
-                this->image.push_back(world.getBackground());
-            }
-
+            colour.clamp();
+            this->image.push_back(colour);
+            DEBUG(3, "Final colour:", colour);
         }
     }
 }
@@ -157,8 +172,10 @@ OrtographicCamera::shoot_ray(Point3D p) {
 Ray
 PerspectiveCamera::shoot_ray(Point3D p) {
     // FIXME: hardcoded, shouldn't be 
-    int dts = 800; 
-    return Ray(get_position(), Vector3D(p.x, p.y, p.z + dts));
+    double dts = 20000; 
+    p.z += get_position().z + dts;
+    Vector3D direction = p - get_position();
+    return Ray(get_position(), direction);
 }
 
 PerspectiveCamera::PerspectiveCamera(Point3D p) :
