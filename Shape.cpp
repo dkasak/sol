@@ -44,11 +44,11 @@ Shape::move(Point3D p) {
 }
 
 void
-Shape::setMaterial(const Material* m) {
+Shape::setMaterial(Material m) {
     this->material = m;
 }
 
-const Material*
+Material
 Shape::getMaterial() const {
     return this->material;
 }

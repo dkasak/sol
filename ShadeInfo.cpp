@@ -27,7 +27,7 @@ ShadeInfo::ShadeInfo()
     {}
 
 ShadeInfo::ShadeInfo(const Vector3D normal, const Point3D hitpoint,
-                     const Material *material)
+                     Material material)
     : normal(normal),
       hitpoint(hitpoint),
       material(material)

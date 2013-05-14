@@ -67,17 +67,17 @@ main(int argc, char **argv) {
     World world;
     world.setBackground(ColourRGB(0.1, 0.2, 0.3));
 
-    Material *m1 = new Material();
-    m1->setDiffuse(1.0);
-    m1->setColour(ColourRGB(1.0, 1.0, 1.0));
+    Material m1;
+    m1.setDiffuse(1.0);
+    m1.setColour(ColourRGB(1.0, 1.0, 1.0));
 
-    Material *m2 = new Material();
-    m2->setDiffuse(1.0);
-    m2->setColour(ColourRGB(0.0, 0.9, 0.1));
+    Material m2;
+    m2.setDiffuse(1.0);
+    m2.setColour(ColourRGB(0.0, 0.9, 0.1));
 
-    Material *m3 = new Material();
-    m3->setDiffuse(1.0);
-    m3->setColour(ColourRGB(1.0, 0.1, 0.1));
+    Material m3;
+    m3.setDiffuse(1.0);
+    m3.setColour(ColourRGB(1.0, 0.1, 0.1));
 
     Sphere s1(Point3D(0, 60, 160), 150.0);
     Sphere s2(Point3D(200, 100, 200), 15.0);
@@ -130,10 +130,6 @@ main(int argc, char **argv) {
               camera.get_screen().get_vres(),
               opt.output_filename.c_str());
     destroy_image_buffer(image);
-
-    delete m1;
-    delete m2;
-    delete m3;
 
     return 0;
 }

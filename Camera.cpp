@@ -93,7 +93,7 @@ Camera::render(World world) {
 
                 Ray r = shoot_ray(p);
             
-                const Material *m;
+                Material m;
                 double distance;
                 double min = numeric_limits<double>::max();
                 ShadeInfo shade, tmp;
@@ -111,7 +111,7 @@ Camera::render(World world) {
                 
                 if (hit) {
                     m = shade.material;
-                    ColourRGB c = m->getColour();
+                    ColourRGB c = m.getColour();
                     ColourRGB sample_colour;
 
                     for (unsigned int k = 0; k < world.lights.size(); ++k) {
@@ -138,7 +138,7 @@ Camera::render(World world) {
 
                         double dot = normal.dot(normalised_path);
                         if (dot > 0) {
-                            double diffuse = m->getDiffuse() * dot;
+                            double diffuse = m.getDiffuse() * dot;
                             sample_colour += diffuse * c * l.colour;
                             DEBUG(4, "Diffuse factor:", diffuse);
                             DEBUG(4, "Light colour:", l.colour);

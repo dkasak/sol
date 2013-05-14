@@ -31,11 +31,11 @@ class ShadeInfo {
 public:
     Vector3D normal;
     Point3D hitpoint;
-    const Material *material;
+    Material material;
 
     ShadeInfo();
     ShadeInfo(const Vector3D normal, const Point3D hitpoint, 
-              const Material *material);
+              Material material);
 };
 
 } // namespace Sol

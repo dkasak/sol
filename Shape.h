@@ -31,7 +31,7 @@ class ShadeInfo;
 class Shape {
 protected:
     Point3D origin;
-    const Material* material;
+    Material material;
 
 public:
     Shape();
@@ -46,9 +46,9 @@ public:
     move(Point3D p);
 
     void
-    setMaterial(const Material*);
+    setMaterial(Material);
 
-    const Material*
+    Material
     getMaterial() const;
 
     void
