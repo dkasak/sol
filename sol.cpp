@@ -88,35 +88,7 @@ World build_world() {
     return world;
 }
 
-int
-main(int argc, char **argv) {
-    Options opt;
-    try {
-        opt = parse_options(argc, argv);
-    } catch (const InvalidOption &e) {
-        std::cout << "Invalid option: " << e.option_name << std::endl;
-        exit(EXIT_SUCCESS);
-    } catch (const InvalidOptionValue &e) {
-        std::cout << "Invalid option value \"" << e.option_value <<
-            "\" for option " << e.option_name << std::endl;
-        exit(EXIT_SUCCESS);
-    }
-
-    debug_level = opt.debug_level;
-
-    RegularSampler sampler(opt.supersamples);
-
-    Screen screen = Screen(opt.hres, opt.vres);
-    screen.set_pixel_size(opt.pixel_size);
-
-    PerspectiveCamera camera(Point3D(0.0, 0.0, -500.0), 
-                             &sampler);
-    camera.set_screen(screen);
-
-    DEBUG(1, "Began rendering");
-    camera.render(build_world());
-    DEBUG(1, "Finished rendering");
-
+void output_image(Camera& camera, Options opt) {
     unsigned char *image = new_image_buffer(camera.get_screen().get_hres(),
                                             camera.get_screen().get_vres());
 
@@ -143,6 +115,38 @@ main(int argc, char **argv) {
               camera.get_screen().get_vres(),
               opt.output_filename.c_str());
     destroy_image_buffer(image);
+}
+
+
+int
+main(int argc, char **argv) {
+    Options opt;
+    try {
+        opt = parse_options(argc, argv);
+    } catch (const InvalidOption &e) {
+        std::cout << "Invalid option: " << e.option_name << std::endl;
+        exit(EXIT_SUCCESS);
+    } catch (const InvalidOptionValue &e) {
+        std::cout << "Invalid option value \"" << e.option_value <<
+            "\" for option " << e.option_name << std::endl;
+        exit(EXIT_SUCCESS);
+    }
+
+    debug_level = opt.debug_level;
+
+    Screen screen = Screen(opt.hres, opt.vres);
+    screen.set_pixel_size(opt.pixel_size);
+
+    RegularSampler sampler(opt.supersamples);
+    PerspectiveCamera camera(Point3D(0.0, 0.0, -500.0), 
+                             &sampler);
+    camera.set_screen(screen);
+
+    DEBUG(1, "Began rendering");
+    camera.render(build_world());
+    DEBUG(1, "Finished rendering");
+
+    output_image(camera, opt);
 
     return 0;
 }
