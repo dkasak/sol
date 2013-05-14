@@ -40,31 +40,9 @@ extern "C" {
 
 using namespace Sol;
 
-int
-main(int argc, char **argv) {
-    Options opt;
-    try {
-        opt = parse_options(argc, argv);
-    } catch (const InvalidOption &e) {
-        std::cout << "Invalid option: " << e.option_name << std::endl;
-        exit(EXIT_SUCCESS);
-    } catch (const InvalidOptionValue &e) {
-        std::cout << "Invalid option value \"" << e.option_value <<
-            "\" for option " << e.option_name << std::endl;
-        exit(EXIT_SUCCESS);
-    }
-
-    debug_level = opt.debug_level;
-
-    RegularSampler sampler(opt.supersamples);
-
-    Screen screen = Screen(opt.hres, opt.vres);
-    screen.set_pixel_size(opt.pixel_size);
-
-    PerspectiveCamera camera(Point3D(0.0, 0.0, -500.0), &sampler);
-    camera.set_screen(screen);
-
+World build_world() {
     World world;
+
     world.setBackground(ColourRGB(0.1, 0.2, 0.3));
 
     Material m1;
@@ -107,8 +85,36 @@ main(int argc, char **argv) {
     world.addLight(l2);
     world.addLight(l3);
 
+    return world;
+}
+
+int
+main(int argc, char **argv) {
+    Options opt;
+    try {
+        opt = parse_options(argc, argv);
+    } catch (const InvalidOption &e) {
+        std::cout << "Invalid option: " << e.option_name << std::endl;
+        exit(EXIT_SUCCESS);
+    } catch (const InvalidOptionValue &e) {
+        std::cout << "Invalid option value \"" << e.option_value <<
+            "\" for option " << e.option_name << std::endl;
+        exit(EXIT_SUCCESS);
+    }
+
+    debug_level = opt.debug_level;
+
+    RegularSampler sampler(opt.supersamples);
+
+    Screen screen = Screen(opt.hres, opt.vres);
+    screen.set_pixel_size(opt.pixel_size);
+
+    PerspectiveCamera camera(Point3D(0.0, 0.0, -500.0), 
+                             &sampler);
+    camera.set_screen(screen);
+
     DEBUG(1, "Began rendering");
-    camera.render(world);
+    camera.render(build_world());
     DEBUG(1, "Finished rendering");
 
     unsigned char *image = new_image_buffer(camera.get_screen().get_hres(),
