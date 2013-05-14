@@ -56,21 +56,21 @@ Camera::get_screen() {
 
 void
 Camera::render(World world) {
-    const unsigned int sizeX = this->screen.sizeX;
-    const unsigned int sizeY = this->screen.sizeY;
-    const double pxSize = this->screen.pixelSize;
+    const unsigned int hres = this->screen.get_hres();
+    const unsigned int vres = this->screen.get_vres();
+    const double pixel_size = this->screen.get_pixel_size();
 
     // screen normal
     /* const Vector3D n(0, 0, 1); */
 
-    for (unsigned int j = sizeY-1; j != (unsigned int) -1; --j) {
-        for (unsigned int i = 0; i < sizeX; ++i) {
+    for (unsigned int j = vres-1; j != (unsigned int) -1; --j) {
+        for (unsigned int i = 0; i < hres; ++i) {
             DEBUG(2, "Pixel ->", i, j);
 
             // Calculate lower left corner of pixel
             Point3D p;
-            p.x = (i - (sizeX / 2.0)) * pxSize;
-            p.y = (j - (sizeY / 2.0)) * pxSize;
+            p.x = (i - (hres / 2.0)) * pixel_size;
+            p.y = (j - (vres / 2.0)) * pixel_size;
             p.z = 0.0;
 
             unsigned int supersamples = 2;
@@ -79,9 +79,9 @@ Camera::render(World world) {
             ColourRGB colour;
 
             for (auto sample : sampler) {
-                DEBUG(1, "SAMPLE", sample * pxSize);
-                p.x += sample.x * pxSize;
-                p.y += sample.y * pxSize;
+                DEBUG(1, "SAMPLE", sample * pixel_size);
+                p.x += sample.x * pixel_size;
+                p.y += sample.y * pixel_size;
 
                 Ray r = shoot_ray(p);
             
@@ -89,8 +89,7 @@ Camera::render(World world) {
                 const Material *m;
                 double distance;
                 double min = numeric_limits<double>::max();
-                ShadeInfo shade;
-                ShadeInfo tmp;
+                ShadeInfo shade, tmp;
                 bool hit = false;
 
                 for (unsigned int k = 0; k < world.objects.size(); ++k) {
@@ -172,7 +171,7 @@ OrtographicCamera::shoot_ray(Point3D p) {
 Ray
 PerspectiveCamera::shoot_ray(Point3D p) {
     // FIXME: hardcoded, shouldn't be 
-    double dts = 20000; 
+    double dts = 200;
     p.z += get_position().z + dts;
     Vector3D direction = p - get_position();
     return Ray(get_position(), direction);

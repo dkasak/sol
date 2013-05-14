@@ -25,12 +25,32 @@
 namespace Sol {
 
 class Screen {
-public:
-    unsigned int sizeX, sizeY;
-    double pixelSize;
+private:
+    unsigned int hres, vres;
+    double pixel_size;
 
+public:
     Screen();
-    Screen(int sizeX, int sizeY);
+    Screen(unsigned int hres,
+           unsigned int vres);
+
+    unsigned int
+    get_hres();
+
+    void
+    set_hres(unsigned int hres);
+
+    unsigned int
+    get_vres();
+
+    void
+    set_vres(unsigned int vres);
+
+    double
+    get_pixel_size();
+
+    void
+    set_pixel_size(double pixel_size);
 };
 
 } // namespace Sol

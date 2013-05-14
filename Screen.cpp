@@ -22,15 +22,45 @@
 namespace Sol {
 
 Screen::Screen() :
-    sizeX(0),
-    sizeY(0),
-    pixelSize(1.0)
-    {}
+    hres(0),
+    vres(0),
+    pixel_size(1.0)
+{}
 
-Screen::Screen(int x, int y) :
-    sizeX(x),
-    sizeY(y),
-    pixelSize(1.0)
-    {}
+Screen::Screen(unsigned int x, unsigned int y) :
+    hres(x),
+    vres(y),
+    pixel_size(1.0)
+{}
+
+unsigned int
+Screen::get_hres() {
+    return this->hres;
+}
+
+void
+Screen::set_hres(unsigned int hres) {
+    this->hres = hres;
+}
+
+unsigned int
+Screen::get_vres() {
+    return this->vres;
+}
+
+void
+Screen::set_vres(unsigned int vres) {
+    this->vres = vres;
+}
+
+double
+Screen::get_pixel_size() {
+    return this->pixel_size;
+}
+
+void
+Screen::set_pixel_size(double pixel_size) {
+    this->pixel_size = pixel_size;
+}
 
 } // namespace Sol
