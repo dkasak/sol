@@ -60,9 +60,6 @@ Camera::render(World world) {
     const unsigned int vres = this->screen.get_vres();
     const double pixel_size = this->screen.get_pixel_size();
 
-    // screen normal
-    /* const Vector3D n(0, 0, 1); */
-
     for (unsigned int j = vres-1; j != (unsigned int) -1; --j) {
         for (unsigned int i = 0; i < hres; ++i) {
             DEBUG(2, "Pixel ->", i, j);
@@ -85,7 +82,6 @@ Camera::render(World world) {
 
                 Ray r = shoot_ray(p);
             
-                /* Ray r(p, n); */
                 const Material *m;
                 double distance;
                 double min = numeric_limits<double>::max();
