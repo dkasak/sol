@@ -7,12 +7,14 @@
 void
 print_help() {
     std::string help_string =
-        "Usage: ./sol <OPTION> [<OPTION> ...]\n"                           \
-        "    -d, --debug     Display debug information\n"                  \
-        "    -H, --hres      Specify horizontal resolution of the image\n" \
-        "    -V, --vres      Specify vertical resolution of the image\n"   \
-        "    -f, --filename  Filename to output the resulting image\n"     \
-        "    -h, --help      Display this help information\n";
+        "Usage: ./sol <OPTION> [<OPTION> ...]\n"                               \
+        "    -d, --debug         Display debug information\n"                  \
+        "    -H, --hres          Horizontal resolution of the image\n"         \
+        "    -V, --vres          Vertical resolution of the image\n"           \
+        "    -s, --supersamples  Number of supersamples\n"                     \
+        "    -p, --pixelsize     Size of screen pixels inside the world\n"     \
+        "    -f, --filename      Filename to output the resulting image\n"     \
+        "    -h, --help          Display this help information\n";
 
     std::cout << help_string << std::endl;
 }
@@ -67,10 +69,12 @@ parse_options(int argc, char** argv) {
     Options opt;
 
     // Initialize defaults.
-    opt.debug_level = DEFAULT_DEBUG_LEVEL;
-    opt.hres = DEFAULT_HORIZONTAL_RES;
-    opt.vres = DEFAULT_VERTICAL_RES;
+    opt.debug_level     = DEFAULT_DEBUG_LEVEL;
+    opt.hres            = DEFAULT_HORIZONTAL_RES;
+    opt.vres            = DEFAULT_VERTICAL_RES;
     opt.output_filename = DEFAULT_OUTPUT_FILENAME;
+    opt.pixel_size      = DEFAULT_PIXEL_SIZE;
+    opt.supersamples    = DEFAULT_SUPERSAMPLES;
 
     for (int i = 1; i < argc; ++i) {
         char *value;
@@ -100,6 +104,20 @@ parse_options(int argc, char** argv) {
         } else if (argv[i] == std::string("-h") || 
                    argv[i] == std::string("--help")) {
             print_help();
+        } else if ((value = get_option_value(argv[i], "-s", "--supersamples"))) {
+            char *tmp;
+            opt.supersamples = strtol(value, &tmp, 10);
+            if (*tmp != '\0') {
+                *(value-1) = '\0';
+                throw InvalidOptionValue(argv[i], value);
+            }
+        } else if ((value = get_option_value(argv[i], "-p", "--pixelsize"))) {
+            char *tmp;
+            opt.pixel_size = strtod(value, &tmp);
+            if (*tmp != '\0') {
+                *(value-1) = '\0';
+                throw InvalidOptionValue(argv[i], value);
+            }
         } else {
             throw InvalidOption(argv[i]);
         }

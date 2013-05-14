@@ -56,11 +56,10 @@ main(int argc, char **argv) {
 
     debug_level = opt.debug_level;
 
-    unsigned int supersamples = 2;
-    RegularSampler sampler(supersamples);
+    RegularSampler sampler(opt.supersamples);
 
     Screen screen = Screen(opt.hres, opt.vres);
-    screen.set_pixel_size(1.5);
+    screen.set_pixel_size(opt.pixel_size);
 
     PerspectiveCamera camera(Point3D(0.0, 0.0, -500.0), &sampler);
     camera.set_screen(screen);

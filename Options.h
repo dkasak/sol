@@ -10,12 +10,16 @@ using namespace std;
 #define DEFAULT_DEBUG_LEVEL         0
 #define DEFAULT_HORIZONTAL_RES      640
 #define DEFAULT_VERTICAL_RES        480
+#define DEFAULT_SUPERSAMPLES        1
+#define DEFAULT_PIXEL_SIZE          1.0
 #define DEFAULT_OUTPUT_FILENAME     "output.bmp"
 
 struct Options {
     int debug_level;
     unsigned int hres;
     unsigned int vres;
+    unsigned int supersamples;
+    double pixel_size;
     string output_filename;
 };
 
