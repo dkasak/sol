@@ -36,10 +36,11 @@ class Camera {
 private:
     Point3D position;
     Screen screen; 
+    Sampler* sampler;
 
 public:
-    Camera(Point3D p);
-    Camera(double x, double y, double z);
+    Camera(Point3D p, Sampler* s);
+    Camera(double x, double y, double z, Sampler* s);
 
     Point3D
     get_position();
@@ -56,6 +57,12 @@ public:
     Screen
     get_screen();
 
+    void
+    set_sampler(Sampler* s);
+
+    Sampler*
+    get_sampler();
+
     virtual Ray
     shoot_ray(Point3D p) = 0;
 
@@ -67,8 +74,8 @@ public:
 
 class OrtographicCamera : public Camera {
 public:
-    OrtographicCamera(Point3D p);
-    OrtographicCamera(double x, double y, double z);
+    OrtographicCamera(Point3D p, Sampler* s);
+    OrtographicCamera(double x, double y, double z, Sampler* s);
 
     virtual Ray
     shoot_ray(Point3D p);
@@ -76,8 +83,8 @@ public:
 
 class PerspectiveCamera : public Camera {
 public:
-    PerspectiveCamera(Point3D p);
-    PerspectiveCamera(double x, double y, double z);
+    PerspectiveCamera(Point3D p, Sampler* s);
+    PerspectiveCamera(double x, double y, double z, Sampler* s);
 
     virtual Ray
     shoot_ray(Point3D p);

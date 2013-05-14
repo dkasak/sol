@@ -21,12 +21,14 @@
 
 namespace Sol {
 
-Camera::Camera(Point3D p) :
-    position(p)
+Camera::Camera(Point3D p, Sampler* s) :
+    position(p),
+    sampler(s)
 {}
 
-Camera::Camera(double x, double y, double z) :
-    position(Point3D(x, y, z))
+Camera::Camera(double x, double y, double z, Sampler* s) :
+    position(Point3D(x, y, z)),
+    sampler(s)
 {}
 
 Point3D
@@ -55,6 +57,17 @@ Camera::get_screen() {
 }
 
 void
+Camera::set_sampler(Sampler* s) {
+    this->sampler = s;
+}
+
+Sampler*
+Camera::get_sampler() {
+    return this->sampler;
+}
+
+
+void
 Camera::render(World world) {
     const unsigned int hres = this->screen.get_hres();
     const unsigned int vres = this->screen.get_vres();
@@ -70,12 +83,10 @@ Camera::render(World world) {
             p.y = (j - (vres / 2.0)) * pixel_size;
             p.z = 0.0;
 
-            unsigned int supersamples = 2;
-            RegularSampler sampler(supersamples);
-            unsigned int num_samples = sampler.num_samples();
             ColourRGB colour;
+            unsigned int num_samples = this->sampler->num_samples();
 
-            for (auto sample : sampler) {
+            for (auto sample : *sampler) {
                 DEBUG(1, "SAMPLE", sample * pixel_size);
                 p.x += sample.x * pixel_size;
                 p.y += sample.y * pixel_size;
@@ -150,12 +161,12 @@ Camera::render(World world) {
 }
 
 
-OrtographicCamera::OrtographicCamera(Point3D p) :
-    Camera(p)
+OrtographicCamera::OrtographicCamera(Point3D p, Sampler* s) :
+    Camera(p, s)
 {}
 
-OrtographicCamera::OrtographicCamera(double x, double y, double z) :
-    Camera(Point3D(x, y, z))
+OrtographicCamera::OrtographicCamera(double x, double y, double z, Sampler* s) :
+    Camera(Point3D(x, y, z), s)
 {}
 
 Ray
@@ -173,12 +184,12 @@ PerspectiveCamera::shoot_ray(Point3D p) {
     return Ray(get_position(), direction);
 }
 
-PerspectiveCamera::PerspectiveCamera(Point3D p) :
-    Camera(p)
+PerspectiveCamera::PerspectiveCamera(Point3D p, Sampler* s) :
+    Camera(p, s)
 {}
 
-PerspectiveCamera::PerspectiveCamera(double x, double y, double z) :
-    Camera(Point3D(x, y, z))
+PerspectiveCamera::PerspectiveCamera(double x, double y, double z, Sampler* s) :
+    Camera(Point3D(x, y, z), s)
 {}
 
 } // namespace Sol

@@ -28,19 +28,12 @@
 
 namespace Sol {
 
-/* FIXME: This is empty for now, but once we have more sampler types, we should
- * figure out what the common methods are and move them here.
- */
-class Sampler {};
-
-class RegularSampler : Sampler {
-private:
+class Sampler {
+protected:
     std::vector<Point2D> samples;
     unsigned int n_samples;
 
 public:
-    RegularSampler(unsigned int supersamples);
-
     std::vector<Point2D>::iterator
     begin();
 
@@ -49,6 +42,20 @@ public:
 
     unsigned int
     num_samples();
+
+    const std::vector<Point2D>&
+    get_samples();
+
+    virtual void
+    resample() {};
+};
+
+class RegularSampler : public Sampler {
+public:
+    RegularSampler(unsigned int supersamples);
+
+    void
+    resample();
 };
 
 } // namespace Sol

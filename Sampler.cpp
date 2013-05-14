@@ -21,6 +21,25 @@
 #include "Sampler.h"
 
 namespace Sol {
+std::vector<Point2D>::iterator
+Sampler::begin() {
+    return this->samples.begin();
+}
+
+std::vector<Point2D>::iterator
+Sampler::end() {
+    return this->samples.end();
+}
+
+const std::vector<Point2D>&
+Sampler::get_samples() {
+    return this->samples;
+}
+
+unsigned int
+Sampler::num_samples() {
+    return this->n_samples;
+}
 
 RegularSampler::RegularSampler(unsigned int supersamples) {
     this->n_samples = supersamples * supersamples;
@@ -34,19 +53,10 @@ RegularSampler::RegularSampler(unsigned int supersamples) {
     }
 } 
 
-std::vector<Point2D>::iterator
-RegularSampler::begin() {
-    return this->samples.begin();
-}
-
-std::vector<Point2D>::iterator
-RegularSampler::end() {
-    return this->samples.end();
-}
-
-unsigned int
-RegularSampler::num_samples() {
-    return this->n_samples;
+void
+RegularSampler::resample() {
+    // This is a no-op because there's only one way to sample
+    // a unit square regularly.
 }
 
 } // namespace Sol
