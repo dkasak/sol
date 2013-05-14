@@ -32,12 +32,12 @@ Sampler::end() {
 }
 
 const std::vector<Point2D>&
-Sampler::get_samples() {
+Sampler::get_samples() const {
     return this->samples;
 }
 
 unsigned int
-Sampler::num_samples() {
+Sampler::num_samples() const {
     return this->n_samples;
 }
 

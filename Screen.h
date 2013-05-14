@@ -35,19 +35,19 @@ public:
            unsigned int vres);
 
     unsigned int
-    get_hres();
+    get_hres() const;
 
     void
     set_hres(unsigned int hres);
 
     unsigned int
-    get_vres();
+    get_vres() const;
 
     void
     set_vres(unsigned int vres);
 
     double
-    get_pixel_size();
+    get_pixel_size() const;
 
     void
     set_pixel_size(double pixel_size);

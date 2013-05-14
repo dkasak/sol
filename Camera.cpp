@@ -32,7 +32,7 @@ Camera::Camera(double x, double y, double z, Sampler* s) :
 {}
 
 Point3D
-Camera::get_position() {
+Camera::get_position() const {
     return this->position;
 }
 
@@ -52,7 +52,7 @@ Camera::set_screen(Screen s) {
 }
 
 Screen
-Camera::get_screen() {
+Camera::get_screen() const {
     return this->screen;
 }
 
@@ -62,7 +62,7 @@ Camera::set_sampler(Sampler* s) {
 }
 
 Sampler*
-Camera::get_sampler() {
+Camera::get_sampler() const {
     return this->sampler;
 }
 
@@ -170,13 +170,13 @@ OrtographicCamera::OrtographicCamera(double x, double y, double z, Sampler* s) :
 {}
 
 Ray
-OrtographicCamera::shoot_ray(Point3D p) {
+OrtographicCamera::shoot_ray(Point3D p) const {
     Vector3D normal(0, 0, 1);
     return Ray(p, normal);
 }
 
 Ray
-PerspectiveCamera::shoot_ray(Point3D p) {
+PerspectiveCamera::shoot_ray(Point3D p) const {
     // FIXME: hardcoded, shouldn't be 
     double dts = 200;
     p.z += get_position().z + dts;

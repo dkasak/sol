@@ -41,10 +41,10 @@ public:
     end();
 
     unsigned int
-    num_samples();
+    num_samples() const;
 
     const std::vector<Point2D>&
-    get_samples();
+    get_samples() const;
 
     virtual void
     resample() {};

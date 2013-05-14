@@ -43,7 +43,7 @@ public:
     Camera(double x, double y, double z, Sampler* s);
 
     Point3D
-    get_position();
+    get_position() const;
 
     void
     set_position(Point3D p);
@@ -55,16 +55,16 @@ public:
     set_screen(Screen s);
 
     Screen
-    get_screen();
+    get_screen() const;
 
     void
     set_sampler(Sampler* s);
 
     Sampler*
-    get_sampler();
+    get_sampler() const;
 
     virtual Ray
-    shoot_ray(Point3D p) = 0;
+    shoot_ray(Point3D p) const = 0;
 
     void
     render(World world);
@@ -78,7 +78,7 @@ public:
     OrtographicCamera(double x, double y, double z, Sampler* s);
 
     virtual Ray
-    shoot_ray(Point3D p);
+    shoot_ray(Point3D p) const;
 };
 
 class PerspectiveCamera : public Camera {
@@ -87,7 +87,7 @@ public:
     PerspectiveCamera(double x, double y, double z, Sampler* s);
 
     virtual Ray
-    shoot_ray(Point3D p);
+    shoot_ray(Point3D p) const;
 };
 
 } // namespace Sol

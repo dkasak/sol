@@ -34,7 +34,7 @@ Screen::Screen(unsigned int x, unsigned int y) :
 {}
 
 unsigned int
-Screen::get_hres() {
+Screen::get_hres() const {
     return this->hres;
 }
 
@@ -44,7 +44,7 @@ Screen::set_hres(unsigned int hres) {
 }
 
 unsigned int
-Screen::get_vres() {
+Screen::get_vres() const {
     return this->vres;
 }
 
@@ -54,7 +54,7 @@ Screen::set_vres(unsigned int vres) {
 }
 
 double
-Screen::get_pixel_size() {
+Screen::get_pixel_size() const {
     return this->pixel_size;
 }
 
