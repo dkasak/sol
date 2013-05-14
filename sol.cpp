@@ -117,7 +117,6 @@ void output_image(Camera& camera, Options opt) {
     destroy_image_buffer(image);
 }
 
-
 int
 main(int argc, char **argv) {
     Options opt;
@@ -148,5 +147,5 @@ main(int argc, char **argv) {
 
     output_image(camera, opt);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
