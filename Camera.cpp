@@ -100,8 +100,7 @@ Camera::render(World world) {
                 ShadeInfo shade, tmp;
                 bool hit = false;
 
-                for (unsigned int k = 0; k < world.objects.size(); ++k) {
-                    const Shape *s = world.objects[k];
+                for (const Shape* s : world.objects) {
                     if (s->intersects(r, &distance, &tmp) &&
                         distance < min) {
                         min = distance;
@@ -115,8 +114,7 @@ Camera::render(World world) {
                     ColourRGB c = m.getColour();
                     ColourRGB sample_colour;
 
-                    for (unsigned int k = 0; k < world.lights.size(); ++k) {
-                        const Light &l = world.lights[k];
+                    for (const Light& l : world.lights) {
                         Vector3D path = l.position - shade.hitpoint;
                         Vector3D normal = shade.normal;
                         Vector3D normalised_path = path.normalised();
@@ -125,8 +123,7 @@ Camera::render(World world) {
                         r.origin = shade.hitpoint;
 
                         bool occluded = false;
-                        for (int o = 0; o < world.objects.size(); ++o) {
-                            const Shape *s = world.objects[o];
+                        for (const Shape *s : world.objects) {
                             if (s->intersects(r, &distance, &tmp) && (distance < path.length())) {
                                 occluded = true;
                                 break;
