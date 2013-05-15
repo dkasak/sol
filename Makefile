@@ -9,8 +9,11 @@ sol_objects = sol.o Sampler.o Plane.o ColourRGB.o Light.o Material.o Ray.o World
 all: sol dbmp
 
 sol: $(sol_objects) $(dbmp_objects)
-dbmp : $(dbmp_objects)
-test_dbmp : $(dbmp_objects)
+dbmp: $(dbmp_objects)
+test_dbmp: $(dbmp_objects)
+
+optimized: CXXFLAGS += -O3
+optimized: clean all
 
 clean: 
 	-rm --force *.o test_dbmp sol
