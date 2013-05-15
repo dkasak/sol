@@ -175,19 +175,19 @@ OrtographicCamera::shoot_ray(Point3D p) const {
 
 Ray
 PerspectiveCamera::shoot_ray(Point3D p) const {
-    // FIXME: hardcoded, shouldn't be 
-    double dts = 200;
-    p.z += get_position().z + dts;
+    p.z += get_position().z + this->screen_distance;
     Vector3D direction = p - get_position();
     return Ray(get_position(), direction);
 }
 
 PerspectiveCamera::PerspectiveCamera(Point3D p, Sampler* s) :
-    Camera(p, s)
+    Camera(p, s),
+    screen_distance(1.0)
 {}
 
 PerspectiveCamera::PerspectiveCamera(double x, double y, double z, Sampler* s) :
-    Camera(Point3D(x, y, z), s)
+    Camera(Point3D(x, y, z), s),
+    screen_distance(1.0)
 {}
 
 } // namespace Sol

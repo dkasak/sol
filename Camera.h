@@ -88,6 +88,8 @@ public:
 
     virtual Ray
     shoot_ray(Point3D p) const;
+
+    unsigned int screen_distance;
 };
 
 } // namespace Sol
