@@ -55,8 +55,12 @@ World build_world() {
     m2.setColour(ColourRGB(0.0, 0.9, 0.1));
 
     Material m3;
-    m3.setDiffuse(1.0);
+    m3.setDiffuse(0.9);
     m3.setColour(ColourRGB(1.0, 0.1, 0.1));
+
+    Material m4;
+    m4.setDiffuse(0.9);
+    m4.setColour(ColourRGB(0.7, 0.1, 0.5));
 
     auto s1 = new Sphere(Point3D(0, 0.6, 1.5), 1.5);
     s1->setMaterial(m1);
@@ -64,8 +68,8 @@ World build_world() {
     auto s2 = new Sphere(Point3D(2.0, 1.0, 2.0), 0.15);
     s2->setMaterial(m2);
 
-    auto s3 = new Sphere(Point3D(0, 0, -3.0), 1.2);
-    s3->setMaterial(m3);
+    auto s3 = new Sphere(Point3D(-0.2, -1.3, -3.0), 1.0);
+    s3->setMaterial(m4);
 
     auto p = new Plane(Point3D(0, -1.0, 0), Vector3D(0.0, 1.0, 0.0));
     p->setMaterial(m3);
