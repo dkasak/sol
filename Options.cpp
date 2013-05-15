@@ -2,11 +2,10 @@
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
-#include <string>
 
 void
 print_help() {
-    std::string help_string =
+    string help_string =
         "Usage: ./sol <OPTION> [<OPTION> ...]\n"                               \
         "    -d, --debug         Display debug information\n"                  \
         "    -H, --hres          Horizontal resolution of the image\n"         \
@@ -16,59 +15,72 @@ print_help() {
         "    -f, --filename      Filename to output the resulting image\n"     \
         "    -h, --help          Display this help information\n";
 
-    std::cout << help_string << std::endl;
+    cout << help_string << endl;
 }
 
-char*
-get_option_value(char* option, const char* short_name, const char* long_name) {
-    /* We should only get options with arguments in here, so the length of the
-     * string we're parsing shouldn't be shorter than (nor equal to) both names
-     * of the option.
-     */
-    if (strlen(option) <= strlen(short_name) &&
-        strlen(option) <= strlen(long_name)) {
-        return NULL;
-    }
+bool
+get_option_value(const vector<string>& options, 
+                 size_t& i,
+                 const string& short_name,
+                 const string& long_name,
+                 string& value) {
 
+    string option = options[i];
 
-    /* Options are of the format -o=val or --opt=val so we need to skip over
-     * the equal sign as well. Also, users can pass NULL as either the
-     * short_name or the long_name to specify that a short or long version of
-     * the option is absent, so we need to check for that.
-     */
-    if (long_name &&
-        strncmp(option, long_name, strlen(long_name)) == 0) {
+    /* There are three possible cases:
+     *   1. option is exactly equal to the short or long name. In this case,
+     *      we assume the arguments to the option are passed as separate shell
+     *      arguments.
+     *   2. option contains an equals character. In this case, the option
+     *      argument should immediately follow the equals character.
+     *   3. Finally, option could be longer than both the short and long name,
+     *      and *not* contain the equals character. In this case, the option
+     *      argument should again immediately follow the option name.
+     */ 
 
-        // If there is no equals sign, the option is badly formatted.
-        if (*(option + strlen(long_name)) != '=') {
-            return NULL;
+    size_t p;
+
+    if (option == short_name || option == long_name) {
+        if (i + 1 >= options.size()) {
+            throw MissingOptionValue(option);
+        } else {
+            value = options[++i];   // extract the option value
+            return true;
         }
-
-        // Skip over the equal sign.
-        return option + strlen(long_name) + 1;
+    } else if ((p = option.find('=')) != string::npos) {
+       if (option.substr(0, p) == short_name ||
+           option.substr(0, p) == long_name) {
+           value = option.substr(p+1);
+           if (value.empty()) {
+               throw MissingOptionValue(option.substr(0, p));
+           }
+           return true;
+       } else {
+           return false;
+       }
+    } else {
+       if (option.find(short_name) == 0) {
+           value = option.substr(short_name.length());
+           return true;
+       } else if (option.find(long_name) == 0) {
+           value = option.substr(long_name.length());
+           return true;
+       } else {
+           return false;
+       }
     }
-
-    if (short_name &&
-        strncmp(option, short_name, strlen(short_name)) == 0) {
-
-        // If there is no equals sign, the option is badly formatted.
-        if (*(option + strlen(short_name)) != '=') {
-            return NULL;
-        }
-
-        // Skip over the equal sign.
-        return option + strlen(short_name) + 1;
-    }
-
-    // No such option.
-    return NULL;
 }
 
 Options
 parse_options(int argc, char** argv) {
-    Options opt;
+    // Convert argv to a deque of strings
+    vector<string> options;
+    for (size_t i = 1; i < argc; ++i) {
+        options.push_back(argv[i]);
+    }
 
     // Initialize defaults.
+    Options opt;
     opt.debug_level     = DEFAULT_DEBUG_LEVEL;
     opt.hres            = DEFAULT_HORIZONTAL_RES;
     opt.vres            = DEFAULT_VERTICAL_RES;
@@ -76,50 +88,45 @@ parse_options(int argc, char** argv) {
     opt.pixel_size      = DEFAULT_PIXEL_SIZE;
     opt.supersamples    = DEFAULT_SUPERSAMPLES;
 
-    for (int i = 1; i < argc; ++i) {
-        char *value;
-        if ((value = get_option_value(argv[i], "-d", "--debug"))) {
+    for (size_t i = 0; i < options.size(); ++i) {
+        string value;
+        string option = options[i];
+        if (get_option_value(options, i, "-d", "--debug", value)) {
             char *tmp;
-            opt.debug_level = strtol(value, &tmp, 10);
+            opt.debug_level = strtol(value.c_str(), &tmp, 10);
             if (*tmp != '\0') {
-                *(value-1) = '\0';
-                throw InvalidOptionValue(argv[i], value);
+                throw InvalidOptionValue(option, value);
             }
-        } else if ((value = get_option_value(argv[i], "-H", "--hres"))) {
+        } else if (get_option_value(options, i, "-H", "--hres", value)) {
             char *tmp;
-            opt.hres = strtol(value, &tmp, 10);
+            opt.hres = strtol(value.c_str(), &tmp, 10);
             if (*tmp != '\0') {
-                *(value-1) = '\0';
-                throw InvalidOptionValue(argv[i], value);
+                throw InvalidOptionValue(option, value);
             }
-        } else if ((value = get_option_value(argv[i], "-V", "--vres"))) {
+        } else if (get_option_value(options, i, "-V", "--vres", value)) {
             char *tmp;
-            opt.vres = strtol(value, &tmp, 10);
+            opt.vres = strtol(value.c_str(), &tmp, 10);
             if (*tmp != '\0') {
-                *(value-1) = '\0';
-                throw InvalidOptionValue(argv[i], value);
+                throw InvalidOptionValue(option, value);
             }
-        } else if ((value = get_option_value(argv[i], "-f", "--filename"))) {
+        } else if (get_option_value(options, i, "-f", "--filename", value)) {
             opt.output_filename = value;
-        } else if (argv[i] == std::string("-h") || 
-                   argv[i] == std::string("--help")) {
+        } else if (option == "-h" || option == "--help") {
             print_help();
-        } else if ((value = get_option_value(argv[i], "-s", "--supersamples"))) {
+        } else if (get_option_value(options, i, "-s", "--supersamples", value)) {
             char *tmp;
-            opt.supersamples = strtol(value, &tmp, 10);
+            opt.supersamples = strtol(value.c_str(), &tmp, 10);
             if (*tmp != '\0') {
-                *(value-1) = '\0';
-                throw InvalidOptionValue(argv[i], value);
+                throw InvalidOptionValue(option, value);
             }
-        } else if ((value = get_option_value(argv[i], "-p", "--pixelsize"))) {
+        } else if (get_option_value(options, i, "-p", "--pixelsize", value)) {
             char *tmp;
-            opt.pixel_size = strtod(value, &tmp);
+            opt.pixel_size = strtod(value.c_str(), &tmp);
             if (*tmp != '\0') {
-                *(value-1) = '\0';
-                throw InvalidOptionValue(argv[i], value);
+                throw InvalidOptionValue(option, value);
             }
         } else {
-            throw InvalidOption(argv[i]);
+            throw InvalidOption(option);
         }
     }
 

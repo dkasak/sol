@@ -127,8 +127,12 @@ main(int argc, char **argv) {
         std::cout << "Invalid option: " << e.option_name << std::endl;
         exit(EXIT_SUCCESS);
     } catch (const InvalidOptionValue &e) {
-        std::cout << "Invalid option value \"" << e.option_value <<
-            "\" for option " << e.option_name << std::endl;
+        std::cout << "Invalid option value \"" << e.option_value 
+                  << "\" for option " << e.option_name << std::endl;
+        exit(EXIT_SUCCESS);
+    } catch (const MissingOptionValue &e) {
+        std::cout << "Missing argument for option " << e.option_name 
+                  << std::endl;
         exit(EXIT_SUCCESS);
     }
 

@@ -1,5 +1,6 @@
 #include <exception>
 #include <string>
+#include <vector>
 
 #ifndef SOL_OPTIONS_H
 #define SOL_OPTIONS_H
@@ -28,7 +29,7 @@ public:
     string option_name;
     string option_value;
 
-    InvalidOptionValue(string option_name, string option_value) : 
+    InvalidOptionValue(string option_name, string option_value) :
         option_name(option_name),
         option_value(option_value)
     {}
@@ -41,7 +42,7 @@ class InvalidOption : public std::exception {
 public:
     string option_name;
 
-    InvalidOption(string option_name) : 
+    InvalidOption(string option_name) :
         option_name(option_name)
     {}
 
@@ -49,8 +50,24 @@ public:
     {}
 };
 
-char*
-get_option_value(char*, const char*, const char*);
+class MissingOptionValue : public std::exception {
+public:
+    string option_name;
+
+    MissingOptionValue(string option_name) :
+        option_name(option_name)
+    {}
+
+    ~MissingOptionValue() throw()
+    {}
+};
+
+bool
+get_option_value(const vector<string>& options,
+                 size_t& i,
+                 const string& short_name,
+                 const string& long_name,
+                 string& value);
 
 Options
 parse_options(int, char**);
