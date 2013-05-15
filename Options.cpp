@@ -2,6 +2,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 void
 print_help() {
@@ -23,9 +24,10 @@ get_option_value(const vector<string>& options,
                  size_t& i,
                  const string& short_name,
                  const string& long_name,
+                 string& option,
                  string& value) {
 
-    string option = options[i];
+    string s = options[i];
 
     /* There are three possible cases:
      *   1. option is exactly equal to the short or long name. In this case,
@@ -40,30 +42,34 @@ get_option_value(const vector<string>& options,
 
     size_t p;
 
-    if (option == short_name || option == long_name) {
+    if (s == short_name || s == long_name) {
         if (i + 1 >= options.size()) {
-            throw MissingOptionValue(option);
+            throw MissingOptionValue(s);
         } else {
+            option = options[i];    // extract option name
             value = options[++i];   // extract the option value
             return true;
         }
-    } else if ((p = option.find('=')) != string::npos) {
-       if (option.substr(0, p) == short_name ||
-           option.substr(0, p) == long_name) {
-           value = option.substr(p+1);
+    } else if ((p = s.find('=')) != string::npos) {
+       if (s.substr(0, p) == short_name ||
+           s.substr(0, p) == long_name) {
+           option = s.substr(0, p);
+           value = s.substr(p+1);
            if (value.empty()) {
-               throw MissingOptionValue(option.substr(0, p));
+               throw MissingOptionValue(s.substr(0, p));
            }
            return true;
        } else {
            return false;
        }
     } else {
-       if (option.find(short_name) == 0) {
-           value = option.substr(short_name.length());
+       if (s.find(short_name) == 0) {
+           option = short_name;
+           value = s.substr(short_name.length());
            return true;
-       } else if (option.find(long_name) == 0) {
-           value = option.substr(long_name.length());
+       } else if (s.find(long_name) == 0) {
+           option = long_name;
+           value = s.substr(long_name.length());
            return true;
        } else {
            return false;
@@ -71,8 +77,22 @@ get_option_value(const vector<string>& options,
     }
 }
 
+template <typename T>
+bool parse_number(string value, T& ret) {
+    stringstream ss(value);
+
+    ss >> ret;
+
+    // If everything was parsed, the operation succeeded
+    if (ss.eof()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 Options
-parse_options(int argc, char** argv) {
+parse_options(size_t argc, char** argv) {
     // Convert argv to a deque of strings
     vector<string> options;
     for (size_t i = 1; i < argc; ++i) {
@@ -89,40 +109,29 @@ parse_options(int argc, char** argv) {
     opt.supersamples    = DEFAULT_SUPERSAMPLES;
 
     for (size_t i = 0; i < options.size(); ++i) {
-        string value;
-        string option = options[i];
-        if (get_option_value(options, i, "-d", "--debug", value)) {
-            char *tmp;
-            opt.debug_level = strtol(value.c_str(), &tmp, 10);
-            if (*tmp != '\0') {
+        string value, option;
+        if (get_option_value(options, i, "-d", "--debug", option, value)) {
+            if (!parse_number(value, opt.debug_level)) {
                 throw InvalidOptionValue(option, value);
             }
-        } else if (get_option_value(options, i, "-H", "--hres", value)) {
-            char *tmp;
-            opt.hres = strtol(value.c_str(), &tmp, 10);
-            if (*tmp != '\0') {
+        } else if (get_option_value(options, i, "-H", "--hres", option, value)) {
+            if (!parse_number(value, opt.hres)) {
                 throw InvalidOptionValue(option, value);
             }
-        } else if (get_option_value(options, i, "-V", "--vres", value)) {
-            char *tmp;
-            opt.vres = strtol(value.c_str(), &tmp, 10);
-            if (*tmp != '\0') {
+        } else if (get_option_value(options, i, "-V", "--vres", option, value)) {
+            if (!parse_number(value, opt.vres)) {
                 throw InvalidOptionValue(option, value);
             }
-        } else if (get_option_value(options, i, "-f", "--filename", value)) {
+        } else if (get_option_value(options, i, "-f", "--filename", option, value)) {
             opt.output_filename = value;
         } else if (option == "-h" || option == "--help") {
             print_help();
-        } else if (get_option_value(options, i, "-s", "--supersamples", value)) {
-            char *tmp;
-            opt.supersamples = strtol(value.c_str(), &tmp, 10);
-            if (*tmp != '\0') {
+        } else if (get_option_value(options, i, "-s", "--supersamples", option, value)) {
+            if (!parse_number(value, opt.supersamples)) {
                 throw InvalidOptionValue(option, value);
             }
-        } else if (get_option_value(options, i, "-p", "--pixelsize", value)) {
-            char *tmp;
-            opt.pixel_size = strtod(value.c_str(), &tmp);
-            if (*tmp != '\0') {
+        } else if (get_option_value(options, i, "-p", "--pixelsize", option, value)) {
+            if (!parse_number(value, opt.pixel_size)) {
                 throw InvalidOptionValue(option, value);
             }
         } else {

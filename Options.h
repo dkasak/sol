@@ -26,12 +26,12 @@ struct Options {
 
 class InvalidOptionValue : public exception {
 public:
-    string option_name;
-    string option_value;
+    string name;
+    string value;
 
-    InvalidOptionValue(string option_name, string option_value) :
-        option_name(option_name),
-        option_value(option_value)
+    InvalidOptionValue(string name, string value) :
+        name(name),
+        value(value)
     {}
 
     ~InvalidOptionValue() throw()
@@ -40,10 +40,10 @@ public:
 
 class InvalidOption : public std::exception {
 public:
-    string option_name;
+    string name;
 
-    InvalidOption(string option_name) :
-        option_name(option_name)
+    InvalidOption(string name) :
+        name(name)
     {}
 
     ~InvalidOption() throw()
@@ -52,10 +52,10 @@ public:
 
 class MissingOptionValue : public std::exception {
 public:
-    string option_name;
+    string name;
 
-    MissingOptionValue(string option_name) :
-        option_name(option_name)
+    MissingOptionValue(string name) :
+        name(name)
     {}
 
     ~MissingOptionValue() throw()
@@ -67,9 +67,10 @@ get_option_value(const vector<string>& options,
                  size_t& i,
                  const string& short_name,
                  const string& long_name,
+                 string& option,
                  string& value);
 
 Options
-parse_options(int, char**);
+parse_options(size_t, char**);
 
 #endif // SOL_OPTIONS_H
