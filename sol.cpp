@@ -58,23 +58,23 @@ World build_world() {
     m3.setDiffuse(1.0);
     m3.setColour(ColourRGB(1.0, 0.1, 0.1));
 
-    auto s1 = new Sphere(Point3D(0, 60, 160), 150.0);
+    auto s1 = new Sphere(Point3D(0, 0.6, 1.5), 1.5);
     s1->setMaterial(m1);
 
-    auto s2 = new Sphere(Point3D(200, 100, 200), 15.0);
+    auto s2 = new Sphere(Point3D(2.0, 1.0, 2.0), 0.15);
     s2->setMaterial(m2);
 
-    auto s3 = new Sphere(Point3D(0, 0, -300), 120.0);
+    auto s3 = new Sphere(Point3D(0, 0, -3.0), 1.2);
     s3->setMaterial(m3);
 
-    auto p = new Plane(Point3D(0, -100, 0), Vector3D(0.0, 1.0, 0.0));
+    auto p = new Plane(Point3D(0, -1.0, 0), Vector3D(0.0, 1.0, 0.0));
     p->setMaterial(m3);
 
-    Light l1(Point3D(160, 160, 0),
+    Light l1(Point3D(1.6, 1.6, 0),
              ColourRGB(0.5, 0.5, 0.5)*1.6);
-    Light l2(Point3D(100, 20, 20),
+    Light l2(Point3D(1.0, 0.2, 0.2),
              ColourRGB(0.5, 0.5, 0.5)*1.6);
-    Light l3(Point3D(160, 20, -523),
+    Light l3(Point3D(1.6, 0.2, -5.23),
              ColourRGB(0.5, 0.5, 0.5)*1.8);
 
     world.addShape(s1);
@@ -152,9 +152,10 @@ main(int argc, char **argv) {
     Screen screen = Screen(opt.hres, opt.vres);
     screen.set_pixel_size(opt.pixel_size);
 
-    PerspectiveCamera camera(Point3D(0.0, 0.0, -500.0), 
+    PerspectiveCamera camera(Point3D(0.0, 0.0, -5.0), 
                              sampler);
     camera.set_screen(screen);
+    camera.screen_distance = 2.0;
 
     DEBUG(1, "Began rendering");
     camera.render(build_world());

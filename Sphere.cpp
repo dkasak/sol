@@ -26,7 +26,7 @@ using namespace std;
 
 namespace Sol {
 
-const double kEpsilon = 0.01;
+const double kEpsilon = 0.0001;
 
 Sphere::Sphere() {
     this->radius = 0.0;

@@ -12,7 +12,7 @@ using namespace std;
 #define DEFAULT_HORIZONTAL_RES      640
 #define DEFAULT_VERTICAL_RES        480
 #define DEFAULT_SUPERSAMPLES        1
-#define DEFAULT_PIXEL_SIZE          1.0
+#define DEFAULT_PIXEL_SIZE          0.01
 #define DEFAULT_OUTPUT_FILENAME     "output.bmp"
 
 enum SamplerType { REGULAR, STOCHASTIC };
