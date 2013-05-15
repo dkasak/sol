@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
+#include <boost/algorithm/string.hpp>
 
 void
 print_help() {
@@ -107,6 +108,7 @@ parse_options(size_t argc, char** argv) {
     opt.output_filename = DEFAULT_OUTPUT_FILENAME;
     opt.pixel_size      = DEFAULT_PIXEL_SIZE;
     opt.supersamples    = DEFAULT_SUPERSAMPLES;
+    opt.sampler         = REGULAR;
 
     for (size_t i = 0; i < options.size(); ++i) {
         string value, option;
@@ -124,6 +126,16 @@ parse_options(size_t argc, char** argv) {
             }
         } else if (get_option_value(options, i, "-f", "--filename", option, value)) {
             opt.output_filename = value;
+        } else if (get_option_value(options, i, "-S", "--sampler", option, value)) {
+            string lowercase = value;
+            boost::algorithm::to_lower(lowercase);
+            if (lowercase == "stochastic") {
+                opt.sampler = STOCHASTIC;
+            } else if (lowercase == "regular") {
+                opt.sampler = REGULAR;
+            } else {
+                throw InvalidOptionValue(option, value);
+            }
         } else if (option == "-h" || option == "--help") {
             print_help();
         } else if (get_option_value(options, i, "-s", "--supersamples", option, value)) {

@@ -15,6 +15,8 @@ using namespace std;
 #define DEFAULT_PIXEL_SIZE          1.0
 #define DEFAULT_OUTPUT_FILENAME     "output.bmp"
 
+enum SamplerType { REGULAR, STOCHASTIC };
+
 struct Options {
     int debug_level;
     unsigned int hres;
@@ -22,6 +24,7 @@ struct Options {
     unsigned int supersamples;
     double pixel_size;
     string output_filename;
+    SamplerType sampler;
 };
 
 class InvalidOptionValue : public exception {

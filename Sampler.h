@@ -35,6 +35,9 @@ protected:
     unsigned int n_samples;
 
 public:
+    virtual
+    ~Sampler() {}
+
     std::vector<Point2D>::iterator
     begin();
 
@@ -48,12 +51,13 @@ public:
     get_samples() const;
 
     virtual void
-    resample() {};
+    resample() = 0;
 };
 
 class RegularSampler : public Sampler {
 public:
     RegularSampler(unsigned int supersamples);
+    ~RegularSampler() {}
 
     void
     resample();
@@ -66,6 +70,7 @@ private:
 public:
     StochasticSampler(unsigned int supersamples, 
                       std::function<double()> distribution);
+    ~StochasticSampler() {}
 
     void
     resample();
