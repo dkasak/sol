@@ -29,9 +29,15 @@ World::World() :
     ambientLight(0.0)
 {}
 
+World::~World() {
+    for (auto sp : this->objects) {
+        delete sp;
+    }
+}
+
 void
-World::addShape(const Shape& s) {
-    this->objects.push_back(&s);
+World::addShape(const Shape* s) {
+    this->objects.push_back(s);
 }
 
 void

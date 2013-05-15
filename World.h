@@ -49,9 +49,10 @@ public:
     vector<Light> lights;
 
     World();
+    ~World();
 
     void
-    addShape(const Shape& s);
+    addShape(const Shape* s);
 
     void
     addLight(const Light l);
