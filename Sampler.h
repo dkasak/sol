@@ -23,6 +23,7 @@
 
 #include <cmath>
 #include <vector>
+#include <functional>
 
 #include "Point.h"
 
@@ -53,6 +54,18 @@ public:
 class RegularSampler : public Sampler {
 public:
     RegularSampler(unsigned int supersamples);
+
+    void
+    resample();
+};
+
+class StochasticSampler : public Sampler {
+private:
+    std::function<double()> distribution;
+    
+public:
+    StochasticSampler(unsigned int supersamples, 
+                      std::function<double()> distribution);
 
     void
     resample();

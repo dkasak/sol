@@ -33,6 +33,7 @@
 #include <cassert>
 #include <cstring>
 #include <cstdlib>
+#include <random>
 
 extern "C" {
 #include "dbmp.h"
@@ -131,12 +132,17 @@ main(int argc, char **argv) {
         exit(EXIT_SUCCESS);
     }
 
+    std::random_device rd;
+    std::mt19937 rng(rd());
+    std::uniform_real_distribution<double> distribution(0, 1);
+    auto generator = [&rng, &distribution]() { return distribution(rng); };
+
     debug_level = opt.debug_level;
 
     Screen screen = Screen(opt.hres, opt.vres);
     screen.set_pixel_size(opt.pixel_size);
 
-    RegularSampler sampler(opt.supersamples);
+    StochasticSampler sampler(opt.supersamples, generator);
     PerspectiveCamera camera(Point3D(0.0, 0.0, -500.0), 
                              &sampler);
     camera.set_screen(screen);

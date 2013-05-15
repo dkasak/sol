@@ -59,4 +59,23 @@ RegularSampler::resample() {
     // a unit square regularly.
 }
 
+StochasticSampler::StochasticSampler(unsigned int supersamples, 
+                                     std::function<double()> distribution) {
+    this->n_samples = supersamples;
+    this->samples.reserve(this->n_samples);
+    this->distribution = distribution;
+
+    resample();
+} 
+
+void
+StochasticSampler::resample() {
+    this->samples.clear();
+
+    for (unsigned int i = 0; i < this->n_samples; ++i) {
+        this->samples.push_back(Point2D(this->distribution(),
+                                        this->distribution()));
+    }
+}
+
 } // namespace Sol

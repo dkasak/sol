@@ -85,6 +85,7 @@ Camera::render(World world) {
 
             ColourRGB colour;
             unsigned int num_samples = this->sampler->num_samples();
+            this->sampler->resample();
 
             for (auto sample : *sampler) {
                 DEBUG(1, "SAMPLE", sample * pixel_size);
