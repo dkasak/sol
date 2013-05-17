@@ -1,0 +1,13 @@
+1. (from http://www.flipcode.com/archives/Raytracing_Topics_Techniques-Part_5_Soft_Shadows.shtml)
+
+Keep this in mind: 
+    FindNearest( Ray( a_IP + a_Dir * EPSILON, a_Dir, ++m_CurID ), tdist, prim );
+
+This is from code checking for occlusion of a light source. Notice how he sets
+the origin of the ray to EPSILON away from the original hit point. This is
+presumably so the scattered ray doesn't hit the original object again. I don't
+seem to have this problem, but this is something that I should keep in mind
+should I start encountering weird bugs.
+
+
+    
