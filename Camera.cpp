@@ -66,7 +66,6 @@ Camera::get_sampler() const {
     return this->sampler;
 }
 
-
 void
 Camera::render(World world) {
     const unsigned int hres = this->screen.get_hres();
@@ -94,23 +93,26 @@ Camera::render(World world) {
 
                 Ray r = shoot_ray(p);
             
-                Material m;
+                ShadeInfo shade;
+                const Shape *shape;
+                bool hit = false;
                 double distance;
                 double min = numeric_limits<double>::max();
-                ShadeInfo shade, tmp;
-                bool hit = false;
 
                 for (const Shape* s : world.objects) {
-                    if (s->intersects(r, &distance, &tmp) &&
+                    ShadeInfo si;
+
+                    if (s->intersects(r, &distance, &si) &&
                         distance < min) {
                         min = distance;
-                        shade = tmp;
+                        shape = s;
+                        shade = si;
                         hit = true;
                     }
                 }
                 
                 if (hit) {
-                    m = shade.material;
+                    Material m = shape->getMaterial();
                     ColourRGB c = m.getColour();
                     ColourRGB sample_colour;
 
@@ -124,7 +126,10 @@ Camera::render(World world) {
 
                         bool occluded = false;
                         for (const Shape *s : world.objects) {
-                            if (s->intersects(r, &distance, &tmp) && (distance < path.length())) {
+                            ShadeInfo si;
+
+                            if (s->intersects(r, &distance, &si) && 
+                                distance < path.length()) {
                                 occluded = true;
                                 break;
                             }
@@ -191,6 +196,3 @@ PerspectiveCamera::PerspectiveCamera(double x, double y, double z, Sampler* s) :
 {}
 
 } // namespace Sol
-
-
-

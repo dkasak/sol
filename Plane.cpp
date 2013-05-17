@@ -70,7 +70,6 @@ Plane::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
     if (fabs(den) > kEpsilon && t > kEpsilon) {
         si->hitpoint = r.origin + t * dir;
         si->normal = n;
-        si->material = this->material;
 
         DEBUG(2, "  -> hit");
         DEBUG(4, "    distance:", t);

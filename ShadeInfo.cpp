@@ -26,11 +26,9 @@ ShadeInfo::ShadeInfo()
       hitpoint(0, 0, 0)
     {}
 
-ShadeInfo::ShadeInfo(const Vector3D normal, const Point3D hitpoint,
-                     Material material)
+ShadeInfo::ShadeInfo(const Vector3D normal, const Point3D hitpoint)
     : normal(normal),
-      hitpoint(hitpoint),
-      material(material)
+      hitpoint(hitpoint)
     {}
 
 } // namespace Sol
