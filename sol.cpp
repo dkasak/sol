@@ -41,10 +41,10 @@ extern "C" {
 
 using namespace Sol;
 
-World build_world() {
-    World world;
+World* build_world() {
+    World* world = new World;
 
-    world.setBackground(ColourRGB(0.1, 0.2, 0.3));
+    world->setBackground(ColourRGB(0.1, 0.2, 0.3));
 
     Material m1;
     m1.setDiffuse(1.0);
@@ -81,14 +81,14 @@ World build_world() {
     Light l3(Point3D(1.6, 0.2, -5.23),
              ColourRGB(0.5, 0.5, 0.5)*1.8);
 
-    world.addShape(s1);
-    world.addShape(s2);
-    world.addShape(s3);
-    world.addShape(p);
+    world->addShape(s1);
+    world->addShape(s2);
+    world->addShape(s3);
+    world->addShape(p);
 
-    world.addLight(l1);
-    world.addLight(l2);
-    world.addLight(l3);
+    world->addLight(l1);
+    world->addLight(l2);
+    world->addLight(l3);
 
     return world;
 }
@@ -161,12 +161,15 @@ main(int argc, char **argv) {
     camera.set_screen(screen);
     camera.screen_distance = 2.0;
 
+    World* world = build_world();
+
     DEBUG(1, "Began rendering");
-    camera.render(build_world());
+    camera.render(world);
     DEBUG(1, "Finished rendering");
 
     output_image(camera, opt);
 
+    delete world;
     delete sampler;
 
     return EXIT_SUCCESS;

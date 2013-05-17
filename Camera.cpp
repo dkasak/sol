@@ -67,7 +67,7 @@ Camera::get_sampler() const {
 }
 
 void
-Camera::render(World world) {
+Camera::render(World* world) {
     const unsigned int hres = this->screen.get_hres();
     const unsigned int vres = this->screen.get_vres();
     const double pixel_size = this->screen.get_pixel_size();
@@ -91,69 +91,9 @@ Camera::render(World world) {
                 p.x += sample.x * pixel_size;
                 p.y += sample.y * pixel_size;
 
-                Ray r = shoot_ray(p);
-            
-                ShadeInfo shade;
-                const Shape *shape;
-                bool hit = false;
-                double distance;
-                double min = numeric_limits<double>::max();
-
-                for (const Shape* s : world.objects) {
-                    ShadeInfo si;
-
-                    if (s->intersects(r, &distance, &si) &&
-                        distance < min) {
-                        min = distance;
-                        shape = s;
-                        shade = si;
-                        hit = true;
-                    }
-                }
-                
-                if (hit) {
-                    Material m = shape->getMaterial();
-                    ColourRGB c = m.getColour();
-                    ColourRGB sample_colour;
-
-                    for (const Light& l : world.lights) {
-                        Vector3D path = l.position - shade.hitpoint;
-                        Vector3D normal = shade.normal;
-                        Vector3D normalised_path = path.normalised();
-                        min = numeric_limits<double>::max();
-                        r.direction = normalised_path;
-                        r.origin = shade.hitpoint;
-
-                        bool occluded = false;
-                        for (const Shape *s : world.objects) {
-                            ShadeInfo si;
-
-                            if (s->intersects(r, &distance, &si) && 
-                                distance < path.length()) {
-                                occluded = true;
-                                break;
-                            }
-                        }
-
-                        // If this light source if occluded, skip it
-                        if (occluded)
-                            continue;
-
-                        double dot = normal.dot(normalised_path);
-                        if (dot > 0) {
-                            double diffuse = m.getDiffuse() * dot;
-                            sample_colour += diffuse * c * l.colour;
-                            DEBUG(4, "Diffuse factor:", diffuse);
-                            DEBUG(4, "Light colour:", l.colour);
-                            DEBUG(4, "Object colour:", c);
-                            DEBUG(3, "Sample colour:", sample_colour);
-                        }
-                    } 
-
-                    colour += sample_colour / num_samples;
-                } else {
-                    colour += world.getBackground() / num_samples;
-                }
+                Ray ray = shoot_ray(p);
+                RayCaster tracer;
+                colour += tracer.ray_trace(ray, world) / num_samples;
             }
 
             colour.clamp();

@@ -26,9 +26,10 @@
 #include "Debug.h"
 #include "Point.h"
 #include "Ray.h"
-#include "World.h"
 #include "Sampler.h"
 #include "Screen.h"
+#include "Tracer.h"
+#include "World.h"
 
 namespace Sol {
 
@@ -67,7 +68,7 @@ public:
     shoot_ray(Point3D p) const = 0;
 
     void
-    render(World world);
+    render(World* world);
 
     vector<ColourRGB> image;
 };
