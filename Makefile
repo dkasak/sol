@@ -23,4 +23,4 @@ distclean:
 
 run:	all
 	./sol
-	sxiv output.bmp
+	sxiv -p output.bmp
