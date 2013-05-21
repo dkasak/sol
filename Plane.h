@@ -21,7 +21,7 @@
 #define SOL_PLANE_H
 
 #include "Shape.h"
-#include "ShadeInfo.h"
+#include "Intersection.h"
 #include "Ray.h"
 
 namespace Sol {
@@ -43,7 +43,7 @@ public:
     getNormal() const;
 
     bool
-    intersects(const Ray &r, double *distance = nullptr, ShadeInfo *si = nullptr) const;
+    intersects(const Ray &r, double *distance = nullptr, Intersection *si = nullptr) const;
 };
 
 } // namespace Sol

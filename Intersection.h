@@ -1,3 +1,4 @@
+
 /**
  * Copyright 2011, 2012 Denis Kasak <denis.kasak@gmail.com>
  * 
@@ -17,19 +18,24 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ShadeInfo.h"
+#ifndef SOL_INTERSECTION_H
+#define SOL_INTERSECTION_H
+
+#include "Vector.h"
+#include "Point.h"
 
 namespace Sol {
 
-ShadeInfo::ShadeInfo()
-    : normal(0, 0, 0),
-      hitpoint(0, 0, 0)
-    {}
+class Intersection {
+public:
+    Vector3D normal;
+    Point3D hitpoint;
 
-ShadeInfo::ShadeInfo(const Vector3D normal, const Point3D hitpoint)
-    : normal(normal),
-      hitpoint(hitpoint)
-    {}
+    Intersection();
+    Intersection(const Vector3D normal, const Point3D hitpoint);
+};
 
 } // namespace Sol
+
+#endif // SOL_INTERSECTION_H
 

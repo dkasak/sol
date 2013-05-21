@@ -21,7 +21,7 @@
 #define SOL_SPHERE_H
 
 #include "Shape.h"
-#include "ShadeInfo.h"
+#include "Intersection.h"
 #include "Ray.h"
 
 namespace Sol {
@@ -42,7 +42,7 @@ public:
     getRadius() const;
 
     virtual bool
-    intersects(const Ray &r, double *distance = nullptr, ShadeInfo *si = nullptr) const;
+    intersects(const Ray &r, double *distance = nullptr, Intersection *si = nullptr) const;
 };
 
 } // namespace Sol

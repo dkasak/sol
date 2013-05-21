@@ -26,20 +26,20 @@ namespace Sol {
     
 ColourRGB
 RayCaster::ray_trace(Ray ray, World* world) {
-    ShadeInfo shade;
+    Intersection intersection;
     const Shape* shape;
     bool hit = false;
     double distance;
     double min = numeric_limits<double>::max();
 
     for (const Shape* s : world->objects) {
-        ShadeInfo si;
+        Intersection i;
 
-        if (s->intersects(ray, &distance, &si) &&
+        if (s->intersects(ray, &distance, &i) &&
             distance < min) {
             min = distance;
             shape = s;
-            shade = si;
+            intersection = i;
             hit = true;
         }
     }
@@ -52,11 +52,11 @@ RayCaster::ray_trace(Ray ray, World* world) {
         ColourRGB sample_colour;
 
         for (const Light* l : world->lights) {
-            Vector3D path = l->get_path(shade.hitpoint);
+            Vector3D path = l->get_path(intersection.hitpoint);
             Vector3D normalised_path = path.normalised();
-            Vector3D normal = shade.normal;
+            Vector3D normal = intersection.normal;
             ray.direction = normalised_path;
-            ray.origin = shade.hitpoint;
+            ray.origin = intersection.hitpoint;
 
             // If this light source if occluded, skip it
             if (l->occluded(ray, world))
@@ -65,7 +65,7 @@ RayCaster::ray_trace(Ray ray, World* world) {
             double dot = normal.dot(normalised_path);
             if (dot > 0) {
                 double diffuse = m.getDiffuse() * dot;
-                double attenuation = l->attenuation(shade.hitpoint);
+                double attenuation = l->attenuation(intersection.hitpoint);
                 sample_colour += (diffuse * c * l->colour) * attenuation;
                 DEBUG(4, "Diffuse factor:", diffuse);
                 DEBUG(4, "Light colour:", l->colour);

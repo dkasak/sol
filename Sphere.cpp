@@ -52,7 +52,7 @@ Sphere::getRadius() const {
 }
 
 bool
-Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
+Sphere::intersects(const Ray &r, double *distance, Intersection *si) const {
     Vector3D o(this->origin.x, this->origin.y, this->origin.z);
     Vector3D ro(r.origin.x, r.origin.y, r.origin.z);
     Vector3D dir = r.direction.normalised();

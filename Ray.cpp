@@ -39,7 +39,7 @@ Ray::Ray(const Ray& r) {
 }
 
 bool
-Ray::intersects(const Shape& s, double *tmin, ShadeInfo *si) const {
+Ray::intersects(const Shape& s, double *tmin, Intersection *si) const {
     return s.intersects(*this, tmin, si);
 }
 

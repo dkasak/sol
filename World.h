@@ -24,7 +24,7 @@
 
 #include "Material.h"
 #include "Screen.h"
-#include "ShadeInfo.h"
+#include "Intersection.h"
 #include "Shape.h"
 #include "Sphere.h"
 #include "Ray.h"

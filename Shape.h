@@ -26,7 +26,7 @@
 namespace Sol {
 
 class Ray;
-class ShadeInfo;
+class Intersection;
 
 class Shape {
 protected:
@@ -58,7 +58,7 @@ public:
     getOrigin() const;
 
     virtual bool
-    intersects(const Ray &r, double *tmin = nullptr, ShadeInfo *si = nullptr) const = 0;
+    intersects(const Ray &r, double *distance = nullptr, Intersection *si = nullptr) const = 0;
 };
 
 } // namespace Sol
