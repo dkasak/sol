@@ -29,10 +29,10 @@ namespace Sol {
 class Intersection {
 public:
     Vector3D normal;
-    Point3D hitpoint;
+    Point3D hit_point;
+    double distance;
 
     Intersection();
-    Intersection(const Vector3D normal, const Point3D hitpoint);
 };
 
 } // namespace Sol

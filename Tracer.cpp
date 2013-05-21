@@ -20,8 +20,6 @@
 #include "Tracer.h"
 #include "Debug.h"
 
-#include <limits>
-
 namespace Sol {
     
 ColourRGB
@@ -29,15 +27,12 @@ RayCaster::ray_trace(Ray ray, World* world) {
     Intersection intersection;
     const Shape* shape;
     bool hit = false;
-    double distance;
-    double min = numeric_limits<double>::max();
 
     for (const Shape* s : world->objects) {
         Intersection i;
 
-        if (s->intersects(ray, &distance, &i) &&
-            distance < min) {
-            min = distance;
+        if (s->intersects(ray, &i) &&
+            i.distance < intersection.distance) {
             shape = s;
             intersection = i;
             hit = true;
@@ -52,20 +47,24 @@ RayCaster::ray_trace(Ray ray, World* world) {
         ColourRGB sample_colour;
 
         for (const Light* l : world->lights) {
-            Vector3D path = l->get_path(intersection.hitpoint);
+            Vector3D path = l->get_path(intersection.hit_point);
             Vector3D normalised_path = path.normalised();
             Vector3D normal = intersection.normal;
             ray.direction = normalised_path;
-            ray.origin = intersection.hitpoint;
+            ray.origin = intersection.hit_point;
 
             // If this light source if occluded, skip it
-            if (l->occluded(ray, world))
+            if (l->occluded(ray, world)) {
+                DEBUG(3, "Light occluded.");
                 continue;
+            } else {
+                DEBUG(3, "Light visible.");
+            }
 
             double dot = normal.dot(normalised_path);
             if (dot > 0) {
                 double diffuse = m.getDiffuse() * dot;
-                double attenuation = l->attenuation(intersection.hitpoint);
+                double attenuation = l->attenuation(intersection.hit_point);
                 sample_colour += (diffuse * c * l->colour) * attenuation;
                 DEBUG(4, "Diffuse factor:", diffuse);
                 DEBUG(4, "Light colour:", l->colour);

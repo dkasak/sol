@@ -18,18 +18,15 @@
  */
 
 #include "Intersection.h"
+#include <limits>
 
 namespace Sol {
 
 Intersection::Intersection()
     : normal(0, 0, 0),
-      hitpoint(0, 0, 0)
-    {}
-
-Intersection::Intersection(const Vector3D normal, const Point3D hitpoint)
-    : normal(normal),
-      hitpoint(hitpoint)
-    {}
+      hit_point(0, 0, 0),
+      distance(std::numeric_limits<double>::max())
+{}
 
 } // namespace Sol
 

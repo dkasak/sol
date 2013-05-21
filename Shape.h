@@ -58,7 +58,7 @@ public:
     getOrigin() const;
 
     virtual bool
-    intersects(const Ray &r, double *distance = nullptr, Intersection *si = nullptr) const = 0;
+    intersects(const Ray &r, Intersection *si = nullptr) const = 0;
 };
 
 } // namespace Sol

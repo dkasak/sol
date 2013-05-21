@@ -48,7 +48,7 @@ Plane::getNormal() const {
 }
 
 bool
-Plane::intersects(const Ray &r, double *distance, Intersection *si) const {
+Plane::intersects(const Ray &r, Intersection *si) const {
     Point3D p = this->origin;
     Vector3D n = this->normal.normalised();
     Point3D ro = r.origin;
@@ -68,21 +68,18 @@ Plane::intersects(const Ray &r, double *distance, Intersection *si) const {
     // If the denominator is zero, the ray is parallel with the plane
     // (either lying on it or not touching it at all)
     if (fabs(den) > kEpsilon && t > kEpsilon) {
-        auto hitpoint = r.origin + t * dir;
+        auto hit_point = r.origin + t * dir;
         
         if (si) {
-            si->hitpoint = hitpoint;
+            si->hit_point = hit_point;
             si->normal = n;
+            si->distance = t;
         }
 
         DEBUG(2, "  -> hit");
         DEBUG(4, "    distance:", t);
-        DEBUG(4, "    hitpoint:", hitpoint);
+        DEBUG(4, "    hit point:", hit_point);
         DEBUG(4, "    normal:", n);
-
-        if (distance) {
-            *distance = t;
-        }
 
         return true;
     } else {

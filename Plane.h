@@ -43,7 +43,7 @@ public:
     getNormal() const;
 
     bool
-    intersects(const Ray &r, double *distance = nullptr, Intersection *si = nullptr) const;
+    intersects(const Ray &r, Intersection *si = nullptr) const;
 };
 
 } // namespace Sol

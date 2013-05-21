@@ -55,11 +55,11 @@ bool
 PointLight::occluded(Ray ray, const World* world) const {
     bool is_occluded = false;
     Vector3D path = this->position - ray.origin;
-    double distance;
+    Intersection intersection;
 
     for (const Shape* s : world->objects) {
-        if (s->intersects(ray, &distance) && 
-            distance < path.length()) {
+        if (s->intersects(ray, &intersection) && 
+            intersection.distance < path.length()) {
             is_occluded = true;
             break;
         }

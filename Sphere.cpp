@@ -52,7 +52,7 @@ Sphere::getRadius() const {
 }
 
 bool
-Sphere::intersects(const Ray &r, double *distance, Intersection *si) const {
+Sphere::intersects(const Ray &r, Intersection *si) const {
     Vector3D o(this->origin.x, this->origin.y, this->origin.z);
     Vector3D ro(r.origin.x, r.origin.y, r.origin.z);
     Vector3D dir = r.direction.normalised();
@@ -84,21 +84,19 @@ Sphere::intersects(const Ray &r, double *distance, Intersection *si) const {
             return false;
         }
 
-        auto hitpoint = r.origin + t * dir;
-        auto normal = (hitpoint - this->origin).normalised();
+        auto hit_point = r.origin + t * dir;
+        auto normal = (hit_point - this->origin).normalised();
 
         if (si) {
-            si->hitpoint = hitpoint;
+            si->hit_point = hit_point;
             si->normal = normal;
+            si->distance = t;
         }
 
         DEBUG(2, "  -> hit");
         DEBUG(4, "    distance:", t);
-        DEBUG(4, "    hitpoint:", hitpoint);
+        DEBUG(4, "    hit_point:", hit_point);
         DEBUG(4, "    normal:", normal);
-
-        if (distance)
-            *distance = t;
 
         return true;
     }

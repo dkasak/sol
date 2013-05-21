@@ -39,8 +39,8 @@ Ray::Ray(const Ray& r) {
 }
 
 bool
-Ray::intersects(const Shape& s, double *tmin, Intersection *si) const {
-    return s.intersects(*this, tmin, si);
+Ray::intersects(const Shape& s, Intersection* i) const {
+    return s.intersects(*this, i);
 }
 
 } // namespace Sol
