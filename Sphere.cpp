@@ -84,14 +84,22 @@ Sphere::intersects(const Ray &r, double *distance, ShadeInfo *si) const {
             return false;
         }
 
-        si->hitpoint = r.origin + t * dir;
-        si->normal = (si->hitpoint - this->origin).normalised();
+        auto hitpoint = r.origin + t * dir;
+        auto normal = (hitpoint - this->origin).normalised();
+
+        if (si) {
+            si->hitpoint = hitpoint;
+            si->normal = normal;
+        }
 
         DEBUG(2, "  -> hit");
         DEBUG(4, "    distance:", t);
-        DEBUG(4, "    hitpoint:", si->hitpoint);
-        DEBUG(4, "    normal:", si->normal);
-        *distance = t;
+        DEBUG(4, "    hitpoint:", hitpoint);
+        DEBUG(4, "    normal:", normal);
+
+        if (distance)
+            *distance = t;
+
         return true;
     }
 }
