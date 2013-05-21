@@ -55,23 +55,11 @@ RayCaster::ray_trace(Ray ray, World* world) {
             Vector3D path = l->get_path(shade.hitpoint);
             Vector3D normalised_path = path.normalised();
             Vector3D normal = shade.normal;
-            min = numeric_limits<double>::max();
             ray.direction = normalised_path;
             ray.origin = shade.hitpoint;
 
-            bool occluded = false;
-            for (const Shape* s : world->objects) {
-                ShadeInfo si;
-
-                if (s->intersects(ray, &distance, &si) && 
-                    distance < path.length()) {
-                    occluded = true;
-                    break;
-                }
-            }
-
             // If this light source if occluded, skip it
-            if (occluded)
+            if (l->occluded(ray, world))
                 continue;
 
             double dot = normal.dot(normalised_path);

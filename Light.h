@@ -23,8 +23,11 @@
 #include "ColourRGB.h"
 #include "Point.h"
 #include "Vector.h"
+#include "Ray.h"
 
 namespace Sol {
+
+class World;
 
 class Light {
 protected:
@@ -44,6 +47,9 @@ public:
 
     virtual Vector3D
     get_path(Point3D p) const;
+
+    virtual bool
+    occluded(Ray r, const World* w) const = 0;
 };
 
 class PointLight : public Light {
@@ -53,6 +59,9 @@ public:
 
     double
     attenuation(Point3D p) const;
+
+    bool
+    occluded(Ray r, const World* w) const;
 };
 
 class DirectionalLight : public Light {
@@ -64,6 +73,9 @@ public:
 
     Vector3D
     get_path(Point3D p) const;
+
+    bool
+    occluded(Ray r, const World* w) const;
 };
 
 } // namespace Sol

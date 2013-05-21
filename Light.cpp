@@ -18,6 +18,8 @@
  */
 
 #include "Light.h"
+#include "World.h"
+#include <limits>
 
 namespace Sol {
 
@@ -49,6 +51,25 @@ PointLight::attenuation(Point3D p) const {
     return 1 / get_path(p).length_squared();
 }
 
+bool
+PointLight::occluded(Ray ray, const World* world) const {
+    bool is_occluded = false;
+    Vector3D path = this->position - ray.origin;
+    double distance;
+
+    for (const Shape* s : world->objects) {
+        ShadeInfo si;
+
+        if (s->intersects(ray, &distance, &si) && 
+            distance < path.length()) {
+            is_occluded = true;
+            break;
+        }
+    }
+
+    return is_occluded;
+}
+
 DirectionalLight::DirectionalLight(Vector3D direction, ColourRGB colour)
     : Light(-direction.normalised(), colour)
 {}
@@ -57,6 +78,23 @@ double
 DirectionalLight::attenuation(Point3D p) const {
     // no attenuation
     return 1.0;
+}
+
+bool
+DirectionalLight::occluded(Ray ray, const World* world) const {
+    bool is_occluded = false;
+    double distance;
+
+    for (const Shape* s : world->objects) {
+        ShadeInfo si;
+
+        if (s->intersects(ray, &distance, &si)) {
+            is_occluded = true;
+            break;
+        }
+    }
+
+    return is_occluded;
 }
 
 Vector3D
