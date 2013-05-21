@@ -21,5 +21,33 @@
 
 namespace Sol {
 
+Light::Light(Point3D position)
+    : position(position),
+      colour(1.0, 1.0, 1.0) // white
+{}
+
+Light::Light(Point3D position, ColourRGB colour)
+    : position(position),
+      colour(colour)
+{}
+
+Vector3D
+Light::get_path(Point3D p) const {
+    return this->position - p;
+}
+
+PointLight::PointLight(Point3D position)
+    : Light(position)
+{}
+
+PointLight::PointLight(Point3D position, ColourRGB colour)
+    : Light(position, colour)
+{}
+
+double
+PointLight::attenuation(Point3D p) const {
+    return 1 / get_path(p).length_squared();
+}
+
 } // namespace Sol
 

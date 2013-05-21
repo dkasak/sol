@@ -22,6 +22,7 @@
 
 #include "ColourRGB.h"
 #include "Point.h"
+#include "Vector.h"
 
 namespace Sol {
 
@@ -30,15 +31,26 @@ public:
     Point3D position;
     ColourRGB colour;
 
-    Light(Point3D position)
-        : position(position),
-          colour(1.0, 1.0, 1.0) // white
-    {}
+    Light(Point3D position);
+    Light(Point3D position, ColourRGB colour);
 
-    Light(Point3D position, ColourRGB colour)
-        : position(position),
-          colour(colour)
-    {}
+    virtual
+    ~Light() {}
+
+    virtual double
+    attenuation(Point3D p) const = 0;
+
+    Vector3D
+    get_path(Point3D p) const;
+};
+
+class PointLight : public Light {
+public:
+    PointLight(Point3D position);
+    PointLight(Point3D position, ColourRGB colour);
+
+    double
+    attenuation(Point3D p) const;
 };
 
 } // namespace Sol
