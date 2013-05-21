@@ -73,6 +73,9 @@ public:
 
     double
     length() const;
+
+    double
+    length_squared() const;
 };
 
 class Vector3D {
@@ -127,6 +130,9 @@ public:
 
     double
     length() const;
+
+    double
+    length_squared() const;
 };
 
 std::ostream&

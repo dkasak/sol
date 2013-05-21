@@ -145,6 +145,11 @@ Vector2D::length() const {
     return sqrt(pow(this->x, 2.0) + pow(this->y, 2.0));
 }
 
+double
+Vector2D::length_squared() const {
+    return pow(this->x, 2.0) + pow(this->y, 2.0);
+}
+
 Vector2D
 Vector2D::normalised() const {
     Vector2D tmp = (*this);
@@ -302,6 +307,11 @@ Vector3D::angle(const Vector3D &v) const {
 double
 Vector3D::length() const {
     return sqrt(pow(this->x, 2.0) + pow(this->y, 2.0) + pow(this->z, 2.0));
+}
+
+double
+Vector3D::length_squared() const {
+    return pow(this->x, 2.0) + pow(this->y, 2.0) + pow(this->z, 2.0);
 }
 
 Vector3D
