@@ -58,9 +58,7 @@ PointLight::occluded(Ray ray, const World* world) const {
     double distance;
 
     for (const Shape* s : world->objects) {
-        ShadeInfo si;
-
-        if (s->intersects(ray, &distance, &si) && 
+        if (s->intersects(ray, &distance) && 
             distance < path.length()) {
             is_occluded = true;
             break;
@@ -83,12 +81,9 @@ DirectionalLight::attenuation(Point3D p) const {
 bool
 DirectionalLight::occluded(Ray ray, const World* world) const {
     bool is_occluded = false;
-    double distance;
 
     for (const Shape* s : world->objects) {
-        ShadeInfo si;
-
-        if (s->intersects(ray, &distance, &si)) {
+        if (s->intersects(ray)) {
             is_occluded = true;
             break;
         }
