@@ -63,6 +63,9 @@ public:
 
     ColourRGB
     getBackground();
+
+    bool
+    nearest_intersection(Ray ray, Intersection *i = nullptr);
 };
 
 } // namespace Sol

@@ -64,4 +64,28 @@ World::getBackground() {
     return this->background;
 }
 
+bool
+World::nearest_intersection(Ray ray, Intersection *intersection) {
+    bool hit = false;
+
+    for (const Shape* s : this->shapes) {
+        Intersection i;
+
+        if (intersection) {
+            if (s->intersects(ray, &i) &&
+                i.distance < intersection->distance) {
+                *intersection = i;
+                hit = true;
+            }
+        } else {
+            if (s->intersects(ray)) {
+                hit = true;
+                break;
+            }
+        }
+    }
+
+    return hit;
+}
+
 } // namespace Sol

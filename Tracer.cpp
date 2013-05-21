@@ -25,20 +25,10 @@ namespace Sol {
 ColourRGB
 RayCaster::ray_trace(Ray ray, World* world) {
     Intersection intersection;
-    bool hit = false;
-
-    for (const Shape* s : world->shapes) {
-        Intersection i;
-
-        if (s->intersects(ray, &i) &&
-            i.distance < intersection.distance) {
-            intersection = i;
-            hit = true;
-        }
-    }
-
     ColourRGB colour;
     
+    bool hit = world->nearest_intersection(ray, &intersection);
+
     if (hit) {
         Material m = intersection.shape->getMaterial();
         ColourRGB c = m.getColour();
