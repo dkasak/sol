@@ -44,50 +44,50 @@ using namespace Sol;
 World* build_world() {
     World* world = new World;
 
-    world->setBackground(ColourRGB(0.1, 0.2, 0.3));
+    world->set_background(ColourRGB(0.1, 0.2, 0.3));
 
     Material m1;
-    m1.setDiffuse(1.0);
-    m1.setColour(ColourRGB(1.0, 1.0, 1.0));
+    m1.set_diffuse(1.0);
+    m1.set_colour(ColourRGB(1.0, 1.0, 1.0));
 
     Material m2;
-    m2.setDiffuse(1.0);
-    m2.setColour(ColourRGB(0.0, 0.9, 0.1));
+    m2.set_diffuse(1.0);
+    m2.set_colour(ColourRGB(0.0, 0.9, 0.1));
 
     Material m3;
-    m3.setDiffuse(0.9);
-    m3.setColour(ColourRGB(1.0, 0.1, 0.1));
+    m3.set_diffuse(0.9);
+    m3.set_colour(ColourRGB(1.0, 0.1, 0.1));
 
     Material m4;
-    m4.setDiffuse(0.9);
-    m4.setColour(ColourRGB(0.7, 0.1, 0.5));
+    m4.set_diffuse(0.9);
+    m4.set_colour(ColourRGB(0.7, 0.1, 0.5));
 
     auto s1 = new Sphere(Point3D(0, 0.6, 1.5), 1.5);
-    s1->setMaterial(m1);
+    s1->set_material(m1);
 
     auto s2 = new Sphere(Point3D(2.0, 1.0, 2.0), 0.15);
-    s2->setMaterial(m2);
+    s2->set_material(m2);
 
     auto s3 = new Sphere(Point3D(-0.2, -1.3, -3.0), 1.0);
-    s3->setMaterial(m4);
+    s3->set_material(m4);
 
     auto p = new Plane(Point3D(0, -1.0, 0), Vector3D(0.0, 1.0, 0.0));
-    p->setMaterial(m3);
+    p->set_material(m3);
 
     auto l1 = new PointLight(Point3D(1.6, 1.6, 0), ColourRGB(0.5, 0.5, 0.5));
     auto l2 = new PointLight(Point3D(1.0, 0.2, 0.2), ColourRGB(0.5, 0.5, 0.5));
     auto l3 = new PointLight(Point3D(1.6, 0.2, -5.23), ColourRGB(0.5, 0.5, 0.5));
     auto l4 = new DirectionalLight(Vector3D(-0.5, -1.0, 0.2), ColourRGB(0.2, 0.2, 0.2));
 
-    world->addShape(s1);
-    world->addShape(s2);
-    world->addShape(s3);
-    world->addShape(p);
+    world->add_shape(s1);
+    world->add_shape(s2);
+    world->add_shape(s3);
+    world->add_shape(p);
 
-    world->addLight(l1);
-    world->addLight(l2);
-    world->addLight(l3);
-    world->addLight(l4);
+    world->add_light(l1);
+    world->add_light(l2);
+    world->add_light(l3);
+    world->add_light(l4);
 
     return world;
 }

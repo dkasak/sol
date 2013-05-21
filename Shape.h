@@ -39,16 +39,16 @@ public:
     virtual ~Shape();
 
     void
-    setMaterial(Material);
+    set_material(Material m);
 
     Material
-    getMaterial() const;
+    get_material() const;
 
     void
-    setOrigin(const Point3D &m);
+    set_origin(const Point3D &m);
 
     Point3D
-    getOrigin() const;
+    get_origin() const;
 
     virtual bool
     intersects(const Ray &r, Intersection *si = nullptr) const = 0;

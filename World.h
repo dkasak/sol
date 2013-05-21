@@ -50,19 +50,19 @@ public:
     ~World();
 
     void
-    addShape(const Shape* s);
+    add_shape(const Shape* s);
 
     void
-    addLight(const Light* l);
+    add_light(const Light* l);
 
     void
-    setAmbient(double ambient);
+    set_ambient(double ambient);
 
     void
-    setBackground(ColourRGB background);
+    set_background(ColourRGB background);
 
     ColourRGB
-    getBackground();
+    get_background();
 
     bool
     nearest_intersection(Ray ray, Intersection *i = nullptr);

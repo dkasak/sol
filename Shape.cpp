@@ -28,22 +28,22 @@ Shape::Shape(Point3D p) : origin(p.x, p.y, p.x) {}
 Shape::~Shape() {}
 
 void
-Shape::setMaterial(Material m) {
+Shape::set_material(Material m) {
     this->material = m;
 }
 
 Material
-Shape::getMaterial() const {
+Shape::get_material() const {
     return this->material;
 }
 
 void
-Shape::setOrigin(const Point3D& m) {
+Shape::set_origin(const Point3D& m) {
     this->origin = m;
 }
 
 Point3D
-Shape::getOrigin() const {
+Shape::get_origin() const {
     return this->origin;
 }
 

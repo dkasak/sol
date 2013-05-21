@@ -34,16 +34,16 @@ public:
     Material();
 
     ColourRGB
-    getColour() const;
+    get_colour() const;
 
     void
-    setColour(ColourRGB c);
+    set_colour(ColourRGB c);
 
     double
-    getDiffuse() const;
+    get_diffuse() const;
 
     void
-    setDiffuse(const double diffuse);
+    set_diffuse(const double diffuse);
 
     void
     operator=(const Material& m);

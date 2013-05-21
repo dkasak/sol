@@ -38,12 +38,12 @@ Plane::Plane(Point3D p, Vector3D n) {
 }
 
 void
-Plane::setNormal(Vector3D n) {
+Plane::set_normal(Vector3D n) {
     this->normal = n;
 }
 
 Vector3D
-Plane::getNormal() const {
+Plane::get_normal() const {
     return this->normal;
 }
 

@@ -40,27 +40,27 @@ World::~World() {
 }
 
 void
-World::addShape(const Shape* s) {
+World::add_shape(const Shape* s) {
     this->shapes.push_back(s);
 }
 
 void
-World::addLight(const Light* l) {
+World::add_light(const Light* l) {
     this->lights.push_back(l);
 }
 
 void
-World::setAmbient(double ambient) {
+World::set_ambient(double ambient) {
     this->ambientLight = ambient;
 }
 
 void
-World::setBackground(ColourRGB background) {
+World::set_background(ColourRGB background) {
     this->background = background;
 }
 
 ColourRGB
-World::getBackground() {
+World::get_background() {
     return this->background;
 }
 

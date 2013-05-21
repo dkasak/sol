@@ -30,8 +30,8 @@ RayCaster::ray_trace(Ray ray, World* world) {
     bool hit = world->nearest_intersection(ray, &intersection);
 
     if (hit) {
-        Material m = intersection.shape->getMaterial();
-        ColourRGB c = m.getColour();
+        Material m = intersection.shape->get_material();
+        ColourRGB c = m.get_colour();
         ColourRGB sample_colour;
 
         for (const Light* l : world->lights) {
@@ -51,7 +51,7 @@ RayCaster::ray_trace(Ray ray, World* world) {
 
             double dot = normal.dot(normalised_path);
             if (dot > 0) {
-                double diffuse = m.getDiffuse() * dot;
+                double diffuse = m.get_diffuse() * dot;
                 double attenuation = l->attenuation(intersection.hit_point);
                 sample_colour += (diffuse * c * l->colour) * attenuation;
                 DEBUG(4, "Diffuse factor:", diffuse);
@@ -63,7 +63,7 @@ RayCaster::ray_trace(Ray ray, World* world) {
 
         colour = sample_colour;
     } else {
-        colour = world->getBackground();
+        colour = world->get_background();
     }
 
     return colour;

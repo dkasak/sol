@@ -42,12 +42,12 @@ Sphere::Sphere(Point3D p, double r) {
 }
 
 void
-Sphere::setRadius(double r) {
+Sphere::set_radius(double r) {
     this->radius = r;
 }
 
 double
-Sphere::getRadius() const {
+Sphere::get_radius() const {
     return this->radius;
 }
 

@@ -37,10 +37,10 @@ public:
     Plane(Point3D p, Vector3D n);
 
     void
-    setNormal(Vector3D n);
+    set_normal(Vector3D n);
 
     Vector3D
-    getNormal() const;
+    get_normal() const;
 
     bool
     intersects(const Ray &r, Intersection *si = nullptr) const;

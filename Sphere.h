@@ -36,10 +36,10 @@ public:
     Sphere(Point3D p, double r);
 
     void
-    setRadius(double r);
+    set_radius(double r);
 
     double
-    getRadius() const;
+    get_radius() const;
 
     virtual bool
     intersects(const Ray &r, Intersection *si = nullptr) const;

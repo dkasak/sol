@@ -27,22 +27,22 @@ Material::Material()
     {}
     
 ColourRGB
-Material::getColour() const {
+Material::get_colour() const {
     return this->colour;
 }
 
 void
-Material::setColour(ColourRGB c) {
+Material::set_colour(ColourRGB c) {
     this->colour = c;
 }
 
 double
-Material::getDiffuse() const {
+Material::get_diffuse() const {
     return this->diffuse;
 }
 
 void
-Material::setDiffuse(const double diffuse) {
+Material::set_diffuse(const double diffuse) {
     this->diffuse = diffuse;
 }
 
