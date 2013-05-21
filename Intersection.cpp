@@ -25,7 +25,8 @@ namespace Sol {
 Intersection::Intersection()
     : normal(0, 0, 0),
       hit_point(0, 0, 0),
-      distance(std::numeric_limits<double>::max())
+      distance(std::numeric_limits<double>::max()),
+      shape(nullptr)
 {}
 
 } // namespace Sol

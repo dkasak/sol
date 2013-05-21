@@ -23,6 +23,7 @@
 
 #include "Vector.h"
 #include "Point.h"
+#include "Shape.h"
 
 namespace Sol {
 
@@ -31,6 +32,7 @@ public:
     Vector3D normal;
     Point3D hit_point;
     double distance;
+    const Shape* shape;
 
     Intersection();
 };

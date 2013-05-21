@@ -74,6 +74,7 @@ Plane::intersects(const Ray &r, Intersection *si) const {
             si->hit_point = hit_point;
             si->normal = n;
             si->distance = t;
+            si->shape = this;
         }
 
         DEBUG(2, "  -> hit");

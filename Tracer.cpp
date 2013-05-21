@@ -25,7 +25,6 @@ namespace Sol {
 ColourRGB
 RayCaster::ray_trace(Ray ray, World* world) {
     Intersection intersection;
-    const Shape* shape;
     bool hit = false;
 
     for (const Shape* s : world->shapes) {
@@ -33,7 +32,6 @@ RayCaster::ray_trace(Ray ray, World* world) {
 
         if (s->intersects(ray, &i) &&
             i.distance < intersection.distance) {
-            shape = s;
             intersection = i;
             hit = true;
         }
@@ -42,7 +40,7 @@ RayCaster::ray_trace(Ray ray, World* world) {
     ColourRGB colour;
     
     if (hit) {
-        Material m = shape->getMaterial();
+        Material m = intersection.shape->getMaterial();
         ColourRGB c = m.getColour();
         ColourRGB sample_colour;
 
