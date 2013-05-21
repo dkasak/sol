@@ -9,5 +9,6 @@ presumably so the scattered ray doesn't hit the original object again. I don't
 seem to have this problem, but this is something that I should keep in mind
 should I start encountering weird bugs.
 
-
-    
+2. Indirect illumination tips (http://www.lamrug.org/resources/indirectips.html, try Google cache)
+3. Energy conservation in games ( http://www.rorydriscoll.com/2009/01/25/energy-conservation-in-games/)
+4. https://seblagarde.wordpress.com/2012/01/08/pi-or-not-to-pi-in-game-lighting-equation/
