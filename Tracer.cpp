@@ -77,7 +77,7 @@ RayCaster::ray_trace(Ray ray, World* world) {
             double dot = normal.dot(normalised_path);
             if (dot > 0) {
                 double diffuse = m.getDiffuse() * dot;
-                sample_colour += diffuse * c * l.colour;
+                sample_colour += (diffuse * c * l.colour) / path.length_squared();
                 DEBUG(4, "Diffuse factor:", diffuse);
                 DEBUG(4, "Light colour:", l.colour);
                 DEBUG(4, "Object colour:", c);
