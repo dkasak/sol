@@ -57,7 +57,7 @@ PointLight::occluded(Ray ray, const World* world) const {
     Vector3D path = this->position - ray.origin;
     Intersection intersection;
 
-    for (const Shape* s : world->objects) {
+    for (const Shape* s : world->shapes) {
         if (s->intersects(ray, &intersection) && 
             intersection.distance < path.length()) {
             is_occluded = true;
@@ -82,7 +82,7 @@ bool
 DirectionalLight::occluded(Ray ray, const World* world) const {
     bool is_occluded = false;
 
-    for (const Shape* s : world->objects) {
+    for (const Shape* s : world->shapes) {
         if (s->intersects(ray)) {
             is_occluded = true;
             break;

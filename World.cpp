@@ -30,7 +30,7 @@ World::World() :
 {}
 
 World::~World() {
-    for (auto sp : this->objects) {
+    for (auto sp : this->shapes) {
         delete sp;
     }
 
@@ -41,7 +41,7 @@ World::~World() {
 
 void
 World::addShape(const Shape* s) {
-    this->objects.push_back(s);
+    this->shapes.push_back(s);
 }
 
 void

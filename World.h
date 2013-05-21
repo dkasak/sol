@@ -43,7 +43,7 @@ private:
     ColourRGB background;
 
 public:
-    vector<const Shape *> objects;
+    vector<const Shape *> shapes;
     vector<const Light *> lights;
 
     World();

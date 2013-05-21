@@ -28,7 +28,7 @@ RayCaster::ray_trace(Ray ray, World* world) {
     const Shape* shape;
     bool hit = false;
 
-    for (const Shape* s : world->objects) {
+    for (const Shape* s : world->shapes) {
         Intersection i;
 
         if (s->intersects(ray, &i) &&
