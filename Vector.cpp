@@ -60,6 +60,11 @@ Vector2D::operator-(const Vector2D &v) const {
 }
 
 Vector2D
+Vector2D::operator-() const {
+    return Vector2D(-this->x, -this->y);
+}
+
+Vector2D
 Vector2D::operator*(const double r) const {
     double i, j;
 
@@ -202,6 +207,11 @@ Vector3D::operator-(const Vector3D &v) const {
     k = this->z - v.z;
 
     return Vector3D(i, j, k);
+}
+
+Vector3D
+Vector3D::operator-() const {
+    return Vector3D(-this->x, -this->y, -this->z);
 }
 
 Vector3D

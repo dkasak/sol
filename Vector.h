@@ -39,6 +39,9 @@ public:
     operator-(const Vector2D& v) const;
 
     Vector2D
+    operator-() const;
+
+    Vector2D
     operator*(const double r) const;
 
     friend Vector2D
@@ -91,6 +94,9 @@ public:
 
     Vector3D
     operator-(const Vector3D& v) const;
+
+    Vector3D
+    operator-() const;
 
     Vector3D
     operator*(const double r) const;
