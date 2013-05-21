@@ -1,6 +1,6 @@
 .PHONY: all, clean, distclean, dbmp
 CFLAGS = -std=c99 -Wextra -Wall -pedantic -g 
-CXXFLAGS = -std=c++11 -Wextra -Wall -pedantic -g -Wuninitialized -Wno-reorder
+CXXFLAGS = -std=c++11 -Wextra -Wall -pedantic -g -Wuninitialized -Wno-reorder -Wno-unused-parameter
 LDFLAGS = -lm -lstdc++
 
 dbmp_objects = dbmp.o

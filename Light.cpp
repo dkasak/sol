@@ -49,5 +49,20 @@ PointLight::attenuation(Point3D p) const {
     return 1 / get_path(p).length_squared();
 }
 
+DirectionalLight::DirectionalLight(Vector3D direction, ColourRGB colour)
+    : Light(-direction.normalised(), colour)
+{}
+
+double
+DirectionalLight::attenuation(Point3D p) const {
+    // no attenuation
+    return 1.0;
+}
+
+Vector3D
+DirectionalLight::get_path(Point3D p) const {
+    return this->position;
+}
+
 } // namespace Sol
 

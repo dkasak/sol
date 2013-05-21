@@ -27,8 +27,10 @@
 namespace Sol {
 
 class Light {
-public:
+protected:
     Point3D position;
+
+public:
     ColourRGB colour;
 
     Light(Point3D position);
@@ -40,7 +42,7 @@ public:
     virtual double
     attenuation(Point3D p) const = 0;
 
-    Vector3D
+    virtual Vector3D
     get_path(Point3D p) const;
 };
 
@@ -51,6 +53,17 @@ public:
 
     double
     attenuation(Point3D p) const;
+};
+
+class DirectionalLight : public Light {
+public:
+    DirectionalLight(Vector3D direction, ColourRGB colour);
+
+    double
+    attenuation(Point3D p) const;
+
+    Vector3D
+    get_path(Point3D p) const;
 };
 
 } // namespace Sol
