@@ -33,6 +33,10 @@ World::~World() {
     for (auto sp : this->objects) {
         delete sp;
     }
+
+    for (auto sp : this->lights) {
+        delete sp;
+    }
 }
 
 void
@@ -41,7 +45,7 @@ World::addShape(const Shape* s) {
 }
 
 void
-World::addLight(const Light l) {
+World::addLight(const Light* l) {
     this->lights.push_back(l);
 }
 

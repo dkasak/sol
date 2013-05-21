@@ -74,12 +74,9 @@ World* build_world() {
     auto p = new Plane(Point3D(0, -1.0, 0), Vector3D(0.0, 1.0, 0.0));
     p->setMaterial(m3);
 
-    Light l1(Point3D(1.6, 1.6, 0),
-             ColourRGB(0.5, 0.5, 0.5)*1.6);
-    Light l2(Point3D(1.0, 0.2, 0.2),
-             ColourRGB(0.5, 0.5, 0.5)*1.6);
-    Light l3(Point3D(1.6, 0.2, -5.23),
-             ColourRGB(0.5, 0.5, 0.5)*1.8);
+    auto l1 = new PointLight(Point3D(1.6, 1.6, 0), ColourRGB(0.5, 0.5, 0.5)*1.6);
+    auto l2 = new PointLight(Point3D(1.0, 0.2, 0.2), ColourRGB(0.5, 0.5, 0.5)*1.6);
+    auto l3 = new PointLight(Point3D(1.6, 0.2, -5.23), ColourRGB(0.5, 0.5, 0.5)*1.8);
 
     world->addShape(s1);
     world->addShape(s2);

@@ -43,10 +43,8 @@ private:
     ColourRGB background;
 
 public:
-    // FIXME: this is made public temporarily
-    // until I implement an iterator
     vector<const Shape *> objects;
-    vector<Light> lights;
+    vector<const Light *> lights;
 
     World();
     ~World();
@@ -55,7 +53,7 @@ public:
     addShape(const Shape* s);
 
     void
-    addLight(const Light l);
+    addLight(const Light* l);
 
     void
     setAmbient(double ambient);

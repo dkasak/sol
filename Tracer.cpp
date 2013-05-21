@@ -51,10 +51,10 @@ RayCaster::ray_trace(Ray ray, World* world) {
         ColourRGB c = m.getColour();
         ColourRGB sample_colour;
 
-        for (const Light& l : world->lights) {
-            Vector3D path = l.position - shade.hitpoint;
-            Vector3D normal = shade.normal;
+        for (const Light* l : world->lights) {
+            Vector3D path = l->get_path(shade.hitpoint);
             Vector3D normalised_path = path.normalised();
+            Vector3D normal = shade.normal;
             min = numeric_limits<double>::max();
             ray.direction = normalised_path;
             ray.origin = shade.hitpoint;
@@ -77,9 +77,10 @@ RayCaster::ray_trace(Ray ray, World* world) {
             double dot = normal.dot(normalised_path);
             if (dot > 0) {
                 double diffuse = m.getDiffuse() * dot;
-                sample_colour += (diffuse * c * l.colour) / path.length_squared();
+                double attenuation = l->attenuation(shade.hitpoint);
+                sample_colour += (diffuse * c * l->colour) * attenuation;
                 DEBUG(4, "Diffuse factor:", diffuse);
-                DEBUG(4, "Light colour:", l.colour);
+                DEBUG(4, "Light colour:", l->colour);
                 DEBUG(4, "Object colour:", c);
                 DEBUG(3, "Sample colour:", sample_colour);
             }
