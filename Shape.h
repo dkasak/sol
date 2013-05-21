@@ -35,15 +35,8 @@ protected:
 
 public:
     Shape();
-    Shape(double x, double y, double z);
     Shape(Point3D p);
     virtual ~Shape();
-
-    void
-    move(double x, double y, double z);
-
-    void
-    move(Point3D p);
 
     void
     setMaterial(Material);

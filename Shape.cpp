@@ -23,25 +23,9 @@ namespace Sol {
 
 Shape::Shape() {}
 
-Shape::Shape(double x, double y, double z) : origin(x, y, z) {}
-
 Shape::Shape(Point3D p) : origin(p.x, p.y, p.x) {}
 
 Shape::~Shape() {}
-
-void
-Shape::move(double x, double y, double z) {
-    this->origin.x = x;
-    this->origin.y = y;
-    this->origin.z = z;
-}
-
-void
-Shape::move(Point3D p) {
-    this->origin.x = p.x;
-    this->origin.y = p.y;
-    this->origin.z = p.z;
-}
 
 void
 Shape::setMaterial(Material m) {
