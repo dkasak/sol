@@ -20,10 +20,21 @@
 #ifndef SOL_CONSTANTS_H
 #define SOL_CONSTANTS_H
 
+#include "ColourRGB.h"
+
 namespace Sol {
 
-const double pi = 3.141592653589793238462643383;
+const double pi     = 3.141592653589793238462643383;
 const double inv_pi = 1 / pi;
+
+const ColourRGB black   = ColourRGB(0.0, 0.0, 0.0);
+const ColourRGB white   = ColourRGB(1.0, 1.0, 1.0);
+const ColourRGB red     = ColourRGB(1.0, 0.0, 0.0);
+const ColourRGB green   = ColourRGB(0.0, 1.0, 0.0);
+const ColourRGB blue    = ColourRGB(0.0, 0.0, 1.0);
+const ColourRGB yellow  = ColourRGB(1.0, 1.0, 0.0);
+const ColourRGB magenta = ColourRGB(1.0, 0.0, 1.0);
+const ColourRGB cyan    = ColourRGB(0.0, 1.0, 1.0);
 
 } // namespace Sol
 

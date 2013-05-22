@@ -17,6 +17,7 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Constants.h"
 #include "Camera.h"
 #include "ColourRGB.h"
 #include "Debug.h"
@@ -46,7 +47,7 @@ World* build_world() {
 
     world->set_background(ColourRGB(0.1, 0.2, 0.3));
 
-    auto m1 = new Matte(1.0, ColourRGB(1.0, 1.0, 1.0));
+    auto m1 = new Matte(1.0, white);
     auto m2 = new Matte(1.0, ColourRGB(0.0, 0.9, 0.1));
     auto m3 = new Matte(0.9, ColourRGB(1.0, 0.1, 0.1));
     auto m4 = new Matte(0.3, ColourRGB(0.7, 0.1, 0.5));
@@ -63,10 +64,10 @@ World* build_world() {
     auto p = new Plane(Point3D(0, -1.0, 0), Vector3D(0.0, 1.0, 0.0));
     p->set_material(m3);
 
-    auto l1 = new PointLight(Point3D(10.0, 5.6, -5.5), ColourRGB(0.5, 0.5, 0.5), 40.5);
-    auto l2 = new PointLight(Point3D(10.0, 6.2, -5.2), ColourRGB(0.5, 0.5, 0.5), 40.5);
-    auto l3 = new PointLight(Point3D(1.6, 0.2, -5.23), ColourRGB(0.5, 0.5, 0.5));
-    auto l4 = new DirectionalLight(Vector3D(-0.5, -1.0, 0.2), ColourRGB(0.2, 0.2, 0.2), 0.5);
+    auto l1 = new PointLight(Point3D(5.0, 3.6, -3.5), white, 40.5);
+    auto l2 = new PointLight(Point3D(5.0, 3.2, -3.2), white, 40.5);
+    auto l3 = new PointLight(Point3D(1.6, 0.2, -5.23), white);
+    auto l4 = new DirectionalLight(Vector3D(-0.5, -1.0, 0.2), white, 0.1);
 
     world->add_shape(s1);
     world->add_shape(s2);

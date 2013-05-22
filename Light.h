@@ -20,6 +20,7 @@
 #ifndef SOL_LIGHT_H
 #define SOL_LIGHT_H
 
+#include "Constants.h"
 #include "ColourRGB.h"
 #include "Point.h"
 #include "Vector.h"
@@ -37,7 +38,7 @@ protected:
 
 public:
     Light(Point3D position,
-          ColourRGB colour = ColourRGB(1.0, 1.0, 1.0),
+          ColourRGB colour = white,
           double intensity = 1.0);
 
     virtual
