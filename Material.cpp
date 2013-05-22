@@ -70,7 +70,6 @@ Matte::direct_illumination(Intersection intersection, World* world) {
         double dot = normal.dot(wi);
         if (dot > 0) {
             double attenuation = l->attenuation(p);
-            DEBUG(1, "attenuation: ", attenuation);
             radiance += (this->lambertian(p, wi, wo) * dot * l->emittance()) * attenuation;
             /* DEBUG(4, "Diffuse factor:", diffuse); */
             /* DEBUG(4, "Light colour:", l->colour); */
