@@ -153,5 +153,28 @@ parse_options(size_t argc, char** argv) {
         }
     }
 
+    // If only a single resolution was provided, adjust the other so the
+    // default aspect ratio is preserved
+    if (opt.hres != DEFAULT_HORIZONTAL_RES && opt.vres == DEFAULT_VERTICAL_RES) {
+        double ratio = opt.hres / DEFAULT_HORIZONTAL_RES;
+        opt.vres *= ratio;
+    } else if (opt.vres != DEFAULT_VERTICAL_RES && opt.hres == DEFAULT_HORIZONTAL_RES) {
+        double ratio = opt.vres / DEFAULT_VERTICAL_RES;
+        opt.hres *= ratio;
+    }
+
+    // If the user has supplied a non-default horizontal or vertical
+    // resolution, but hasn't changed the pixel size, adapt the pixel size so
+    // the same scene is shown
+    if (opt.pixel_size == DEFAULT_PIXEL_SIZE) {
+        if (opt.hres != DEFAULT_HORIZONTAL_RES) {
+            double ratio = opt.hres / DEFAULT_HORIZONTAL_RES;
+            opt.pixel_size /= ratio;
+        } else if (opt.vres != DEFAULT_VERTICAL_RES) {
+            double ratio = opt.vres / DEFAULT_VERTICAL_RES;
+            opt.pixel_size /= ratio;
+        }
+    }
+
     return opt;
 }
