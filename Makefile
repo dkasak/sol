@@ -1,6 +1,6 @@
 .PHONY: all, clean, distclean, dbmp
-CFLAGS = -std=c99 -Wextra -Wall -pedantic -g 
-CXXFLAGS = -std=c++11 -Wextra -Wall -pedantic -g -Wuninitialized -Wno-reorder -Wno-unused-parameter
+CFLAGS = -std=c99 -Wextra -Wall -pedantic
+CXXFLAGS = -std=c++11 -Wextra -Wall -pedantic -Wuninitialized -Wno-reorder -Wno-unused-parameter
 LDFLAGS = -lm -lstdc++
 
 dbmp_objects = dbmp.o
@@ -12,8 +12,12 @@ sol: $(sol_objects) $(dbmp_objects)
 dbmp: $(dbmp_objects)
 test_dbmp: $(dbmp_objects)
 
-optimized: CXXFLAGS += -O3
+optimized: CXXFLAGS += -O4 
+optimized: CFLAGS += -O4 
 optimized: clean all
+
+debug: CXXFLAGS += -Og -g
+debug: clean all
 
 clean: 
 	-rm --force *.o test_dbmp sol
