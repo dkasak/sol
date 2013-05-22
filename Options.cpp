@@ -137,8 +137,9 @@ parse_options(size_t argc, char** argv) {
             } else {
                 throw InvalidOptionValue(option, value);
             }
-        } else if (option == "-h" || option == "--help") {
+        } else if (options[i] == "-h" || options[i] == "--help") {
             print_help();
+            exit(EXIT_SUCCESS);
         } else if (get_option_value(options, i, "-s", "--supersamples", option, value)) {
             if (!parse_number(value, opt.supersamples)) {
                 throw InvalidOptionValue(option, value);
