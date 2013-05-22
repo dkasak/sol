@@ -147,8 +147,7 @@ main(int argc, char **argv) {
     Screen screen = Screen(opt.hres, opt.vres);
     screen.set_pixel_size(opt.pixel_size);
 
-    PerspectiveCamera camera(Point3D(0.0, 0.0, -5.0), 
-                             sampler);
+    PerspectiveCamera camera(Point3D(0.0, 0.0, -5.0), sampler);
     camera.set_screen(screen);
     camera.screen_distance = 3.5;
 
