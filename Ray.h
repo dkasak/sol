@@ -20,7 +20,7 @@
 #ifndef SOL_RAY_H
 #define SOL_RAY_H
 
-#include "Shape.h"
+#include "Point.h"
 #include "Vector.h"
 
 namespace Sol {
@@ -34,9 +34,6 @@ public:
     Ray();
     Ray(const Point3D& p, const Vector3D& d);
     Ray(const Ray& r);
-
-    virtual bool
-    intersects(const Shape& s, Intersection* i) const;
 };
 
 } // namespace Sol

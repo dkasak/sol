@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2011, 2012 Denis Kasak <denis.kasak@gmail.com>
  * 
@@ -18,50 +17,33 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SOL_MATERIAL_H
-#define SOL_MATERIAL_H
+#ifndef SOL_BRDF_H
+#define SOL_BRDF_H
 
+#include "Point.h"
 #include "ColourRGB.h"
-#include "BRDF.h"
-#include "Intersection.h"
 
 namespace Sol {
 
-class World;
+class Material;
 
-class Material {
-public:
-    Material();
-
-    virtual
-    ~Material();
-
+class BRDF {
     virtual ColourRGB
-    shade(Intersection i, World* w) = 0;
+    operator()(Point3D p, Vector3D wi, Vector3D wo) const = 0;
 };
 
-class Matte : public Material {
-private:
-    Lambertian lambertian;
-
+class Lambertian : public BRDF { 
 public:
-    Matte();
-    Matte(double kd, ColourRGB cd);
+    double kd;
+    ColourRGB cd;
+
+    Lambertian(double kd, ColourRGB cd);
 
     ColourRGB
-    diffuse(Point3D p, Vector3D wi, Vector3D wo) const;
-
-    void
-    set_diffuse_coefficient(double kd);
-
-    void
-    set_diffuse_reflectance(ColourRGB cd);
-
-    ColourRGB
-    shade(Intersection i, World* w);
+    operator()(Point3D p, Vector3D wi, Vector3D wo) const;
 };
 
 } // namespace Sol
 
-#endif // SOL_MATERIAL_H
+#endif // SOL_BRDF_H
 

@@ -30,38 +30,8 @@ RayCaster::ray_trace(Ray ray, World* world) {
     bool hit = world->nearest_intersection(ray, &intersection);
 
     if (hit) {
-        Material m = intersection.shape->get_material();
-        ColourRGB c = m.get_colour();
-        ColourRGB sample_colour;
-
-        for (const Light* l : world->lights) {
-            Vector3D path = l->get_path(intersection.hit_point);
-            Vector3D normalised_path = path.normalised();
-            Vector3D normal = intersection.normal;
-            ray.direction = normalised_path;
-            ray.origin = intersection.hit_point;
-
-            // If this light source if occluded, skip it
-            if (l->occluded(ray, world)) {
-                DEBUG(3, "Light occluded.");
-                continue;
-            } else {
-                DEBUG(3, "Light visible.");
-            }
-
-            double dot = normal.dot(normalised_path);
-            if (dot > 0) {
-                double diffuse = m.get_diffuse() * dot;
-                double attenuation = l->attenuation(intersection.hit_point);
-                sample_colour += (diffuse * c * l->colour) * attenuation;
-                DEBUG(4, "Diffuse factor:", diffuse);
-                DEBUG(4, "Light colour:", l->colour);
-                DEBUG(4, "Object colour:", c);
-                DEBUG(3, "Sample colour:", sample_colour);
-            }
-        } 
-
-        colour = sample_colour;
+        Material *m = intersection.shape->get_material();
+        colour = m->shade(intersection, world);
     } else {
         colour = world->get_background();
     }

@@ -92,6 +92,7 @@ Sphere::intersects(const Ray &r, Intersection *si) const {
             si->normal = normal;
             si->distance = t;
             si->shape = this;
+            si->ray = r;
         }
 
         DEBUG(2, "  -> hit");

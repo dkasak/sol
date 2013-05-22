@@ -31,7 +31,7 @@ class Intersection;
 class Shape {
 protected:
     Point3D origin;
-    Material material;
+    Material* material;
 
 public:
     Shape();
@@ -39,9 +39,9 @@ public:
     virtual ~Shape();
 
     void
-    set_material(Material m);
+    set_material(Material* m);
 
-    Material
+    Material*
     get_material() const;
 
     void

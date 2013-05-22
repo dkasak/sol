@@ -87,7 +87,7 @@ Camera::render(World* world) {
             this->sampler->resample();
 
             for (auto sample : *sampler) {
-                DEBUG(1, "SAMPLE", sample * pixel_size);
+                DEBUG(5, "SAMPLE", sample * pixel_size);
                 p.x += sample.x * pixel_size;
                 p.y += sample.y * pixel_size;
 

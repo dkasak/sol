@@ -46,21 +46,10 @@ World* build_world() {
 
     world->set_background(ColourRGB(0.1, 0.2, 0.3));
 
-    Material m1;
-    m1.set_diffuse(1.0);
-    m1.set_colour(ColourRGB(1.0, 1.0, 1.0));
-
-    Material m2;
-    m2.set_diffuse(1.0);
-    m2.set_colour(ColourRGB(0.0, 0.9, 0.1));
-
-    Material m3;
-    m3.set_diffuse(0.9);
-    m3.set_colour(ColourRGB(1.0, 0.1, 0.1));
-
-    Material m4;
-    m4.set_diffuse(0.9);
-    m4.set_colour(ColourRGB(0.7, 0.1, 0.5));
+    auto m1 = new Matte(1.0, ColourRGB(1.0, 1.0, 1.0));
+    auto m2 = new Matte(1.0, ColourRGB(0.0, 0.9, 0.1));
+    auto m3 = new Matte(0.9, ColourRGB(1.0, 0.1, 0.1));
+    auto m4 = new Matte(0.3, ColourRGB(0.7, 0.1, 0.5));
 
     auto s1 = new Sphere(Point3D(0, 0.6, 1.5), 1.5);
     s1->set_material(m1);
@@ -74,20 +63,20 @@ World* build_world() {
     auto p = new Plane(Point3D(0, -1.0, 0), Vector3D(0.0, 1.0, 0.0));
     p->set_material(m3);
 
-    auto l1 = new PointLight(Point3D(1.6, 1.6, 0), ColourRGB(0.5, 0.5, 0.5));
+    auto l1 = new PointLight(Point3D(1.0, 1.6, 0), ColourRGB(0.5, 0.5, 0.5));
     auto l2 = new PointLight(Point3D(1.0, 0.2, 0.2), ColourRGB(0.5, 0.5, 0.5));
-    auto l3 = new PointLight(Point3D(1.6, 0.2, -5.23), ColourRGB(0.5, 0.5, 0.5));
-    auto l4 = new DirectionalLight(Vector3D(-0.5, -1.0, 0.2), ColourRGB(0.2, 0.2, 0.2));
+    /* auto l3 = new PointLight(Point3D(1.6, 0.2, -5.23), ColourRGB(0.5, 0.5, 0.5)); */
+    /* auto l4 = new DirectionalLight(Vector3D(-0.5, -1.0, 0.2), ColourRGB(0.2, 0.2, 0.2)); */
 
     world->add_shape(s1);
-    world->add_shape(s2);
-    world->add_shape(s3);
+    /* world->add_shape(s2); */
+    /* world->add_shape(s3); */
     world->add_shape(p);
 
     world->add_light(l1);
     world->add_light(l2);
-    world->add_light(l3);
-    world->add_light(l4);
+    /* world->add_light(l3); */
+    /* world->add_light(l4); */
 
     return world;
 }

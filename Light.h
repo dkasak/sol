@@ -48,6 +48,9 @@ public:
     virtual Vector3D
     get_path(Point3D p) const;
 
+    virtual Vector3D
+    get_direction(Point3D p) const;
+
     virtual bool
     occluded(Ray r, const World* w) const = 0;
 };

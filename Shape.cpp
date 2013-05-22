@@ -21,18 +21,28 @@
 
 namespace Sol {
 
-Shape::Shape() {}
+Shape::Shape() 
+    : material(nullptr)
+{}
 
-Shape::Shape(Point3D p) : origin(p.x, p.y, p.x) {}
+Shape::Shape(Point3D p) 
+    : origin(p.x, p.y, p.x),
+      material(nullptr)
+{}
 
-Shape::~Shape() {}
+Shape::~Shape() {
+    if (this->material) {
+        delete this->material;
+        this->material = nullptr;
+    }
+}
 
 void
-Shape::set_material(Material m) {
+Shape::set_material(Material* m) {
     this->material = m;
 }
 
-Material
+Material*
 Shape::get_material() const {
     return this->material;
 }

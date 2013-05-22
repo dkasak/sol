@@ -18,38 +18,73 @@
  */
 
 #include "Material.h"
+#include "World.h"
+#include "Debug.h"
 
 namespace Sol {
 
-Material::Material()
-    : colour(ColourRGB(1.0, 1.0, 1.0)),
-      diffuse(0.0)
-    {}
+Material::Material() {}
+
+Material::~Material() {}
+
+Matte::Matte()
+    : lambertian(1.0, ColourRGB(1.0))
+{}
+
+Matte::Matte(double diffuse_coefficient, ColourRGB reflectance)
+    : lambertian(diffuse_coefficient, reflectance)
+{}
     
 ColourRGB
-Material::get_colour() const {
-    return this->colour;
+Matte::diffuse(Point3D p, Vector3D wi, Vector3D wo) const {
+    return this->lambertian(p, wi, wo);
 }
 
 void
-Material::set_colour(ColourRGB c) {
-    this->colour = c;
-}
-
-double
-Material::get_diffuse() const {
-    return this->diffuse;
+Matte::set_diffuse_coefficient(double kd) {
+    this->lambertian.kd = kd;
 }
 
 void
-Material::set_diffuse(const double diffuse) {
-    this->diffuse = diffuse;
+Matte::set_diffuse_reflectance(ColourRGB reflectance) {
+    this->lambertian.cd = reflectance;
 }
 
-void
-Material::operator=(const Material& m) {
-    this->colour = m.colour;
-    this->diffuse = m.diffuse;
+ColourRGB
+Matte::shade(Intersection intersection, World* world) {
+    ColourRGB radiance;
+    Vector3D normal = intersection.normal;
+    Vector3D wo = -intersection.ray.direction;
+    Point3D p = intersection.hit_point;
+
+    for (const Light* l : world->lights) {
+        Vector3D wi = l->get_direction(intersection.hit_point);
+
+        Ray ray;
+        ray.direction = wi;
+        ray.origin = intersection.hit_point;
+
+        // If this light source if occluded, skip it
+        if (l->occluded(ray, world)) {
+            DEBUG(3, "Light occluded.");
+            continue;
+        } else {
+            DEBUG(3, "Light visible.");
+        }
+
+        double dot = normal.dot(wi);
+        if (dot > 0) {
+            double attenuation = l->attenuation(p);
+            DEBUG(1, "attenuation: ", attenuation);
+            radiance += (this->diffuse(p, wi, wo) * dot * l->colour) * attenuation;
+            /* DEBUG(4, "Diffuse factor:", diffuse); */
+            /* DEBUG(4, "Light colour:", l->colour); */
+            /* DEBUG(4, "Object colour:", c); */
+            /* DEBUG(3, "Sample colour:", sample_colour); */
+        }
+    } 
+
+    return radiance;
 }
 
 } // namespace Sol

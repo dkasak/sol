@@ -38,6 +38,11 @@ Light::get_path(Point3D p) const {
     return this->position - p;
 }
 
+Vector3D
+Light::get_direction(Point3D p) const {
+    return (this->position - p).normalised();
+}
+
 PointLight::PointLight(Point3D position)
     : Light(position)
 {}

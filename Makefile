@@ -4,7 +4,7 @@ CXXFLAGS = -std=c++11 -Wextra -Wall -pedantic -g -Wuninitialized -Wno-reorder -W
 LDFLAGS = -lm -lstdc++
 
 dbmp_objects = dbmp.o
-sol_objects = sol.o Sampler.o Plane.o ColourRGB.o Light.o Material.o Ray.o World.o Screen.o Intersection.o Shape.o Sphere.o Vector.o Debug.o Options.o Camera.o Tracer.o
+sol_objects = sol.o BRDF.o Sampler.o Plane.o ColourRGB.o Light.o Material.o Ray.o World.o Screen.o Intersection.o Shape.o Sphere.o Vector.o Debug.o Options.o Camera.o Tracer.o
 
 all: sol dbmp
 

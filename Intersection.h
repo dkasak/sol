@@ -23,16 +23,18 @@
 
 #include "Vector.h"
 #include "Point.h"
-#include "Shape.h"
+#include "Ray.h"
 
 namespace Sol {
 
-class Intersection {
-public:
+class Shape;
+
+struct Intersection {
     Vector3D normal;
     Point3D hit_point;
     double distance;
     const Shape* shape;
+    Ray ray;
 
     Intersection();
 };
