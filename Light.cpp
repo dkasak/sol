@@ -33,6 +33,8 @@ Light::Light(Point3D position, ColourRGB colour)
       colour(colour)
 {}
 
+Light::~Light() {}
+
 Vector3D
 Light::get_path(Point3D p) const {
     return this->position - p;

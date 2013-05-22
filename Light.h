@@ -40,7 +40,7 @@ public:
     Light(Point3D position, ColourRGB colour);
 
     virtual
-    ~Light() {}
+    ~Light();
 
     virtual double
     attenuation(Point3D p) const = 0;
