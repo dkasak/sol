@@ -18,6 +18,9 @@
  */
 
 #include "Camera.h"
+#include <chrono>
+
+using std::chrono::steady_clock;
 
 namespace Sol {
 
@@ -72,9 +75,21 @@ Camera::render(World* world) {
     const unsigned int vres = this->screen.get_vres();
     const double pixel_size = this->screen.get_pixel_size();
 
-    for (unsigned int j = vres-1; j != (unsigned int) -1; --j) {
+    this->image.resize(vres * hres);
+
+    auto start = steady_clock::now();
+
+    size_t chunk = (vres * hres) / 10;
+    size_t next = chunk;
+
+    for (unsigned int j = 0; j < vres; ++j) {
         for (unsigned int i = 0; i < hres; ++i) {
             DEBUG(2, "Pixel ->", i, j);
+
+            if ((j * hres + i) == next) {
+                print_progress(start, vres * hres, j * hres + i, 10);
+                next += chunk;
+            }
 
             // Calculate lower left corner of pixel
             Point3D p;
@@ -97,7 +112,7 @@ Camera::render(World* world) {
             }
 
             colour.clamp();
-            this->image.push_back(colour);
+            this->image[(vres - 1 - j) * hres + i] = colour;
             DEBUG(3, "Final colour:", colour);
         }
     }
