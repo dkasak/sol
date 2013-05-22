@@ -76,7 +76,7 @@ Matte::shade(Intersection intersection, World* world) {
         if (dot > 0) {
             double attenuation = l->attenuation(p);
             DEBUG(1, "attenuation: ", attenuation);
-            radiance += (this->diffuse(p, wi, wo) * dot * l->colour) * attenuation;
+            radiance += (this->diffuse(p, wi, wo) * dot * l->emittance()) * attenuation;
             /* DEBUG(4, "Diffuse factor:", diffuse); */
             /* DEBUG(4, "Light colour:", l->colour); */
             /* DEBUG(4, "Object colour:", c); */

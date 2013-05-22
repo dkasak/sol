@@ -21,6 +21,9 @@
 
 #include <cmath>    
 #include <iostream>
+#include <algorithm>
+
+using std::min;
 
 namespace Sol {
 
@@ -71,9 +74,20 @@ ColourRGB::pow(double e) const {
 
 void
 ColourRGB::clamp() {
-    if (this->red > 1.0) this->red = 1.0;
-    if (this->green > 1.0) this->green = 1.0;
-    if (this->blue > 1.0) this->blue = 1.0;
+    this->red = min(this->red, 1.0);
+    this->green = min(this->green, 1.0);
+    this->blue = min(this->blue, 1.0);
+}
+
+ColourRGB
+ColourRGB::clamped() {
+    double r, g, b;
+
+    r = min(this->red, 1.0);
+    g = min(this->green, 1.0);
+    b = min(this->blue, 1.0);
+
+    return ColourRGB(r, g, b);
 }
 
 void

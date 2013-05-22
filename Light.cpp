@@ -23,14 +23,10 @@
 
 namespace Sol {
 
-Light::Light(Point3D position)
+Light::Light(Point3D position, ColourRGB colour, double intensity)
     : position(position),
-      colour(1.0, 1.0, 1.0) // white
-{}
-
-Light::Light(Point3D position, ColourRGB colour)
-    : position(position),
-      colour(colour)
+      colour(colour),
+      intensity(intensity) 
 {}
 
 Light::~Light() {}
@@ -45,12 +41,41 @@ Light::get_direction(Point3D p) const {
     return (this->position - p).normalised();
 }
 
+ColourRGB
+Light::emittance() const {
+    return this->colour * this->intensity;
+}
+
+void
+Light::set_intensity(double intensity) {
+    this->intensity = intensity;
+}
+
+void
+Light::set_colour(ColourRGB colour) {
+    this->colour = colour;
+}
+
+double
+Light::get_intensity() {
+    return this->intensity;
+}
+
+ColourRGB
+Light::get_colour() {
+    return this->colour;
+}
+
 PointLight::PointLight(Point3D position)
     : Light(position)
 {}
 
 PointLight::PointLight(Point3D position, ColourRGB colour)
     : Light(position, colour)
+{}
+
+PointLight::PointLight(Point3D position, ColourRGB colour, double intensity)
+    : Light(position, colour, intensity)
 {}
 
 double
@@ -75,8 +100,16 @@ PointLight::occluded(Ray ray, const World* world) const {
     return is_occluded;
 }
 
+DirectionalLight::DirectionalLight(Vector3D direction)
+    : Light(-direction.normalised())
+{}
+
 DirectionalLight::DirectionalLight(Vector3D direction, ColourRGB colour)
     : Light(-direction.normalised(), colour)
+{}
+
+DirectionalLight::DirectionalLight(Vector3D direction, ColourRGB colour, double intensity)
+    : Light(-direction.normalised(), colour, intensity)
 {}
 
 double
@@ -101,6 +134,11 @@ DirectionalLight::occluded(Ray ray, const World* world) const {
 
 Vector3D
 DirectionalLight::get_path(Point3D p) const {
+    return this->position;
+}
+
+Vector3D
+DirectionalLight::get_direction(Point3D p) const {
     return this->position;
 }
 

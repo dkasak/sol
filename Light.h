@@ -32,12 +32,13 @@ class World;
 class Light {
 protected:
     Point3D position;
+    ColourRGB colour;
+    double intensity;
 
 public:
-    ColourRGB colour;
-
-    Light(Point3D position);
-    Light(Point3D position, ColourRGB colour);
+    Light(Point3D position,
+          ColourRGB colour = ColourRGB(1.0, 1.0, 1.0),
+          double intensity = 1.0);
 
     virtual
     ~Light();
@@ -45,20 +46,36 @@ public:
     virtual double
     attenuation(Point3D p) const = 0;
 
+    virtual bool
+    occluded(Ray r, const World* w) const = 0;
+
     virtual Vector3D
     get_path(Point3D p) const;
 
     virtual Vector3D
     get_direction(Point3D p) const;
 
-    virtual bool
-    occluded(Ray r, const World* w) const = 0;
+    ColourRGB
+    emittance() const;
+
+    void
+    set_intensity(double intensity);
+
+    void
+    set_colour(ColourRGB colour);
+
+    double
+    get_intensity();
+
+    ColourRGB
+    get_colour();
 };
 
 class PointLight : public Light {
 public:
     PointLight(Point3D position);
     PointLight(Point3D position, ColourRGB colour);
+    PointLight(Point3D position, ColourRGB colour, double intensity);
 
     double
     attenuation(Point3D p) const;
@@ -69,13 +86,18 @@ public:
 
 class DirectionalLight : public Light {
 public:
+    DirectionalLight(Vector3D direction);
     DirectionalLight(Vector3D direction, ColourRGB colour);
+    DirectionalLight(Vector3D direction, ColourRGB colour, double intensity);
 
     double
     attenuation(Point3D p) const;
 
     Vector3D
     get_path(Point3D p) const;
+
+    Vector3D
+    get_direction(Point3D p) const;
 
     bool
     occluded(Ray r, const World* w) const;

@@ -73,6 +73,9 @@ public:
 
     void
     clamp();
+
+    ColourRGB
+    clamped();
 };
 
 std::ostream&

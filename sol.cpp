@@ -63,20 +63,20 @@ World* build_world() {
     auto p = new Plane(Point3D(0, -1.0, 0), Vector3D(0.0, 1.0, 0.0));
     p->set_material(m3);
 
-    auto l1 = new PointLight(Point3D(1.0, 1.6, 0), ColourRGB(0.5, 0.5, 0.5));
-    auto l2 = new PointLight(Point3D(1.0, 0.2, 0.2), ColourRGB(0.5, 0.5, 0.5));
-    /* auto l3 = new PointLight(Point3D(1.6, 0.2, -5.23), ColourRGB(0.5, 0.5, 0.5)); */
-    /* auto l4 = new DirectionalLight(Vector3D(-0.5, -1.0, 0.2), ColourRGB(0.2, 0.2, 0.2)); */
+    auto l1 = new PointLight(Point3D(10.0, 5.6, -5.5), ColourRGB(0.5, 0.5, 0.5), 40.5);
+    auto l2 = new PointLight(Point3D(10.0, 6.2, -5.2), ColourRGB(0.5, 0.5, 0.5), 40.5);
+    auto l3 = new PointLight(Point3D(1.6, 0.2, -5.23), ColourRGB(0.5, 0.5, 0.5));
+    auto l4 = new DirectionalLight(Vector3D(-0.5, -1.0, 0.2), ColourRGB(0.2, 0.2, 0.2), 0.5);
 
     world->add_shape(s1);
-    /* world->add_shape(s2); */
-    /* world->add_shape(s3); */
+    world->add_shape(s2);
+    world->add_shape(s3);
     world->add_shape(p);
 
     world->add_light(l1);
     world->add_light(l2);
-    /* world->add_light(l3); */
-    /* world->add_light(l4); */
+    world->add_light(l3);
+    world->add_light(l4);
 
     return world;
 }
