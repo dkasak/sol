@@ -18,6 +18,7 @@
  */
 
 #include "BRDF.h"
+#include "Constants.h"
 
 namespace Sol {
 
@@ -28,7 +29,7 @@ Lambertian::Lambertian(double kd, ColourRGB cd)
 
 ColourRGB
 Lambertian::operator()(Point3D p, Vector3D wi, Vector3D wo) const {
-    return kd * cd;
+    return kd * cd * inv_pi;
 }
 
 } // namespace Sol
