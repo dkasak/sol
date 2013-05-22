@@ -28,7 +28,7 @@ namespace Sol {
 
 class Tracer {
 public:
-    virtual ColourRGB ray_trace(Ray r, World* w) = 0;
+    virtual ColourRGB ray_trace(Ray r, World* w, long depth = 0) = 0;
 };
 
 class RayCaster : public Tracer {
@@ -38,7 +38,7 @@ public:
 
 class RayTracer : public Tracer {
 public:
-    ColourRGB ray_trace(Ray r, World* w);
+    ColourRGB ray_trace(Ray r, World* w, long depth = 0);
 };
 
 } // namespace Sol

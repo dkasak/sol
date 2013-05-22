@@ -92,7 +92,7 @@ Camera::render(World* world) {
                 p.y += sample.y * pixel_size;
 
                 Ray ray = shoot_ray(p);
-                RayCaster tracer;
+                RayTracer tracer;
                 colour += tracer.ray_trace(ray, world) / num_samples;
             }
 

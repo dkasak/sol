@@ -31,7 +31,38 @@ RayCaster::ray_trace(Ray ray, World* world) {
 
     if (hit) {
         Material *m = intersection.shape->get_material();
-        colour = m->shade(intersection, world);
+        colour = m->direct_illumination(intersection, world);
+    } else {
+        colour = world->get_background();
+    }
+
+    return colour;
+}
+
+ColourRGB
+RayTracer::ray_trace(Ray ray, World* world, long depth) {
+    Intersection intersection;
+    ColourRGB colour;
+
+    if (depth > 100) {
+        return black;
+    }
+    
+    bool hit = world->nearest_intersection(ray, &intersection);
+
+    if (hit) {
+        Material *m = intersection.shape->get_material();
+        colour = m->direct_illumination(intersection, world);
+
+        if (m->is_reflective()) {
+            Vector3D v = ray.direction;
+            Vector3D n = intersection.normal;
+            Point3D p = intersection.hit_point;
+            Vector3D r = v - (2 * n * n.dot(v));
+            Ray reflected(p, r);
+
+            colour += m->reflectance() * this->ray_trace(reflected, world, depth + 1);
+        }
     } else {
         colour = world->get_background();
     }
