@@ -24,6 +24,7 @@
 #include "ColourRGB.h"
 #include "BRDF.h"
 #include "Intersection.h"
+#include "Constants.h"
 
 namespace Sol {
 
@@ -37,7 +38,13 @@ public:
     ~Material();
 
     virtual ColourRGB
-    shade(Intersection i, World* w) = 0;
+    direct_illumination(Intersection i, World* w) = 0;
+
+    virtual bool
+    is_reflective() const;
+
+    virtual ColourRGB
+    reflectance() const;
 };
 
 class Matte : public Material {
@@ -49,16 +56,26 @@ public:
     Matte(double kd, ColourRGB cd);
 
     ColourRGB
-    diffuse(Point3D p, Vector3D wi, Vector3D wo) const;
+    direct_illumination(Intersection i, World* w);
+};
 
-    void
-    set_diffuse_coefficient(double kd);
+class Mirror : public Material {
+private:
+    double ks;
+    ColourRGB cs;
 
-    void
-    set_diffuse_reflectance(ColourRGB cd);
+public:
+    Mirror();
+    Mirror(double ks, ColourRGB cs);
+
+    bool
+    is_reflective() const;
 
     ColourRGB
-    shade(Intersection i, World* w);
+    reflectance() const;
+
+    ColourRGB
+    direct_illumination(Intersection i, World* w);
 };
 
 } // namespace Sol

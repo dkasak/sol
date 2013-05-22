@@ -27,6 +27,16 @@ Material::Material() {}
 
 Material::~Material() {}
 
+bool
+Material::is_reflective() const {
+    return false;
+}
+
+ColourRGB
+Material::reflectance() const {
+    return black;
+}
+
 Matte::Matte()
     : lambertian(1.0, ColourRGB(1.0))
 {}
@@ -34,24 +44,9 @@ Matte::Matte()
 Matte::Matte(double diffuse_coefficient, ColourRGB reflectance)
     : lambertian(diffuse_coefficient, reflectance)
 {}
-    
-ColourRGB
-Matte::diffuse(Point3D p, Vector3D wi, Vector3D wo) const {
-    return this->lambertian(p, wi, wo);
-}
-
-void
-Matte::set_diffuse_coefficient(double kd) {
-    this->lambertian.kd = kd;
-}
-
-void
-Matte::set_diffuse_reflectance(ColourRGB reflectance) {
-    this->lambertian.cd = reflectance;
-}
 
 ColourRGB
-Matte::shade(Intersection intersection, World* world) {
+Matte::direct_illumination(Intersection intersection, World* world) {
     ColourRGB radiance;
     Vector3D normal = intersection.normal;
     Vector3D wo = -intersection.ray.direction;
@@ -76,7 +71,7 @@ Matte::shade(Intersection intersection, World* world) {
         if (dot > 0) {
             double attenuation = l->attenuation(p);
             DEBUG(1, "attenuation: ", attenuation);
-            radiance += (this->diffuse(p, wi, wo) * dot * l->emittance()) * attenuation;
+            radiance += (this->lambertian(p, wi, wo) * dot * l->emittance()) * attenuation;
             /* DEBUG(4, "Diffuse factor:", diffuse); */
             /* DEBUG(4, "Light colour:", l->colour); */
             /* DEBUG(4, "Object colour:", c); */
@@ -85,6 +80,31 @@ Matte::shade(Intersection intersection, World* world) {
     } 
 
     return radiance;
+}
+
+Mirror::Mirror()
+    : ks(1.0),
+      cs(white)
+{}
+
+Mirror::Mirror(double specular_coefficient, ColourRGB reflectance)
+    : ks(specular_coefficient),
+      cs(reflectance)
+{}
+
+bool
+Mirror::is_reflective() const {
+    return true;
+}
+
+ColourRGB
+Mirror::reflectance() const {
+    return this->ks * this->cs;
+}
+
+ColourRGB
+Mirror::direct_illumination(Intersection intersection, World* world) {
+    return black;
 }
 
 } // namespace Sol
