@@ -39,7 +39,7 @@ namespace Sol {
 
 class World {
 private:
-    double ambientLight;
+    ColourRGB ambientLight;
     ColourRGB background;
 
 public:
@@ -56,7 +56,10 @@ public:
     add_light(const Light* l);
 
     void
-    set_ambient(double ambient);
+    set_ambient(ColourRGB ambient);
+
+    ColourRGB
+    get_ambient();
 
     void
     set_background(ColourRGB background);

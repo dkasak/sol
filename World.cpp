@@ -50,8 +50,13 @@ World::add_light(const Light* l) {
 }
 
 void
-World::set_ambient(double ambient) {
+World::set_ambient(ColourRGB ambient) {
     this->ambientLight = ambient;
+}
+
+ColourRGB
+World::get_ambient() {
+    return this->ambientLight;
 }
 
 void
