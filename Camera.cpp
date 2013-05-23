@@ -112,7 +112,7 @@ Camera::render(World* world) {
             }
 
             colour.clamp();
-            this->image[(vres - 1 - j) * hres + i] = colour;
+            this->image[j * hres + i] = colour;
             DEBUG(3, "Final colour:", colour);
         }
     }
