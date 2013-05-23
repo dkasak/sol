@@ -30,22 +30,22 @@ write_bmp(const unsigned char* data, size_t width, size_t height, const char* fn
     bmp_header_t h1;
     dib_header_t h2;
 
-    FILE *bmp;
-
     /* open file for writing */
-
-    bmp = fopen(fname, "w");
+    FILE *bmp = fopen(fname, "w");
 
     if (bmp == NULL) {
         return false;  
     }
 
     /* initialise data structures */
-
     magic.magic[0] = 'B';
     magic.magic[1] = 'M';
 
-    h1.file_size = BMP_HEADER_SIZE + DIB_HEADER_SIZE + (width * height) * BYPP;
+    /* calculate padding so each row is alligned to 4 bytes */
+    size_t tail = width * BYPP % 4;
+    size_t pad_len = tail ? 4-tail : 0;
+
+    h1.file_size = BMP_HEADER_SIZE + DIB_HEADER_SIZE + (width * height) * BYPP + pad_len * height;
     h1.reserved1 = 'D';
     h1.reserved2 = 'K';
     h1.bmp_offset = BMP_HEADER_SIZE + DIB_HEADER_SIZE;
@@ -63,20 +63,23 @@ write_bmp(const unsigned char* data, size_t width, size_t height, const char* fn
     h2.ncolours_important = 0;
 
     /* write BMP / DIB headers */
-
     fwrite((void *) &magic, sizeof magic, 1, bmp);
     fwrite((void *) &h1, sizeof h1, 1, bmp);
     fwrite((void *) &h2, sizeof h2, 1, bmp);
 
-    size_t index;
-    for (size_t j = height-1; j != (size_t) -1; --j) {
-        for (size_t i = 0; i < width; ++i) {
-            index = j * width + i;
-            index *= BYPP;
-            fprintf(bmp, "%c", data[index + 2]);
-            fprintf(bmp, "%c", data[index + 1]);
-            fprintf(bmp, "%c", data[index]);
+    const unsigned char* old = data;
+    /* write image */
+    unsigned char padding[] = "000";
+    for (size_t row = 0; row < height; ++row) {
+        if (!fwrite((void *) data, width * BYPP, 1, bmp)) {
+            return NULL;
         }
+
+        if (pad_len && !fwrite((void *) padding, pad_len, 1, bmp)) {
+            return NULL;
+        }
+
+        data += width * BYPP;
     }
 
     fclose(bmp);
