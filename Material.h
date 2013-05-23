@@ -47,7 +47,7 @@ public:
     reflectance() const;
 };
 
-class Matte : public Material {
+class Matte : virtual public Material {
 private:
     Lambertian lambertian;
 
@@ -59,7 +59,7 @@ public:
     direct_illumination(Intersection i, World* w);
 };
 
-class Mirror : public Material {
+class Mirror : virtual public Material {
 private:
     double ks;
     ColourRGB cs;
@@ -67,6 +67,21 @@ private:
 public:
     Mirror();
     Mirror(double ks, ColourRGB cs);
+
+    bool
+    is_reflective() const;
+
+    ColourRGB
+    reflectance() const;
+
+    ColourRGB
+    direct_illumination(Intersection i, World* w);
+};
+
+class MatteMirror : public Matte, public Mirror {
+public:
+    MatteMirror();
+    MatteMirror(double kd, ColourRGB cd, double ks, ColourRGB cs);
 
     bool
     is_reflective() const;

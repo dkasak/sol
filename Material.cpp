@@ -106,5 +106,30 @@ Mirror::direct_illumination(Intersection intersection, World* world) {
     return black;
 }
 
+
+MatteMirror::MatteMirror() 
+    : Matte(),
+      Mirror()
+{}
+
+MatteMirror::MatteMirror(double kd, ColourRGB cd, double ks, ColourRGB cs) 
+    : Matte(kd, cd),
+      Mirror(ks, cs)
+{}
+
+ColourRGB
+MatteMirror::direct_illumination(Intersection intersection, World* world) {
+    return Matte::direct_illumination(intersection, world);
+}
+
+bool
+MatteMirror::is_reflective() const {
+    return Mirror::is_reflective();
+}
+
+ColourRGB
+MatteMirror::reflectance() const {
+    return Mirror::reflectance();
+}
 } // namespace Sol
 
