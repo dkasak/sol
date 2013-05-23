@@ -95,9 +95,9 @@ void output_image(Camera& camera, Options opt) {
     camera.image[0] = ColourRGB(0.0, 1.0, 1.0);
 
     for (size_t i = 0; i < camera.image.size(); ++i) {
-        image[3*i]     = camera.image[i].red * 255;
+        image[3*i]     = camera.image[i].blue * 255;
         image[3*i + 1] = camera.image[i].green * 255;
-        image[3*i + 2] = camera.image[i].blue * 255;
+        image[3*i + 2] = camera.image[i].red * 255;
     }
 
     // Red pixel in top-left corner for testing, to be removed eventually
