@@ -1,9 +1,10 @@
 #include "Options.h"
+#include <cctype>
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
-#include <boost/algorithm/string.hpp>
+#include <algorithm>
 
 void
 print_help() {
@@ -18,7 +19,7 @@ print_help() {
         "    -f, --filename      Filename to output the resulting image\n"     \
         "    -h, --help          Display this help information\n";
 
-    cout << help_string << endl;
+    std::cout << help_string << std::endl;
 }
 
 bool
@@ -81,7 +82,7 @@ get_option_value(const vector<string>& options,
 
 template <typename T>
 bool parse_number(string value, T& ret) {
-    stringstream ss(value);
+    std::stringstream ss(value);
 
     ss >> ret;
 
@@ -128,8 +129,8 @@ parse_options(size_t argc, char** argv) {
         } else if (get_option_value(options, i, "-f", "--filename", option, value)) {
             opt.output_filename = value;
         } else if (get_option_value(options, i, "-S", "--sampler", option, value)) {
-            string lowercase = value;
-            boost::algorithm::to_lower(lowercase);
+            string lowercase;
+            std::transform(value.begin(), value.end(), lowercase.begin(), ::tolower);
             if (lowercase == "stochastic") {
                 opt.sampler = STOCHASTIC;
             } else if (lowercase == "regular") {
