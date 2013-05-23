@@ -17,6 +17,7 @@ optimized: CFLAGS += -O4
 optimized: clean all
 
 debug: CXXFLAGS += -Og -g
+debug: CFLAGS += -Og -g
 debug: clean all
 
 clean: 
