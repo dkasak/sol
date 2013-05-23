@@ -24,6 +24,7 @@
 
 #include "ColourRGB.h"
 #include "Debug.h"
+#include "Film.h"
 #include "Point.h"
 #include "Ray.h"
 #include "Sampler.h"
@@ -40,6 +41,8 @@ private:
     Sampler* sampler;
 
 public:
+    Film film;
+
     Camera(Point3D p, Sampler* s);
     Camera(double x, double y, double z, Sampler* s);
 
@@ -69,8 +72,6 @@ public:
 
     void
     render(World* world);
-
-    vector<ColourRGB> image;
 };
 
 class OrtographicCamera : public Camera {

@@ -75,8 +75,6 @@ Camera::render(World* world) {
     const unsigned int vres = this->screen.get_vres();
     const double pixel_size = this->screen.get_pixel_size();
 
-    this->image.resize(vres * hres);
-
     auto start = steady_clock::now();
 
     size_t chunk = (vres * hres) / 10;
@@ -112,8 +110,9 @@ Camera::render(World* world) {
             }
 
             colour.clamp();
-            this->image[j * hres + i] = colour;
+
             DEBUG(3, "Final colour:", colour);
+            this->film.commit(colour);
         }
     }
 }

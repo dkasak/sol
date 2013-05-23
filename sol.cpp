@@ -21,6 +21,7 @@
 #include "Camera.h"
 #include "ColourRGB.h"
 #include "Debug.h"
+#include "Film.h"
 #include "Light.h"
 #include "Material.h"
 #include "Plane.h"
@@ -44,33 +45,11 @@ using namespace Sol;
 
 #include "Worlds/coloured_shadows.cpp"
 
-void output_image(Camera& camera, Options opt) {
-    unsigned char *image = new_image_buffer(camera.get_screen().get_hres(),
-                                            camera.get_screen().get_vres());
-
-    assert(camera.image.size() ==
-           camera.get_screen().get_hres() * camera.get_screen().get_vres());
-
-    // Cyan pixel as the first pixel of the rendered image, for orientation
-    camera.image[0] = ColourRGB(0.0, 1.0, 1.0);
-
-    for (size_t i = 0; i < camera.image.size(); ++i) {
-        image[3*i]     = camera.image[i].blue * 255;
-        image[3*i + 1] = camera.image[i].green * 255;
-        image[3*i + 2] = camera.image[i].red * 255;
-    }
-
-    // Red pixel in top-left corner for testing, to be removed eventually
-    image[0] = 255;
-    image[1] = 0;
-    image[2] = 0;
-
+void output_image(const Film& film, size_t width, size_t height, const char* filename) {
     DEBUG(1, "Writing BMP...");
-    write_bmp(image,
-              camera.get_screen().get_hres(),
-              camera.get_screen().get_vres(),
-              opt.output_filename.c_str());
-    destroy_image_buffer(image);
+    unsigned char* image = film.BGR24();
+    write_bmp(image, width, height, filename);
+    delete[] image;
 }
 
 int
@@ -117,7 +96,11 @@ main(int argc, char **argv) {
     camera.render(world);
     DEBUG(1, "Finished rendering");
 
-    output_image(camera, opt);
+    assert(camera.film.size() ==
+           screen.get_hres() * screen.get_vres());
+
+    output_image(camera.film, screen.get_hres(),
+                 screen.get_vres(), opt.output_filename.c_str());
 
     delete world;
     delete sampler;

@@ -5,7 +5,8 @@
 #ifndef SOL_OPTIONS_H
 #define SOL_OPTIONS_H
 
-using namespace std;
+using std::string;
+using std::vector;
 
 // option defaults
 #define DEFAULT_DEBUG_LEVEL         0
@@ -27,7 +28,7 @@ struct Options {
     SamplerType sampler;
 };
 
-class InvalidOptionValue : public exception {
+class InvalidOptionValue : public std::exception {
 public:
     string name;
     string value;
