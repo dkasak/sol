@@ -59,6 +59,15 @@ typedef struct {
     uint32_t ncolours_important;
 } dib_header_t;
 
+typedef struct {
+    uint32_t width;
+    uint32_t height;
+    uint16_t bpp;
+} bmp_meta_t;
+
+unsigned char*
+read_bmp(const char *fname, bmp_meta_t* meta);
+
 bool
 write_bmp(unsigned const char* data, size_t width, size_t height, const char *fname);
 

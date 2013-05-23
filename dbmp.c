@@ -24,6 +24,68 @@
 
 #include "dbmp.h"
 
+
+unsigned char*
+read_bmp(const char* fname, bmp_meta_t* meta) {
+    bmp_magic_t magic;
+    bmp_header_t h1;
+    dib_header_t h2;
+
+    /* open file for reading */
+
+    FILE *bmp = fopen(fname, "r");
+
+    if (bmp == NULL) {
+        return NULL;  
+    }
+
+    /* read headers/magic */
+    fread(&magic, sizeof magic, 1, bmp);
+    fread(&h1, sizeof h1, 1, bmp);
+    fread(&h2, sizeof h2, 1, bmp);
+
+    /* check if it's a BMP file (according to the magic) */
+    if (magic.magic[0] != 'B' || magic.magic[1] != 'M') {
+        return NULL;
+    }
+
+    /* allocate memory */
+    size_t image_size = h2.width * h2.height * h2.bpp / CHAR_BIT;
+    unsigned char* image = malloc(image_size);
+
+    if (image == NULL) {
+        return NULL;
+    }
+
+    unsigned char* ptr = image;
+
+    /* read image */
+    for (size_t row = 0; row < h2.height; ++row) {
+        if (!fread((void *) ptr, h2.width * BYPP, 1, bmp)) {
+            return NULL;
+        }
+
+        /* remove padding, if any */
+        size_t tail = h2.width * BYPP % 4;
+        size_t pad_len = tail ? 4-tail : 0;
+
+        /* discard padding */
+        while (pad_len--) {
+            (void) fgetc(bmp);
+        }
+
+        ptr += h2.width * BYPP;
+    }
+
+    meta->width = h2.width;
+    meta->height = h2.height;
+    meta->bpp = h2.bpp;
+
+    fclose(bmp);
+
+    return image;
+}
+
 bool
 write_bmp(const unsigned char* data, size_t width, size_t height, const char* fname) {
     bmp_magic_t magic;
@@ -67,7 +129,6 @@ write_bmp(const unsigned char* data, size_t width, size_t height, const char* fn
     fwrite((void *) &h1, sizeof h1, 1, bmp);
     fwrite((void *) &h2, sizeof h2, 1, bmp);
 
-    const unsigned char* old = data;
     /* write image */
     unsigned char padding[] = "000";
     for (size_t row = 0; row < height; ++row) {
