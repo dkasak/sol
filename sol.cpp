@@ -86,9 +86,13 @@ main(int argc, char **argv) {
     Screen screen = Screen(opt.hres, opt.vres);
     screen.set_pixel_size(opt.pixel_size);
 
-    PerspectiveCamera camera(Point3D(0.0, 0.0, -5.0), sampler);
+    PerspectiveCamera camera;
+    camera.look_from(Point3D(20.0, 40.0, -5.0));
+    camera.look_at(Point3D(0.0, 0.5, 2.0));
+    camera.view_up(Vector3D(0.0, 1.0, 0.0));
+    camera.field_of_view(173, true);
+    camera.set_sampler(sampler);
     camera.set_screen(screen);
-    camera.screen_distance = 3.5;
 
     World* world = build_world();
 
@@ -103,7 +107,6 @@ main(int argc, char **argv) {
                  screen.get_vres(), opt.output_filename.c_str());
 
     delete world;
-    delete sampler;
 
     return EXIT_SUCCESS;
 }

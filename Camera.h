@@ -22,6 +22,7 @@
 
 #include <limits>
 
+#include "Constants.h"
 #include "ColourRGB.h"
 #include "Debug.h"
 #include "Film.h"
@@ -35,25 +36,35 @@
 namespace Sol {
 
 class Camera {
-private:
-    Point3D position;
+protected:
+    Point3D look_from_point, look_at_point;
+    Vector3D view_dir, view_up_dir;
     Screen screen; 
     Sampler* sampler;
+    double fov;
 
 public:
     Film film;
 
-    Camera(Point3D p, Sampler* s);
-    Camera(double x, double y, double z, Sampler* s);
+    Camera(Point3D lf, Point3D la, Vector3D vu, double fov);
 
-    Point3D
-    get_position() const;
-
-    void
-    set_position(Point3D p);
+    virtual
+    ~Camera();
 
     void
-    set_position(double x, double y, double z);
+    look_from(Point3D p);
+
+    void
+    look_at(Point3D p);
+
+    void
+    view_up(Vector3D vu);
+
+    Vector3D
+    view_direction() const;
+
+    void
+    field_of_view(double fov, bool in_degrees = false);
 
     void
     set_screen(Screen s);
@@ -76,8 +87,10 @@ public:
 
 class OrtographicCamera : public Camera {
 public:
-    OrtographicCamera(Point3D p, Sampler* s);
-    OrtographicCamera(double x, double y, double z, Sampler* s);
+    OrtographicCamera(Point3D lf = Point3D(0, 0, 0), 
+                      Point3D la = Point3D(0, 0, 1),
+                      Vector3D vu = Vector3D(0, 1, 0),
+                      double fov = pi/3);
 
     virtual Ray
     shoot_ray(Point3D p) const;
@@ -85,13 +98,13 @@ public:
 
 class PerspectiveCamera : public Camera {
 public:
-    PerspectiveCamera(Point3D p, Sampler* s);
-    PerspectiveCamera(double x, double y, double z, Sampler* s);
+    PerspectiveCamera(Point3D lf = Point3D(0, 0, 0), 
+                      Point3D la = Point3D(0, 0, 1),
+                      Vector3D vu = Vector3D(0, 1, 0),
+                      double fov = pi/3);
 
     virtual Ray
     shoot_ray(Point3D p) const;
-
-    unsigned int screen_distance;
 };
 
 } // namespace Sol
