@@ -130,6 +130,7 @@ parse_options(size_t argc, char** argv) {
             opt.output_filename = value;
         } else if (get_option_value(options, i, "-S", "--sampler", option, value)) {
             string lowercase;
+            lowercase.resize(value.length());
             std::transform(value.begin(), value.end(), lowercase.begin(), ::tolower);
             if (lowercase == "stochastic") {
                 opt.sampler = STOCHASTIC;
