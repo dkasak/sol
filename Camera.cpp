@@ -69,6 +69,17 @@ Camera::field_of_view(double fov, bool in_degrees) {
 }
 
 void
+Camera::zoom(double zoom_factor) {
+    // Clamp the zoom factor to [0, +inf>
+    zoom_factor = max(zoom_factor, 0.0);
+
+    double length = (look_at_point - look_from_point).length();
+    double d = zoom_factor * length;
+
+    this->fov = 2 * atan(screen.get_vres() / (2 * d));
+}
+
+void
 Camera::set_screen(Screen s) {
     screen = s;
 }

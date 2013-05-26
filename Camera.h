@@ -67,6 +67,9 @@ public:
     field_of_view(double fov, bool in_degrees = false);
 
     void
+    zoom(double zoom_factor);
+
+    void
     set_screen(Screen s);
 
     Screen
