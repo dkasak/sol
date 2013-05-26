@@ -59,6 +59,22 @@ Camera::view_direction() const {
     return view_dir;
 }
 
+
+Vector3D
+Camera::w() const {
+    return view_dir;
+}
+
+Vector3D
+Camera::u() const {
+    return w().cross(view_up_dir).normalised();
+}
+
+Vector3D 
+Camera::v() const {
+    return u().cross(w()).normalised();
+}
+
 void
 Camera::field_of_view(double fov, bool in_degrees) {
     if (in_degrees) {
@@ -111,24 +127,25 @@ Camera::render(World* world) {
     size_t chunk = (vres * hres) / 10;
     size_t next = chunk;
 
-    Vector3D w = view_dir;
-    Vector3D u = w.cross(view_up_dir).normalised();
-    Vector3D v = u.cross(w).normalised();
-
-    u *= pixel_size;
-    v *= pixel_size;
-
-    double d = vres / (2 * tan(fov/2));
-
     DEBUG(2, "View direction:", view_dir);
     DEBUG(2, "View up:", view_up_dir);
     DEBUG(2, "Look at:", look_at_point);
     DEBUG(2, "Look from:", look_from_point);
     DEBUG(2, "Field of view:", fov, "radians");
-    DEBUG(2, "u:", u);
-    DEBUG(2, "v:", v);
-    DEBUG(2, "w:", w);
+    DEBUG(2, "u:", u());
+    DEBUG(2, "v:", v());
+    DEBUG(2, "w:", w());
 
+    Vector3D u_p = u() * pixel_size;
+    Vector3D v_p = v() * pixel_size;
+
+    // Distance to screen
+    double d = vres / (2 * tan(fov/2));
+
+    // Set up the tracer
+    RayTracer tracer;
+    
+    // Iterate through the pixels
     for (unsigned int j = 0; j < vres; ++j) {
         for (unsigned int i = 0; i < hres; ++i) {
             DEBUG(2, "Pixel ->", i, j);
@@ -140,9 +157,9 @@ Camera::render(World* world) {
 
             // Calculate lower left corner of pixel
             Point3D p = look_from_point
-                      + d * w
-                      + (i - (hres / 2.0)) * u
-                      + (j - (vres / 2.0)) * v;
+                      + d * w()
+                      + (i - (hres / 2.0)) * u_p
+                      + (j - (vres / 2.0)) * v_p;
             
             ColourRGB colour;
             unsigned int num_samples = sampler->num_samples();

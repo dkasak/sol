@@ -63,6 +63,15 @@ public:
     Vector3D
     view_direction() const;
 
+    Vector3D
+    w() const;
+
+    Vector3D
+    u() const;
+
+    Vector3D 
+    v() const;
+
     void
     field_of_view(double fov, bool in_degrees = false);
 
