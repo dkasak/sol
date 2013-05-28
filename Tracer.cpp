@@ -44,7 +44,7 @@ RayTracer::ray_trace(Ray ray, World* world, long depth) {
     Intersection intersection;
     ColourRGB colour;
 
-    if (depth > 100) {
+    if (depth > 5) {
         return black;
     }
     
