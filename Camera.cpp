@@ -118,12 +118,13 @@ Camera::get_sampler() const {
 
 void
 Camera::render(World* world) {
+    // Screen parameters
     const unsigned int hres = screen.get_hres();
     const unsigned int vres = screen.get_vres();
     const double pixel_size = screen.get_pixel_size();
 
+    // Set up rendering progress reporting
     auto start = steady_clock::now();
-
     size_t chunk = (vres * hres) / 10;
     size_t next = chunk;
 
@@ -136,6 +137,7 @@ Camera::render(World* world) {
     DEBUG(2, "v:", v());
     DEBUG(2, "w:", w());
 
+    // Camera screen coordinate bases scaled by pixel size
     Vector3D u_p = u() * pixel_size;
     Vector3D v_p = v() * pixel_size;
 
@@ -150,6 +152,7 @@ Camera::render(World* world) {
         for (unsigned int i = 0; i < hres; ++i) {
             DEBUG(2, "Pixel ->", i, j);
 
+            // Print rendering progress
             if ((j * hres + i) == next) {
                 print_progress(start, vres * hres, j * hres + i, 10);
                 next += chunk;
@@ -165,8 +168,11 @@ Camera::render(World* world) {
             unsigned int num_samples = sampler->num_samples();
             sampler->resample();
 
+            // Sample the pixel and trace rays through the samples
             for (auto sample : *sampler) {
                 DEBUG(5, "SAMPLE", sample * pixel_size);
+                
+                // Perturb the pixel by the random samples
                 p += u * sample.x + v * sample.y;
 
                 Ray ray = shoot_ray(p);
@@ -174,8 +180,10 @@ Camera::render(World* world) {
                 colour += tracer.ray_trace(ray, world) / num_samples;
             }
 
+            // Clamp out-of-gamut colours
             colour.clamp();
 
+            // Commit the colour to the film
             DEBUG(3, "Final colour:", colour);
             film.commit(colour);
         }
