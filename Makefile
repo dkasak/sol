@@ -14,11 +14,11 @@ test_dbmp: $(dbmp_objects)
 
 optimized: CXXFLAGS += -O4 
 optimized: CFLAGS += -O4 
-optimized: clean all
+optimized: all
 
 debug: CXXFLAGS += -Og -g
 debug: CFLAGS += -Og -g
-debug: clean all
+debug: all
 
 clean: 
 	-rm --force *.o test_dbmp sol
