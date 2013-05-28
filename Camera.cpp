@@ -171,12 +171,11 @@ Camera::render(World* world) {
             // Sample the pixel and trace rays through the samples
             for (auto sample : *sampler) {
                 DEBUG(5, "SAMPLE", sample * pixel_size);
-                
-                // Perturb the pixel by the random samples
-                p += u * sample.x + v * sample.y;
 
-                Ray ray = shoot_ray(p);
-                RayTracer tracer;
+                // Perturb the pixel by the random samples
+                Point3D s = p + u_p * sample.x + v_p * sample.y;
+
+                Ray ray = shoot_ray(s);
                 colour += tracer.ray_trace(ray, world) / num_samples;
             }
 
