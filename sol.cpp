@@ -43,7 +43,7 @@ extern "C" {
 
 using namespace Sol;
 
-#include "Worlds/coloured_shadows.cpp"
+#include "Worlds/four_spheres.cpp"
 
 void output_image(const Film& film, size_t width, size_t height, const char* filename) {
     DEBUG(1, "Writing BMP...");
@@ -87,12 +87,11 @@ main(int argc, char **argv) {
     screen.set_pixel_size(opt.pixel_size);
 
     PerspectiveCamera camera;
-    camera.look_from(Point3D(20.0, 40.0, -5.0));
-    camera.look_at(Point3D(0.0, 0.5, 2.0));
-    camera.view_up(Vector3D(0.0, 1.0, 0.0));
-    camera.field_of_view(173, true);
-    camera.set_sampler(sampler);
+    camera.look_from(Point3D(0, 30, -70));
+    camera.look_at(Point3D(0, 0, 0));
     camera.set_screen(screen);
+    camera.set_sampler(sampler);
+    camera.zoom(0.2);
 
     World* world = build_world();
 

@@ -9,7 +9,7 @@ World* build_world() {
     auto s1 = new Sphere(Point3D(0.0, 1.5, 2.0), 1.0);
     s1->set_material(m1);
 
-    auto p = new Plane(Point3D(0.0, -1.0, 0.0), Vector3D(0.0, 1.0, -0.2));
+    auto p = new Plane(Point3D(0.0, -1.0, 0.0), Vector3D(0.0, 1.0, 0.0));
     p->set_material(mp);
 
     world->add_shape(s1);
