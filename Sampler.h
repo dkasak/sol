@@ -76,7 +76,21 @@ public:
     resample();
 };
 
+class JitteredSampler : public Sampler {
+private:
+    std::function<double()> distribution;
+    unsigned int n_supersamples;
+    
+public:
+    JitteredSampler(unsigned int supersamples,
+                    std::function<double()> distribution);
+    ~JitteredSampler() {}
+
+    void
+    resample();
+};
+
 } // namespace Sol
 
-#endif // SOL__H
+#endif // SOL_SAMPLER_H
 

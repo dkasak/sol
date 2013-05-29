@@ -136,6 +136,8 @@ parse_options(size_t argc, char** argv) {
                 opt.sampler = STOCHASTIC;
             } else if (lowercase == "regular") {
                 opt.sampler = REGULAR;
+            } else if (lowercase == "jittered") {
+                opt.sampler = JITTERED;
             } else {
                 throw InvalidOptionValue(option, value);
             }

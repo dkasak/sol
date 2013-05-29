@@ -78,4 +78,30 @@ StochasticSampler::resample() {
     }
 }
 
+JitteredSampler::JitteredSampler(unsigned int supersamples, 
+                                 std::function<double()> distribution) {
+    this->n_supersamples = supersamples;
+    this->n_samples = supersamples * supersamples;
+    this->samples.reserve(this->n_samples);
+    this->distribution = distribution;
+
+    resample();
+} 
+
+void
+JitteredSampler::resample() {
+    this->samples.clear();
+
+    double stratum_size = 1.0 / this->n_supersamples;
+
+    for (unsigned int j = 0; j < this->n_supersamples; ++j) {
+        for (unsigned int i = 0; i < this->n_supersamples; ++i) {
+            double x = this->distribution() * stratum_size;
+            double y = this->distribution() * stratum_size;
+            this->samples.push_back(Point2D(i * stratum_size + x,
+                                            j * stratum_size + y));
+        }
+    }
+}
+
 } // namespace Sol

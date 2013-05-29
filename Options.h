@@ -16,7 +16,7 @@ using std::vector;
 #define DEFAULT_PIXEL_SIZE          0.01
 #define DEFAULT_OUTPUT_FILENAME     "output.bmp"
 
-enum SamplerType { REGULAR, STOCHASTIC };
+enum SamplerType { REGULAR, STOCHASTIC, JITTERED };
 
 struct Options {
     int debug_level;

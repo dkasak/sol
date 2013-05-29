@@ -27,6 +27,7 @@
 #include "Plane.h"
 #include "Ray.h"
 #include "World.h"
+#include "Sampler.h"
 #include "Screen.h"
 #include "Shape.h"
 #include "Sphere.h"
@@ -79,6 +80,12 @@ main(int argc, char **argv) {
         std::uniform_real_distribution<double> distribution(0, 1);
         auto generator = [rng, distribution] () mutable { return distribution(rng); };
         sampler = new StochasticSampler(opt.supersamples, generator);
+    } else if (opt.sampler == JITTERED) {
+        std::random_device rd;
+        std::mt19937 rng(rd());
+        std::uniform_real_distribution<double> distribution(0, 1);
+        auto generator = [rng, distribution] () mutable { return distribution(rng); };
+        sampler = new JitteredSampler(opt.supersamples, generator);
     } else if (opt.sampler == REGULAR) {
         sampler = new RegularSampler(opt.supersamples);
     }
