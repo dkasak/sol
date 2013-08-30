@@ -26,7 +26,7 @@
 namespace Sol {
 
 class Ray;
-class Intersection;
+struct Intersection;
 
 class Shape {
 protected:
