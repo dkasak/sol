@@ -17,6 +17,7 @@
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Box.h"
 #include "Constants.h"
 #include "Camera.h"
 #include "ColourRGB.h"
@@ -44,7 +45,7 @@ extern "C" {
 
 using namespace Sol;
 
-#include "Worlds/four_spheres.cpp"
+#include "Worlds/four_boxes.cpp"
 
 void output_image(const Film& film, size_t width, size_t height, const char* filename) {
     DEBUG(1, "Writing BMP...");
