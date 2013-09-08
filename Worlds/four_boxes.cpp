@@ -28,9 +28,9 @@ World* build_world() {
     world->add_shape(p);
 
     auto l1 = new PointLight(Point3D( 0.0, 2.0, -2.0), white, 25.0);
-    auto l2 = new PointLight(Point3D(-2.5, 2.0,  0.0), white, 50.0);
-    auto l3 = new PointLight(Point3D( 2.5, 2.0,  0.0), green, 12.0);
-    auto l4 = new DirectionalLight(Vector3D( -2.5, -2.0,  0.0), yellow, 0.4);
+    auto l2 = new PointLight(Point3D(-2.5, 2.0,  0.0), yellow, 50.0);
+    auto l3 = new PointLight(Point3D( 2.5, 2.0,  0.0), red, 12.0);
+    auto l4 = new DirectionalLight(Vector3D( -2.5, -2.0,  0.0), white, 0.4);
 
     world->add_light(l1);
     world->add_light(l2);
