@@ -74,7 +74,7 @@ main(int argc, char **argv) {
 
     debug_level = opt.debug_level;
 
-    Sampler *sampler;
+    Sampler* sampler;
     if (opt.sampler == STOCHASTIC) {
         std::random_device rd;
         std::mt19937 rng(rd());
@@ -94,23 +94,19 @@ main(int argc, char **argv) {
     Screen screen = Screen(opt.hres, opt.vres);
     screen.set_pixel_size(opt.pixel_size);
 
-    PerspectiveCamera camera;
-    camera.look_from(Point3D(0, 30, -70));
-    camera.look_at(Point3D(0, 0, 0));
-    camera.set_screen(screen);
-    camera.set_sampler(sampler);
-    camera.zoom(0.2);
-
+    Camera* camera = create_camera();
+    camera->set_sampler(sampler);
+    camera->set_screen(screen);
     World* world = build_world();
 
     DEBUG(1, "Began rendering");
-    camera.render(world);
+    camera->render(world);
     DEBUG(1, "Finished rendering");
 
-    assert(camera.film.size() ==
+    assert(camera->film.size() ==
            screen.get_hres() * screen.get_vres());
 
-    output_image(camera.film, screen.get_hres(),
+    output_image(camera->film, screen.get_hres(),
                  screen.get_vres(), opt.output_filename.c_str());
 
     delete world;

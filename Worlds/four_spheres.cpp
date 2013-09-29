@@ -1,3 +1,11 @@
+Camera* create_camera() {
+    auto camera = new PerspectiveCamera();
+    camera->look_from(Point3D(0.0, 0.0, -5.0));
+    camera->look_at(Point3D(0.0, 0.0, 1.0));
+    camera->zoom(0.5);
+    return camera;
+}
+
 World* build_world() {
     World* world = new World;
 

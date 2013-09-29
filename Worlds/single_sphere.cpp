@@ -1,3 +1,13 @@
+Camera* create_camera() {
+    auto camera = new PerspectiveCamera();
+
+    camera->look_from(Point3D(4.0, 5.0, -15));
+    camera->look_at(Point3D(0.0, 0.4, 6.0));
+    camera->zoom(0.4);
+
+    return camera;
+}
+
 World* build_world() {
     World* world = new World;
 
@@ -6,7 +16,7 @@ World* build_world() {
     auto m1 = new Matte(0.7, red);
     auto mp = new Matte(0.8, white);
 
-    auto s1 = new Sphere(Point3D( 0.0, 0.8, 6.0), 1.0);
+    auto s1 = new Sphere(Point3D(0.0, 0.8, 6.0), 1.0);
     s1->set_material(m1);
 
     auto p = new Plane(Point3D(0, -1.0, 0), Vector3D(0.0, 1.0, 0.0));
