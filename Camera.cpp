@@ -30,7 +30,8 @@ Camera::Camera(Point3D lf, Point3D la, Vector3D vu, double fov) :
     look_at_point(la),
     view_up_dir(vu.normalised()),
     view_dir((la-lf).normalised()),
-    fov(fov)
+    fov(fov),
+    zoom_factor(1.0)
 {}
 
 Camera::~Camera() {
@@ -85,19 +86,23 @@ Camera::field_of_view(double fov, bool in_degrees) {
 }
 
 void
-Camera::zoom(double zoom_factor) {
+Camera::zoom(double zf) {
     // Clamp the zoom factor to [0, +inf>
-    zoom_factor = max(zoom_factor, 0.0);
+    zoom_factor = max(zf, 0.0);
 
     double length = (look_at_point - look_from_point).length();
     double d = zoom_factor * length;
 
-    this->fov = 2 * atan(screen.get_vres() / (2 * d));
+    fov = 2 * atan(screen.get_vres() / (2 * d));
 }
 
 void
 Camera::set_screen(Screen s) {
     screen = s;
+
+    // We need to re-zoom since the field of view angle depends on screen
+    // resolution
+    zoom(zoom_factor);
 }
 
 Screen

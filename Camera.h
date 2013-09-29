@@ -42,6 +42,7 @@ protected:
     Screen screen; 
     Sampler* sampler;
     double fov;
+    double zoom_factor;
 
 public:
     Film film;
