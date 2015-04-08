@@ -26,12 +26,12 @@ main(void) {
 
     srand(time(NULL));
 
-    char *img = new_image_buffer(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    unsigned char *img = new_image_buffer(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
     char colour;
     int index;
-    for (int j = 0; j < DEFAULT_HEIGHT; ++j) {
-        for (int i = 0; i < DEFAULT_WIDTH; ++i) {
+    for (size_t j = 0; j < DEFAULT_HEIGHT; ++j) {
+        for (size_t i = 0; i < DEFAULT_WIDTH; ++i) {
             colour = 127 - 127 * cos(0.1 * sqrt(i * i + j * j));
             index = j * DEFAULT_WIDTH + i;
             index *= BYPP;
