@@ -1,5 +1,5 @@
 /**
- * Copyright 2011, 2012 Denis Kasak <dkasak[at]termina.org.uk>
+ * Copyright 2011-2015 Denis Kasak <dkasak[at]termina.org.uk>
  *
  * This file is part of Sol.
  *
