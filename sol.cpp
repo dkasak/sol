@@ -45,7 +45,7 @@ extern "C" {
 
 using namespace Sol;
 
-#include "Worlds/four_boxes.cpp"
+#include "worlds/four_boxes.cpp"
 
 void output_image(const Film& film, size_t width, size_t height, const char* filename) {
     DEBUG(1, "Writing BMP...");
