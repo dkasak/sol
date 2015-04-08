@@ -63,11 +63,11 @@ main(int argc, char **argv) {
         std::cout << "Invalid option: " << e.name << std::endl;
         exit(EXIT_SUCCESS);
     } catch (const InvalidOptionValue &e) {
-        std::cout << "Invalid value \"" << e.value 
+        std::cout << "Invalid value \"" << e.value
                   << "\" for option " << e.name << std::endl;
         exit(EXIT_SUCCESS);
     } catch (const MissingOptionValue &e) {
-        std::cout << "Missing argument for option " << e.name 
+        std::cout << "Missing argument for option " << e.name
                   << std::endl;
         exit(EXIT_SUCCESS);
     }

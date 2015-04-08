@@ -1,18 +1,18 @@
 /**
  * Copyright 2011, 2012 Denis Kasak <dkasak[at]termina.org.uk>
- * 
+ *
  * This file is part of Sol.
- * 
+ *
  * Sol is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Sol is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ class Camera {
 protected:
     Point3D look_from_point, look_at_point;
     Vector3D view_dir, view_up_dir;
-    Screen screen; 
+    Screen screen;
     Sampler* sampler;
     double fov;
     double zoom_factor;
@@ -70,7 +70,7 @@ public:
     Vector3D
     u() const;
 
-    Vector3D 
+    Vector3D
     v() const;
 
     void
@@ -100,7 +100,7 @@ public:
 
 class OrtographicCamera : public Camera {
 public:
-    OrtographicCamera(Point3D lf = Point3D(0, 0, 0), 
+    OrtographicCamera(Point3D lf = Point3D(0, 0, 0),
                       Point3D la = Point3D(0, 0, 1),
                       Vector3D vu = Vector3D(0, 1, 0),
                       double fov = pi/3);
@@ -111,7 +111,7 @@ public:
 
 class PerspectiveCamera : public Camera {
 public:
-    PerspectiveCamera(Point3D lf = Point3D(0, 0, 0), 
+    PerspectiveCamera(Point3D lf = Point3D(0, 0, 0),
                       Point3D la = Point3D(0, 0, 1),
                       Vector3D vu = Vector3D(0, 1, 0),
                       double fov = pi/3);

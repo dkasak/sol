@@ -1,18 +1,18 @@
 /**
  * Copyright 2011, 2012 Denis Kasak <dkasak[at]termina.org.uk>
- * 
+ *
  * This file is part of Sol.
- * 
+ *
  * Sol is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Sol is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -36,7 +36,7 @@ read_bmp(const char* fname, bmp_meta_t* meta) {
     FILE *bmp = fopen(fname, "r");
 
     if (bmp == NULL) {
-        return NULL;  
+        return NULL;
     }
 
     /* read headers/magic */
@@ -96,7 +96,7 @@ write_bmp(const unsigned char* data, size_t width, size_t height, const char* fn
     FILE *bmp = fopen(fname, "w");
 
     if (bmp == NULL) {
-        return false;  
+        return false;
     }
 
     /* initialise data structures */
@@ -155,4 +155,4 @@ unsigned char* new_image_buffer(size_t width, size_t height) {
 void destroy_image_buffer(unsigned char* image) {
     free(image);
 }
- 
+

@@ -1,18 +1,18 @@
 /**
  * Copyright 2011, 2012 Denis Kasak <dkasak[at]termina.org.uk>
- * 
+ *
  * This file is part of Sol.
- * 
+ *
  * Sol is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Sol is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -69,7 +69,7 @@ Plane::intersects(const Ray &r, Intersection *si) const {
     // (either lying on it or not touching it at all)
     if (fabs(den) > kEpsilon && t > kEpsilon) {
         auto hit_point = r.origin + t * dir;
-        
+
         if (si) {
             si->hit_point = hit_point;
             si->normal = n;

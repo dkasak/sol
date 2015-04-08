@@ -1,19 +1,18 @@
-
 /**
  * Copyright 2011, 2012 Denis Kasak <dkasak[at]termina.org.uk>
- * 
+ *
  * This file is part of Sol.
- * 
+ *
  * Sol is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Sol is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Sol. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,44 +27,44 @@ namespace Sol {
 class ColourRGB {
 
 public:
-    double red, green, blue;									
+    double red, green, blue;
 
-    ColourRGB(void);										
-    ColourRGB(double c);									
-    ColourRGB(double r, double g, double b);				
-    ColourRGB(const ColourRGB& c); 						
+    ColourRGB(void);
+    ColourRGB(double c);
+    ColourRGB(double r, double g, double b);
+    ColourRGB(const ColourRGB& c);
 
-    ColourRGB 											
-    operator+(const ColourRGB& c) const;	
+    ColourRGB
+    operator+(const ColourRGB& c) const;
 
-    ColourRGB 											
+    ColourRGB
     operator*(const double r) const;
 
-    ColourRGB 											
+    ColourRGB
     operator*(const ColourRGB& c) const;
 
-    ColourRGB 											
+    ColourRGB
     operator/(const double r) const;
 
-    ColourRGB& 											
-    operator=(const ColourRGB& rhs); 
+    ColourRGB&
+    operator=(const ColourRGB& rhs);
 
     ColourRGB&
     operator+=(const ColourRGB& c);
 
-    ColourRGB& 											
-    operator*=(const double r);					
+    ColourRGB&
+    operator*=(const double r);
 
-    ColourRGB& 											
-    operator/=(const double r); 
+    ColourRGB&
+    operator/=(const double r);
 
-    bool												
-    operator==(const ColourRGB& c) const;				
+    bool
+    operator==(const ColourRGB& c) const;
 
-    ColourRGB											
+    ColourRGB
     pow(double p) const;
 
-    double 												
+    double
     average() const;
 
     void
@@ -81,35 +80,35 @@ public:
 std::ostream&
 operator<<(std::ostream& o, ColourRGB c);
 
-inline ColourRGB 
+inline ColourRGB
 ColourRGB::operator+(const ColourRGB& c) const {
     return ColourRGB(this->red + c.red,
                      this->green + c.green,
                      this->blue + c.blue);
 }
 
-inline ColourRGB 
+inline ColourRGB
 ColourRGB::operator*(const double r) const {
     return ColourRGB(this->red * r,
                      this->green * r,
                      this->blue * r);
 }
 
-inline ColourRGB 
+inline ColourRGB
 ColourRGB::operator*(const ColourRGB& c) const {
     return ColourRGB(this->red * c.red,
                      this->green * c.green,
                      this->blue * c.blue);
-} 
+}
 
-inline ColourRGB 
+inline ColourRGB
 ColourRGB::operator/(const double r) const {
     return ColourRGB(this->red / r,
                      this->green / r,
                      this->blue / r);
 }
 
-inline ColourRGB& 
+inline ColourRGB&
 ColourRGB::operator+=(const ColourRGB& c) {
     this->red += c.red;
     this->green += c.green;
@@ -118,7 +117,7 @@ ColourRGB::operator+=(const ColourRGB& c) {
     return *this;
 }
 
-inline ColourRGB& 
+inline ColourRGB&
 ColourRGB::operator*=(const double r) {
     this->red *= r;
     this->green *= r;
@@ -127,8 +126,8 @@ ColourRGB::operator*=(const double r) {
     return *this;
 }
 
-inline ColourRGB& 
-ColourRGB::operator/=(const double r) {	
+inline ColourRGB&
+ColourRGB::operator/=(const double r) {
     this->red /= r;
     this->green /= r;
     this->blue /= r;
@@ -138,19 +137,19 @@ ColourRGB::operator/=(const double r) {
 
 inline bool
 ColourRGB::operator==(const ColourRGB& c) const {
-    return this->red == c.red && 
-           this->green == c.green && 
+    return this->red == c.red &&
+           this->green == c.green &&
            this->blue == c.blue;
 }
 
-inline double											
+inline double
 ColourRGB::average(void) const {
-    return (this->red + 
-            this->green + 
+    return (this->red +
+            this->green +
             this->blue) / 3.0;
 }
 
-inline ColourRGB 
+inline ColourRGB
 operator*(const double r, const ColourRGB& c) {
     return ColourRGB(c.red * r,
                      c.green * r,

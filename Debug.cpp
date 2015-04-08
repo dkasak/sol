@@ -27,7 +27,7 @@ using std::chrono::system_clock;
 int debug_level;
 
 void
-print_progress(steady_clock::time_point start, size_t complete, 
+print_progress(steady_clock::time_point start, size_t complete,
                     size_t current, size_t chunks) {
     auto end = steady_clock::now();
     auto elapsed = duration_cast<seconds>(end-start).count();
@@ -42,7 +42,7 @@ print_progress(steady_clock::time_point start, size_t complete,
     ss << percent*100 << "% done, "
        << "elapsed: " << elapsed_minutes << "m " << elapsed_seconds << "s, "
        << "time left: " << minutes_left << "m " << seconds_left << "s, "
-       << "ETA: " << std::ctime(&eta); 
+       << "ETA: " << std::ctime(&eta);
     string s = ss.str();
     s.pop_back();
     DEBUG(1, s);

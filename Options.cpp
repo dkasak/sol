@@ -42,7 +42,7 @@ print_help() {
 }
 
 bool
-get_option_value(const vector<string>& options, 
+get_option_value(const vector<string>& options,
                  size_t& i,
                  const string& short_name,
                  const string& long_name,
@@ -60,7 +60,7 @@ get_option_value(const vector<string>& options,
      *   3. Finally, option could be longer than both the short and long name,
      *      and *not* contain the equals character. In this case, the option
      *      argument should again immediately follow the option name.
-     */ 
+     */
 
     size_t p;
 
