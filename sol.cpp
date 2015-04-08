@@ -87,7 +87,7 @@ main(int argc, char **argv) {
         std::uniform_real_distribution<double> distribution(0, 1);
         auto generator = [rng, distribution] () mutable { return distribution(rng); };
         sampler = new JitteredSampler(opt.supersamples, generator);
-    } else if (opt.sampler == REGULAR) {
+    } else /* default to REGULAR sampler */ {
         sampler = new RegularSampler(opt.supersamples);
     }
 
