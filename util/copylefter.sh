@@ -1,6 +1,5 @@
-NOTICE="Copyright 2011, 2012 Denis Kasak <dkasak[at]termina.org.uk>"
+NOTICE="Copyright 2011-2015 Denis Kasak <dkasak[at]termina.org.uk>"
 echo "$(sed -e 's/Foobar/Sol/g' ~/docs/gpl-statement.txt)" > notice.tmp
-
 
 for file in *.{c,h,cpp}
 do
