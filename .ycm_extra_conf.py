@@ -4,6 +4,7 @@ import ycm_core
 flags = [
 '-Wall',
 '-Wextra',
+'-Iinclude',
 '-pedantic',
 '-Werror',
 '-Wuninitialized',
