@@ -4,22 +4,16 @@ CXXFLAGS = -std=c++11 -Wextra -Wall -I include/ -pedantic -Wuninitialized \
 	   -Wno-reorder -Wno-unused-parameter
 LDFLAGS = -lm -lstdc++
 
-dbmp_objects = dbmp.o
-sol_objects = BRDF.o Film.o Sampler.o Plane.o ColourRGB.o Light.o \
-	      Material.o Ray.o World.o Screen.o Intersection.o Shape.o \
-	      Sphere.o Vector.o Debug.o Options.o Camera.o Tracer.o Box.o
 sol_main = sol.o
 
-all: sol dbmp test
+all: sol dbmp
 
-sol: $(sol_objects) $(dbmp_objects) $(sol_main)
-dbmp: $(dbmp_objects)
+sol: sol.o
+	make -C src/
+	$(CXX) src/*.o sol.o -o sol
 
-test_write: $(dbmp_objects)
-test_load: $(dbmp_objects)
-
-test_dbmp: test_write test_load
-test_sol: $(sol_objects) test_vector
+dbmp:
+	make -C src/ dbmp
 
 optimized: CXXFLAGS += -O4
 optimized: CFLAGS += -O4
@@ -29,17 +23,25 @@ debug: CXXFLAGS += -Og -g
 debug: CFLAGS += -Og -g
 debug: all
 
-test:	test_dbmp test_sol
-	./test_write
-	./test_load
-	./test_vector
+test_dbmp: dbmp
+	make -C tests/ test_dbmp
+
+test_sol: sol
+	make -C tests/ test_sol
+
+test: test_dbmp test_sol
 
 clean:
-	-rm --force *.o test_write test_load test_vector sol
+	-rm --force *.o sol
+	make -C tests/ clean
+	make -C src/ clean
 
 distclean:
-	-rm --force *.o *.bmp test_write test_load test_vector sol
+	-rm --force *.bmp
+	-rm --force *.o sol
+	make -C tests/ clean
+	make -C src/ clean
 
 run:	all
 	./sol
-	sxiv -p output.bmp
+	sxiv output.bmp
