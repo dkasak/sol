@@ -1,4 +1,4 @@
-NOTICE="Copyright 2011, 2012 Denis Kasak <denis.kasak@gmail.com>"
+NOTICE="Copyright 2011, 2012 Denis Kasak <dkasak[at]termina.org.uk>"
 echo "$(sed -e 's/Foobar/Sol/g' ~/docs/gpl-statement.txt)" > notice.tmp
 
 
