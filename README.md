@@ -4,4 +4,4 @@ Sol is a simple renderer that I wrote for my bachelor's thesis. It currently sup
 
 ## Example images
 
-![][http://i.imgur.com/WINzq7u.png]
+![four_boxes][http://i.imgur.com/WINzq7u.png "Four boxes"]
