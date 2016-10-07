@@ -28,14 +28,14 @@
 void
 print_help() {
     string help_string =
-        "Usage: ./sol <OPTION> [<OPTION> ...]\n"                               \
-        "    -d, --debug         Display debug information\n"                  \
-        "    -H, --hres          Horizontal resolution of the image\n"         \
-        "    -V, --vres          Vertical resolution of the image\n"           \
-        "    -s, --supersamples  Number of supersamples\n"                     \
-        "    -S, --sampler       Sampler to use (regular, stochastic)\n"       \
-        "    -p, --pixelsize     Size of screen pixels inside the world\n"     \
-        "    -f, --filename      Filename to output the resulting image\n"     \
+        "Usage: ./sol <OPTION> [<OPTION> ...]\n"                                   \
+        "    -d, --debug         Display debug information\n"                      \
+        "    -H, --hres          Horizontal resolution of the image\n"             \
+        "    -V, --vres          Vertical resolution of the image\n"               \
+        "    -s, --supersamples  Number of supersamples\n"                         \
+        "    -S, --sampler       Sampler to use (regular, jittered, stochastic)\n" \
+        "    -p, --pixelsize     Size of screen pixels inside the world\n"         \
+        "    -f, --filename      Filename to output the resulting image\n"         \
         "    -h, --help          Display this help information\n";
 
     std::cout << help_string << std::endl;
