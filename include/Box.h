@@ -34,6 +34,7 @@ private:
 
 public:
     Box(Point3D a, Point3D b);
+    Box(Point3D a, Point3D b, Vector3D);
 
     virtual bool
     intersects(const Ray &r, Intersection *si = nullptr) const;
