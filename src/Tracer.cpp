@@ -36,7 +36,7 @@ RayCaster::ray_trace(Ray ray, World* world) {
         colour = world->get_background();
     }
 
-    return colour;
+    return colour + world->get_ambient();
 }
 
 ColourRGB
@@ -67,7 +67,7 @@ RayTracer::ray_trace(Ray ray, World* world, long depth) {
         colour = world->get_background();
     }
 
-    return colour;
+    return colour + world->get_ambient();
 }
 
 } // namespace Sol
